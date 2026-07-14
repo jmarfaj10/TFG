@@ -1,1 +1,0 @@
-/home/upo/TFG/ros2_ws/src/robotMovement/setup.py

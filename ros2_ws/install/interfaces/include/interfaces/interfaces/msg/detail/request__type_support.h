@@ -1,1 +1,0 @@
-/home/upo/TFG/ros2_ws/build/interfaces/rosidl_generator_c/interfaces/msg/detail/request__type_support.h

@@ -1,1 +1,0 @@
-/home/upo/TFG/ros2_ws/build/interfaces/rosidl_generator_cpp/interfaces/msg/combo_image.hpp

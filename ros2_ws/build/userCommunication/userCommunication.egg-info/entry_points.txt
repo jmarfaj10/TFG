@@ -1,2 +1,0 @@
-[console_scripts]
-userCommunication = userCommunication.userCommunication:main
