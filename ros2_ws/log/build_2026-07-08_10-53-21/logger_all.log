@@ -1,0 +1,381 @@
+[0.131s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--symlink-install']
+[0.131s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=True, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=16, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x75829c1b6c90>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x75829c1b6a20>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x75829c1b6a20>>, mixin_verb=('build',))
+[0.176s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.176s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.176s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.176s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.176s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.176s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.176s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/upo/TFG/ros2_ws'
+[0.176s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.176s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.176s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.177s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.177s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.177s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.177s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.177s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.177s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.206s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.206s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.206s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.206s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.206s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.206s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.206s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.206s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.206s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.206s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src/VLMProcessing) by extensions ['ignore', 'ignore_ament_install']
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src/VLMProcessing) by extension 'ignore'
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src/VLMProcessing) by extension 'ignore_ament_install'
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src/VLMProcessing) by extensions ['colcon_pkg']
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src/VLMProcessing) by extension 'colcon_pkg'
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src/VLMProcessing) by extensions ['colcon_meta']
+[0.207s] Level 1:colcon.colcon_core.package_identification:_identify(src/VLMProcessing) by extension 'colcon_meta'
+[0.208s] Level 1:colcon.colcon_core.package_identification:_identify(src/VLMProcessing) by extensions ['ros']
+[0.208s] Level 1:colcon.colcon_core.package_identification:_identify(src/VLMProcessing) by extension 'ros'
+[0.211s] DEBUG:colcon.colcon_core.package_identification:Package 'src/VLMProcessing' with type 'ros.ament_python' and name 'VLMProcessing'
+[0.211s] Level 1:colcon.colcon_core.package_identification:_identify(src/interfaces) by extensions ['ignore', 'ignore_ament_install']
+[0.211s] Level 1:colcon.colcon_core.package_identification:_identify(src/interfaces) by extension 'ignore'
+[0.211s] Level 1:colcon.colcon_core.package_identification:_identify(src/interfaces) by extension 'ignore_ament_install'
+[0.211s] Level 1:colcon.colcon_core.package_identification:_identify(src/interfaces) by extensions ['colcon_pkg']
+[0.211s] Level 1:colcon.colcon_core.package_identification:_identify(src/interfaces) by extension 'colcon_pkg'
+[0.211s] Level 1:colcon.colcon_core.package_identification:_identify(src/interfaces) by extensions ['colcon_meta']
+[0.211s] Level 1:colcon.colcon_core.package_identification:_identify(src/interfaces) by extension 'colcon_meta'
+[0.211s] Level 1:colcon.colcon_core.package_identification:_identify(src/interfaces) by extensions ['ros']
+[0.211s] Level 1:colcon.colcon_core.package_identification:_identify(src/interfaces) by extension 'ros'
+[0.212s] DEBUG:colcon.colcon_core.package_identification:Package 'src/interfaces' with type 'ros.ament_cmake' and name 'interfaces'
+[0.212s] Level 1:colcon.colcon_core.package_identification:_identify(src/robotCommunication) by extensions ['ignore', 'ignore_ament_install']
+[0.212s] Level 1:colcon.colcon_core.package_identification:_identify(src/robotCommunication) by extension 'ignore'
+[0.212s] Level 1:colcon.colcon_core.package_identification:_identify(src/robotCommunication) by extension 'ignore_ament_install'
+[0.212s] Level 1:colcon.colcon_core.package_identification:_identify(src/robotCommunication) by extensions ['colcon_pkg']
+[0.212s] Level 1:colcon.colcon_core.package_identification:_identify(src/robotCommunication) by extension 'colcon_pkg'
+[0.212s] Level 1:colcon.colcon_core.package_identification:_identify(src/robotCommunication) by extensions ['colcon_meta']
+[0.212s] Level 1:colcon.colcon_core.package_identification:_identify(src/robotCommunication) by extension 'colcon_meta'
+[0.212s] Level 1:colcon.colcon_core.package_identification:_identify(src/robotCommunication) by extensions ['ros']
+[0.212s] Level 1:colcon.colcon_core.package_identification:_identify(src/robotCommunication) by extension 'ros'
+[0.213s] DEBUG:colcon.colcon_core.package_identification:Package 'src/robotCommunication' with type 'ros.ament_python' and name 'robotCommunication'
+[0.213s] Level 1:colcon.colcon_core.package_identification:_identify(src/robotMovement) by extensions ['ignore', 'ignore_ament_install']
+[0.213s] Level 1:colcon.colcon_core.package_identification:_identify(src/robotMovement) by extension 'ignore'
+[0.213s] Level 1:colcon.colcon_core.package_identification:_identify(src/robotMovement) by extension 'ignore_ament_install'
+[0.214s] Level 1:colcon.colcon_core.package_identification:_identify(src/robotMovement) by extensions ['colcon_pkg']
+[0.214s] Level 1:colcon.colcon_core.package_identification:_identify(src/robotMovement) by extension 'colcon_pkg'
+[0.214s] Level 1:colcon.colcon_core.package_identification:_identify(src/robotMovement) by extensions ['colcon_meta']
+[0.214s] Level 1:colcon.colcon_core.package_identification:_identify(src/robotMovement) by extension 'colcon_meta'
+[0.214s] Level 1:colcon.colcon_core.package_identification:_identify(src/robotMovement) by extensions ['ros']
+[0.214s] Level 1:colcon.colcon_core.package_identification:_identify(src/robotMovement) by extension 'ros'
+[0.214s] DEBUG:colcon.colcon_core.package_identification:Package 'src/robotMovement' with type 'ros.ament_python' and name 'robotMovement'
+[0.215s] Level 1:colcon.colcon_core.package_identification:_identify(src/userCommunication) by extensions ['ignore', 'ignore_ament_install']
+[0.215s] Level 1:colcon.colcon_core.package_identification:_identify(src/userCommunication) by extension 'ignore'
+[0.215s] Level 1:colcon.colcon_core.package_identification:_identify(src/userCommunication) by extension 'ignore_ament_install'
+[0.215s] Level 1:colcon.colcon_core.package_identification:_identify(src/userCommunication) by extensions ['colcon_pkg']
+[0.215s] Level 1:colcon.colcon_core.package_identification:_identify(src/userCommunication) by extension 'colcon_pkg'
+[0.215s] Level 1:colcon.colcon_core.package_identification:_identify(src/userCommunication) by extensions ['colcon_meta']
+[0.215s] Level 1:colcon.colcon_core.package_identification:_identify(src/userCommunication) by extension 'colcon_meta'
+[0.215s] Level 1:colcon.colcon_core.package_identification:_identify(src/userCommunication) by extensions ['ros']
+[0.215s] Level 1:colcon.colcon_core.package_identification:_identify(src/userCommunication) by extension 'ros'
+[0.216s] DEBUG:colcon.colcon_core.package_identification:Package 'src/userCommunication' with type 'ros.ament_python' and name 'userCommunication'
+[0.216s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.216s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.216s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.216s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.216s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.238s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.238s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.241s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 17 installed packages in /home/upo/turtlebot3_ws/install
+[0.244s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 406 installed packages in /opt/ros/jazzy
+[0.246s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.292s] Level 5:colcon.colcon_core.verb:set package 'interfaces' build argument 'cmake_args' from command line to 'None'
+[0.292s] Level 5:colcon.colcon_core.verb:set package 'interfaces' build argument 'cmake_target' from command line to 'None'
+[0.292s] Level 5:colcon.colcon_core.verb:set package 'interfaces' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.292s] Level 5:colcon.colcon_core.verb:set package 'interfaces' build argument 'cmake_clean_cache' from command line to 'False'
+[0.292s] Level 5:colcon.colcon_core.verb:set package 'interfaces' build argument 'cmake_clean_first' from command line to 'False'
+[0.292s] Level 5:colcon.colcon_core.verb:set package 'interfaces' build argument 'cmake_force_configure' from command line to 'False'
+[0.292s] Level 5:colcon.colcon_core.verb:set package 'interfaces' build argument 'ament_cmake_args' from command line to 'None'
+[0.292s] Level 5:colcon.colcon_core.verb:set package 'interfaces' build argument 'catkin_cmake_args' from command line to 'None'
+[0.292s] Level 5:colcon.colcon_core.verb:set package 'interfaces' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.292s] DEBUG:colcon.colcon_core.verb:Building package 'interfaces' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/upo/TFG/ros2_ws/build/interfaces', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/upo/TFG/ros2_ws/install/interfaces', 'merge_install': False, 'path': '/home/upo/TFG/ros2_ws/src/interfaces', 'symlink_install': True, 'test_result_base': None}
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'userCommunication' build argument 'cmake_args' from command line to 'None'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'userCommunication' build argument 'cmake_target' from command line to 'None'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'userCommunication' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'userCommunication' build argument 'cmake_clean_cache' from command line to 'False'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'userCommunication' build argument 'cmake_clean_first' from command line to 'False'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'userCommunication' build argument 'cmake_force_configure' from command line to 'False'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'userCommunication' build argument 'ament_cmake_args' from command line to 'None'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'userCommunication' build argument 'catkin_cmake_args' from command line to 'None'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'userCommunication' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.293s] DEBUG:colcon.colcon_core.verb:Building package 'userCommunication' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/upo/TFG/ros2_ws/build/userCommunication', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/upo/TFG/ros2_ws/install/userCommunication', 'merge_install': False, 'path': '/home/upo/TFG/ros2_ws/src/userCommunication', 'symlink_install': True, 'test_result_base': None}
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'VLMProcessing' build argument 'cmake_args' from command line to 'None'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'VLMProcessing' build argument 'cmake_target' from command line to 'None'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'VLMProcessing' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'VLMProcessing' build argument 'cmake_clean_cache' from command line to 'False'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'VLMProcessing' build argument 'cmake_clean_first' from command line to 'False'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'VLMProcessing' build argument 'cmake_force_configure' from command line to 'False'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'VLMProcessing' build argument 'ament_cmake_args' from command line to 'None'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'VLMProcessing' build argument 'catkin_cmake_args' from command line to 'None'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'VLMProcessing' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.293s] DEBUG:colcon.colcon_core.verb:Building package 'VLMProcessing' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/upo/TFG/ros2_ws/build/VLMProcessing', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/upo/TFG/ros2_ws/install/VLMProcessing', 'merge_install': False, 'path': '/home/upo/TFG/ros2_ws/src/VLMProcessing', 'symlink_install': True, 'test_result_base': None}
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'robotCommunication' build argument 'cmake_args' from command line to 'None'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'robotCommunication' build argument 'cmake_target' from command line to 'None'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'robotCommunication' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'robotCommunication' build argument 'cmake_clean_cache' from command line to 'False'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'robotCommunication' build argument 'cmake_clean_first' from command line to 'False'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'robotCommunication' build argument 'cmake_force_configure' from command line to 'False'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'robotCommunication' build argument 'ament_cmake_args' from command line to 'None'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'robotCommunication' build argument 'catkin_cmake_args' from command line to 'None'
+[0.293s] Level 5:colcon.colcon_core.verb:set package 'robotCommunication' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.294s] DEBUG:colcon.colcon_core.verb:Building package 'robotCommunication' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/upo/TFG/ros2_ws/build/robotCommunication', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/upo/TFG/ros2_ws/install/robotCommunication', 'merge_install': False, 'path': '/home/upo/TFG/ros2_ws/src/robotCommunication', 'symlink_install': True, 'test_result_base': None}
+[0.294s] Level 5:colcon.colcon_core.verb:set package 'robotMovement' build argument 'cmake_args' from command line to 'None'
+[0.294s] Level 5:colcon.colcon_core.verb:set package 'robotMovement' build argument 'cmake_target' from command line to 'None'
+[0.294s] Level 5:colcon.colcon_core.verb:set package 'robotMovement' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.294s] Level 5:colcon.colcon_core.verb:set package 'robotMovement' build argument 'cmake_clean_cache' from command line to 'False'
+[0.294s] Level 5:colcon.colcon_core.verb:set package 'robotMovement' build argument 'cmake_clean_first' from command line to 'False'
+[0.294s] Level 5:colcon.colcon_core.verb:set package 'robotMovement' build argument 'cmake_force_configure' from command line to 'False'
+[0.294s] Level 5:colcon.colcon_core.verb:set package 'robotMovement' build argument 'ament_cmake_args' from command line to 'None'
+[0.294s] Level 5:colcon.colcon_core.verb:set package 'robotMovement' build argument 'catkin_cmake_args' from command line to 'None'
+[0.294s] Level 5:colcon.colcon_core.verb:set package 'robotMovement' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.294s] DEBUG:colcon.colcon_core.verb:Building package 'robotMovement' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/upo/TFG/ros2_ws/build/robotMovement', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/upo/TFG/ros2_ws/install/robotMovement', 'merge_install': False, 'path': '/home/upo/TFG/ros2_ws/src/robotMovement', 'symlink_install': True, 'test_result_base': None}
+[0.294s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.295s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.295s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/upo/TFG/ros2_ws/src/interfaces' with build type 'ament_cmake'
+[0.295s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/upo/TFG/ros2_ws/src/interfaces'
+[0.297s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.297s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.297s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.301s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/upo/TFG/ros2_ws/src/userCommunication' with build type 'ament_python'
+[0.301s] Level 1:colcon.colcon_core.shell:create_environment_hook('userCommunication', 'ament_prefix_path')
+[0.301s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/userCommunication/share/userCommunication/hook/ament_prefix_path.ps1'
+[0.302s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/upo/TFG/ros2_ws/install/userCommunication/share/userCommunication/hook/ament_prefix_path.dsv'
+[0.302s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/userCommunication/share/userCommunication/hook/ament_prefix_path.sh'
+[0.303s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.303s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.311s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/upo/TFG/ros2_ws/build/interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/upo/turtlebot3_ws/install/userCommunication:/home/upo/turtlebot3_ws/install/turtlebot3_teleop:/home/upo/turtlebot3_ws/install/turtlebot3_example:/home/upo/turtlebot3_ws/install/robotMovement:/home/upo/turtlebot3_ws/install/robotCommunication:/home/upo/turtlebot3_ws/install/VLMProcessing:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/upo/TFG/ros2_ws/build/interfaces -- -j16 -l16
+[0.502s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/upo/TFG/ros2_ws/src/userCommunication'
+[0.503s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.503s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.709s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/upo/TFG/ros2_ws/build/interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/upo/turtlebot3_ws/install/userCommunication:/home/upo/turtlebot3_ws/install/turtlebot3_teleop:/home/upo/turtlebot3_ws/install/turtlebot3_example:/home/upo/turtlebot3_ws/install/robotMovement:/home/upo/turtlebot3_ws/install/robotCommunication:/home/upo/turtlebot3_ws/install/VLMProcessing:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/upo/TFG/ros2_ws/build/interfaces -- -j16 -l16
+[0.723s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/upo/TFG/ros2_ws/build/interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/upo/turtlebot3_ws/install/userCommunication:/home/upo/turtlebot3_ws/install/turtlebot3_teleop:/home/upo/turtlebot3_ws/install/turtlebot3_example:/home/upo/turtlebot3_ws/install/robotMovement:/home/upo/turtlebot3_ws/install/robotCommunication:/home/upo/turtlebot3_ws/install/VLMProcessing:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/upo/TFG/ros2_ws/build/interfaces
+[0.813s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(interfaces)
+[0.813s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/upo/TFG/ros2_ws/build/interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/upo/turtlebot3_ws/install/userCommunication:/home/upo/turtlebot3_ws/install/turtlebot3_teleop:/home/upo/turtlebot3_ws/install/turtlebot3_example:/home/upo/turtlebot3_ws/install/robotMovement:/home/upo/turtlebot3_ws/install/robotCommunication:/home/upo/turtlebot3_ws/install/VLMProcessing:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/upo/TFG/ros2_ws/build/interfaces
+[0.815s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/interfaces' for CMake module files
+[0.816s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/interfaces' for CMake config files
+[0.817s] Level 1:colcon.colcon_core.shell:create_environment_hook('interfaces', 'cmake_prefix_path')
+[0.817s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/hook/cmake_prefix_path.ps1'
+[0.818s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/hook/cmake_prefix_path.dsv'
+[0.818s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/hook/cmake_prefix_path.sh'
+[0.819s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/interfaces/lib'
+[0.819s] Level 1:colcon.colcon_core.shell:create_environment_hook('interfaces', 'ld_library_path_lib')
+[0.819s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/hook/ld_library_path_lib.ps1'
+[0.819s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/hook/ld_library_path_lib.dsv'
+[0.820s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/hook/ld_library_path_lib.sh'
+[0.820s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/interfaces/bin'
+[0.820s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/interfaces/lib/pkgconfig/interfaces.pc'
+[0.820s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages'
+[0.820s] Level 1:colcon.colcon_core.shell:create_environment_hook('interfaces', 'pythonpath')
+[0.821s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/hook/pythonpath.ps1'
+[0.821s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/hook/pythonpath.dsv'
+[0.821s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/hook/pythonpath.sh'
+[0.822s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/interfaces/bin'
+[0.822s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/package.ps1'
+[0.823s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/package.dsv'
+[0.824s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/package.sh'
+[0.824s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/package.bash'
+[0.824s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/package.zsh'
+[0.825s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/upo/TFG/ros2_ws/install/interfaces/share/colcon-core/packages/interfaces)
+[0.825s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(interfaces)
+[0.825s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/interfaces' for CMake module files
+[0.826s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/interfaces' for CMake config files
+[0.826s] Level 1:colcon.colcon_core.shell:create_environment_hook('interfaces', 'cmake_prefix_path')
+[0.826s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/hook/cmake_prefix_path.ps1'
+[0.827s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/hook/cmake_prefix_path.dsv'
+[0.827s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/hook/cmake_prefix_path.sh'
+[0.827s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/interfaces/lib'
+[0.827s] Level 1:colcon.colcon_core.shell:create_environment_hook('interfaces', 'ld_library_path_lib')
+[0.827s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/hook/ld_library_path_lib.ps1'
+[0.828s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/hook/ld_library_path_lib.dsv'
+[0.828s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/hook/ld_library_path_lib.sh'
+[0.828s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/interfaces/bin'
+[0.828s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/interfaces/lib/pkgconfig/interfaces.pc'
+[0.828s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages'
+[0.829s] Level 1:colcon.colcon_core.shell:create_environment_hook('interfaces', 'pythonpath')
+[0.829s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/hook/pythonpath.ps1'
+[0.829s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/hook/pythonpath.dsv'
+[0.829s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/hook/pythonpath.sh'
+[0.830s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/interfaces/bin'
+[0.830s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/package.ps1'
+[0.830s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/package.dsv'
+[0.831s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/package.sh'
+[0.831s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/package.bash'
+[0.831s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/package.zsh'
+[0.831s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/upo/TFG/ros2_ws/install/interfaces/share/colcon-core/packages/interfaces)
+[0.832s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/upo/TFG/ros2_ws/src/VLMProcessing' with build type 'ament_python'
+[0.832s] Level 1:colcon.colcon_core.shell:create_environment_hook('VLMProcessing', 'ament_prefix_path')
+[0.832s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/VLMProcessing/share/VLMProcessing/hook/ament_prefix_path.ps1'
+[0.832s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/upo/TFG/ros2_ws/install/VLMProcessing/share/VLMProcessing/hook/ament_prefix_path.dsv'
+[0.833s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/VLMProcessing/share/VLMProcessing/hook/ament_prefix_path.sh'
+[0.833s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.833s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.837s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/upo/TFG/ros2_ws/src/robotCommunication' with build type 'ament_python'
+[0.837s] Level 1:colcon.colcon_core.shell:create_environment_hook('robotCommunication', 'ament_prefix_path')
+[0.837s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/robotCommunication/share/robotCommunication/hook/ament_prefix_path.ps1'
+[0.838s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/upo/TFG/ros2_ws/install/robotCommunication/share/robotCommunication/hook/ament_prefix_path.dsv'
+[0.838s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/robotCommunication/share/robotCommunication/hook/ament_prefix_path.sh'
+[0.838s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.838s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.842s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/upo/TFG/ros2_ws/src/robotMovement' with build type 'ament_python'
+[0.842s] Level 1:colcon.colcon_core.shell:create_environment_hook('robotMovement', 'ament_prefix_path')
+[0.843s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/robotMovement/share/robotMovement/hook/ament_prefix_path.ps1'
+[0.843s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/upo/TFG/ros2_ws/install/robotMovement/share/robotMovement/hook/ament_prefix_path.dsv'
+[0.843s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/robotMovement/share/robotMovement/hook/ament_prefix_path.sh'
+[0.844s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.844s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.033s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/upo/TFG/ros2_ws/src/VLMProcessing'
+[1.033s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.033s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.221s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/upo/TFG/ros2_ws/src/robotCommunication'
+[1.221s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.221s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.410s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/upo/TFG/ros2_ws/src/robotMovement'
+[1.410s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.410s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.414s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools commands: upload_docs, develop, build_scripts, bdist, bdist_egg, editable_wheel, test, install_egg_info, rotate, install_data, clean, build_ext, install_lib, check, easy_install, compile_catalog, upload, extract_messages, register, install_scripts, bdist_dumb, symlink_data, bdist_rpm, install_headers, init_catalog, update_catalog, build_py, build_clib, setopt, egg_info, saveopts, sdist, bdist_wheel, install, alias, dist_info, build
+[1.728s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools 'develop' options: --force-installation-into-system-dir, --always-unzip, --quiet, --uninstall, --no-user-cfg, --version, --build-directory, --exclude-scripts, --prefix, --site-dirs, --dry-run, --optimize, --no-deps, --egg-path, --allow-hosts, --help, --upgrade, --record, --verbose, --local-snapshots-ok, --no-find-links, --install-layout, --find-links, --zip-ok, --user, --install-dir, --index-url, --multi-version, --script-dir, --always-copy, --editable
+[1.731s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/upo/TFG/ros2_ws/build/userCommunication': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/upo/TFG/ros2_ws/build/userCommunication/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/upo/TFG/ros2_ws/install/userCommunication/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/upo/TFG/ros2_ws/build/userCommunication/build --no-deps symlink_data
+[1.966s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools commands: upload_docs, develop, build_scripts, bdist, bdist_egg, editable_wheel, test, install_egg_info, rotate, install_data, clean, build_ext, install_lib, check, easy_install, compile_catalog, upload, extract_messages, register, install_scripts, bdist_dumb, symlink_data, bdist_rpm, install_headers, init_catalog, update_catalog, build_py, build_clib, setopt, egg_info, saveopts, sdist, bdist_wheel, install, alias, dist_info, build
+[1.987s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools commands: upload_docs, develop, build_scripts, bdist, bdist_egg, editable_wheel, test, install_egg_info, rotate, install_data, clean, build_ext, install_lib, check, easy_install, compile_catalog, upload, extract_messages, register, install_scripts, bdist_dumb, symlink_data, bdist_rpm, install_headers, init_catalog, update_catalog, build_py, build_clib, setopt, egg_info, saveopts, sdist, bdist_wheel, install, alias, dist_info, build
+[2.007s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools commands: upload_docs, develop, build_scripts, bdist, bdist_egg, editable_wheel, test, install_egg_info, rotate, install_data, clean, build_ext, install_lib, check, easy_install, compile_catalog, upload, extract_messages, register, install_scripts, bdist_dumb, symlink_data, bdist_rpm, install_headers, init_catalog, update_catalog, build_py, build_clib, setopt, egg_info, saveopts, sdist, bdist_wheel, install, alias, dist_info, build
+[2.283s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools 'develop' options: --force-installation-into-system-dir, --always-unzip, --quiet, --uninstall, --no-user-cfg, --version, --build-directory, --exclude-scripts, --prefix, --site-dirs, --dry-run, --optimize, --no-deps, --egg-path, --allow-hosts, --help, --upgrade, --record, --verbose, --local-snapshots-ok, --no-find-links, --install-layout, --find-links, --zip-ok, --user, --install-dir, --index-url, --multi-version, --script-dir, --always-copy, --editable
+[2.285s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/upo/TFG/ros2_ws/build/VLMProcessing': AMENT_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/upo/TFG/ros2_ws/install/interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/upo/TFG/ros2_ws/build/VLMProcessing/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/upo/TFG/ros2_ws/install/VLMProcessing/lib/python3.12/site-packages:/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/upo/TFG/ros2_ws/build/VLMProcessing/build --no-deps symlink_data
+[2.299s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools 'develop' options: --force-installation-into-system-dir, --always-unzip, --quiet, --uninstall, --no-user-cfg, --version, --build-directory, --exclude-scripts, --prefix, --site-dirs, --dry-run, --optimize, --no-deps, --egg-path, --allow-hosts, --help, --upgrade, --record, --verbose, --local-snapshots-ok, --no-find-links, --install-layout, --find-links, --zip-ok, --user, --install-dir, --index-url, --multi-version, --script-dir, --always-copy, --editable
+[2.301s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/upo/TFG/ros2_ws/build/robotCommunication': AMENT_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/upo/TFG/ros2_ws/install/interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/upo/TFG/ros2_ws/build/robotCommunication/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/upo/TFG/ros2_ws/install/robotCommunication/lib/python3.12/site-packages:/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/upo/TFG/ros2_ws/build/robotCommunication/build --no-deps symlink_data
+[2.335s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools 'develop' options: --force-installation-into-system-dir, --always-unzip, --quiet, --uninstall, --no-user-cfg, --version, --build-directory, --exclude-scripts, --prefix, --site-dirs, --dry-run, --optimize, --no-deps, --egg-path, --allow-hosts, --help, --upgrade, --record, --verbose, --local-snapshots-ok, --no-find-links, --install-layout, --find-links, --zip-ok, --user, --install-dir, --index-url, --multi-version, --script-dir, --always-copy, --editable
+[2.337s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/upo/TFG/ros2_ws/build/robotMovement': AMENT_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/upo/TFG/ros2_ws/install/interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/upo/TFG/ros2_ws/build/robotMovement/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/upo/TFG/ros2_ws/install/robotMovement/lib/python3.12/site-packages:/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/upo/TFG/ros2_ws/build/robotMovement/build --no-deps symlink_data
+[2.369s] Level 1:colcon.colcon_core.shell:create_environment_hook('userCommunication', 'pythonpath_develop')
+[2.370s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/build/userCommunication/share/userCommunication/hook/pythonpath_develop.ps1'
+[2.370s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/upo/TFG/ros2_ws/build/userCommunication' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/upo/TFG/ros2_ws/build/userCommunication/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/upo/TFG/ros2_ws/install/userCommunication/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/upo/TFG/ros2_ws/build/userCommunication/build --no-deps symlink_data
+[2.371s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/upo/TFG/ros2_ws/build/userCommunication/share/userCommunication/hook/pythonpath_develop.dsv'
+[2.371s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/build/userCommunication/share/userCommunication/hook/pythonpath_develop.sh'
+[2.372s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/userCommunication' for CMake module files
+[2.372s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/userCommunication' for CMake config files
+[2.373s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/userCommunication/lib'
+[2.373s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/userCommunication/bin'
+[2.373s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/userCommunication/lib/pkgconfig/userCommunication.pc'
+[2.373s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/userCommunication/lib/python3.12/site-packages'
+[2.373s] Level 1:colcon.colcon_core.shell:create_environment_hook('userCommunication', 'pythonpath')
+[2.374s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/userCommunication/share/userCommunication/hook/pythonpath.ps1'
+[2.374s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/upo/TFG/ros2_ws/install/userCommunication/share/userCommunication/hook/pythonpath.dsv'
+[2.374s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/userCommunication/share/userCommunication/hook/pythonpath.sh'
+[2.375s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/userCommunication/bin'
+[2.375s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(userCommunication)
+[2.375s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/userCommunication/share/userCommunication/package.ps1'
+[2.376s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/upo/TFG/ros2_ws/install/userCommunication/share/userCommunication/package.dsv'
+[2.377s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/userCommunication/share/userCommunication/package.sh'
+[2.377s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/userCommunication/share/userCommunication/package.bash'
+[2.378s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/userCommunication/share/userCommunication/package.zsh'
+[2.378s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/upo/TFG/ros2_ws/install/userCommunication/share/colcon-core/packages/userCommunication)
+[2.900s] Level 1:colcon.colcon_core.shell:create_environment_hook('VLMProcessing', 'pythonpath_develop')
+[2.900s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/build/VLMProcessing/share/VLMProcessing/hook/pythonpath_develop.ps1'
+[2.901s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/upo/TFG/ros2_ws/build/VLMProcessing' returned '0': AMENT_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/upo/TFG/ros2_ws/install/interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/upo/TFG/ros2_ws/build/VLMProcessing/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/upo/TFG/ros2_ws/install/VLMProcessing/lib/python3.12/site-packages:/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/upo/TFG/ros2_ws/build/VLMProcessing/build --no-deps symlink_data
+[2.901s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/upo/TFG/ros2_ws/build/VLMProcessing/share/VLMProcessing/hook/pythonpath_develop.dsv'
+[2.901s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/build/VLMProcessing/share/VLMProcessing/hook/pythonpath_develop.sh'
+[2.902s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/VLMProcessing' for CMake module files
+[2.902s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/VLMProcessing' for CMake config files
+[2.903s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/VLMProcessing/lib'
+[2.903s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/VLMProcessing/bin'
+[2.903s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/VLMProcessing/lib/pkgconfig/VLMProcessing.pc'
+[2.903s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/VLMProcessing/lib/python3.12/site-packages'
+[2.903s] Level 1:colcon.colcon_core.shell:create_environment_hook('VLMProcessing', 'pythonpath')
+[2.903s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/VLMProcessing/share/VLMProcessing/hook/pythonpath.ps1'
+[2.904s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/upo/TFG/ros2_ws/install/VLMProcessing/share/VLMProcessing/hook/pythonpath.dsv'
+[2.904s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/VLMProcessing/share/VLMProcessing/hook/pythonpath.sh'
+[2.905s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/VLMProcessing/bin'
+[2.905s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(VLMProcessing)
+[2.905s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/VLMProcessing/share/VLMProcessing/package.ps1'
+[2.905s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/upo/TFG/ros2_ws/install/VLMProcessing/share/VLMProcessing/package.dsv'
+[2.906s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/VLMProcessing/share/VLMProcessing/package.sh'
+[2.906s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/VLMProcessing/share/VLMProcessing/package.bash'
+[2.906s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/VLMProcessing/share/VLMProcessing/package.zsh'
+[2.906s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/upo/TFG/ros2_ws/install/VLMProcessing/share/colcon-core/packages/VLMProcessing)
+[2.910s] Level 1:colcon.colcon_core.shell:create_environment_hook('robotCommunication', 'pythonpath_develop')
+[2.910s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/upo/TFG/ros2_ws/build/robotCommunication' returned '0': AMENT_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/upo/TFG/ros2_ws/install/interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/upo/TFG/ros2_ws/build/robotCommunication/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/upo/TFG/ros2_ws/install/robotCommunication/lib/python3.12/site-packages:/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/upo/TFG/ros2_ws/build/robotCommunication/build --no-deps symlink_data
+[2.910s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/build/robotCommunication/share/robotCommunication/hook/pythonpath_develop.ps1'
+[2.911s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/upo/TFG/ros2_ws/build/robotCommunication/share/robotCommunication/hook/pythonpath_develop.dsv'
+[2.911s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/build/robotCommunication/share/robotCommunication/hook/pythonpath_develop.sh'
+[2.911s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/robotCommunication' for CMake module files
+[2.912s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/robotCommunication' for CMake config files
+[2.912s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/robotCommunication/lib'
+[2.912s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/robotCommunication/bin'
+[2.912s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/robotCommunication/lib/pkgconfig/robotCommunication.pc'
+[2.912s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/robotCommunication/lib/python3.12/site-packages'
+[2.912s] Level 1:colcon.colcon_core.shell:create_environment_hook('robotCommunication', 'pythonpath')
+[2.912s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/robotCommunication/share/robotCommunication/hook/pythonpath.ps1'
+[2.913s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/upo/TFG/ros2_ws/install/robotCommunication/share/robotCommunication/hook/pythonpath.dsv'
+[2.913s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/robotCommunication/share/robotCommunication/hook/pythonpath.sh'
+[2.913s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/robotCommunication/bin'
+[2.913s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(robotCommunication)
+[2.914s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/robotCommunication/share/robotCommunication/package.ps1'
+[2.914s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/upo/TFG/ros2_ws/install/robotCommunication/share/robotCommunication/package.dsv'
+[2.914s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/robotCommunication/share/robotCommunication/package.sh'
+[2.915s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/robotCommunication/share/robotCommunication/package.bash'
+[2.915s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/robotCommunication/share/robotCommunication/package.zsh'
+[2.915s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/upo/TFG/ros2_ws/install/robotCommunication/share/colcon-core/packages/robotCommunication)
+[2.958s] Level 1:colcon.colcon_core.shell:create_environment_hook('robotMovement', 'pythonpath_develop')
+[2.959s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/build/robotMovement/share/robotMovement/hook/pythonpath_develop.ps1'
+[2.959s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/upo/TFG/ros2_ws/build/robotMovement' returned '0': AMENT_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/upo/TFG/ros2_ws/install/interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/upo/TFG/ros2_ws/build/robotMovement/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/upo/TFG/ros2_ws/install/robotMovement/lib/python3.12/site-packages:/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/upo/TFG/ros2_ws/build/robotMovement/build --no-deps symlink_data
+[2.960s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/upo/TFG/ros2_ws/build/robotMovement/share/robotMovement/hook/pythonpath_develop.dsv'
+[2.960s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/build/robotMovement/share/robotMovement/hook/pythonpath_develop.sh'
+[2.960s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/robotMovement' for CMake module files
+[2.961s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/robotMovement' for CMake config files
+[2.961s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/robotMovement/lib'
+[2.961s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/robotMovement/bin'
+[2.961s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/robotMovement/lib/pkgconfig/robotMovement.pc'
+[2.961s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/robotMovement/lib/python3.12/site-packages'
+[2.961s] Level 1:colcon.colcon_core.shell:create_environment_hook('robotMovement', 'pythonpath')
+[2.962s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/robotMovement/share/robotMovement/hook/pythonpath.ps1'
+[2.962s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/upo/TFG/ros2_ws/install/robotMovement/share/robotMovement/hook/pythonpath.dsv'
+[2.962s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/upo/TFG/ros2_ws/install/robotMovement/share/robotMovement/hook/pythonpath.sh'
+[2.963s] Level 1:colcon.colcon_core.environment:checking '/home/upo/TFG/ros2_ws/install/robotMovement/bin'
+[2.963s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(robotMovement)
+[2.963s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/robotMovement/share/robotMovement/package.ps1'
+[2.963s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/upo/TFG/ros2_ws/install/robotMovement/share/robotMovement/package.dsv'
+[2.964s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/robotMovement/share/robotMovement/package.sh'
+[2.964s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/robotMovement/share/robotMovement/package.bash'
+[2.964s] INFO:colcon.colcon_core.shell:Creating package script '/home/upo/TFG/ros2_ws/install/robotMovement/share/robotMovement/package.zsh'
+[2.964s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/upo/TFG/ros2_ws/install/robotMovement/share/colcon-core/packages/robotMovement)
+[2.965s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[2.965s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[2.965s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[2.965s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[2.985s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[2.985s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[2.985s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[2.996s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[2.997s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/upo/TFG/ros2_ws/install/local_setup.ps1'
+[2.998s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/upo/TFG/ros2_ws/install/_local_setup_util_ps1.py'
+[2.999s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/upo/TFG/ros2_ws/install/setup.ps1'
+[3.000s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/upo/TFG/ros2_ws/install/local_setup.sh'
+[3.000s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/upo/TFG/ros2_ws/install/_local_setup_util_sh.py'
+[3.001s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/upo/TFG/ros2_ws/install/setup.sh'
+[3.002s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/upo/TFG/ros2_ws/install/local_setup.bash'
+[3.002s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/upo/TFG/ros2_ws/install/setup.bash'
+[3.004s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/upo/TFG/ros2_ws/install/local_setup.zsh'
+[3.004s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/upo/TFG/ros2_ws/install/setup.zsh'

@@ -1,0 +1,17 @@
+[1.984s] Invoking command in '/home/upo/TFG/ros2_ws/build/userCommunication': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/upo/TFG/ros2_ws/build/userCommunication/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/upo/TFG/ros2_ws/install/userCommunication/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/upo/TFG/ros2_ws/build/userCommunication/build --no-deps symlink_data
+[2.363s] running develop
+[2.614s] running egg_info
+[2.639s] writing userCommunication.egg-info/PKG-INFO
+[2.639s] writing dependency_links to userCommunication.egg-info/dependency_links.txt
+[2.639s] writing entry points to userCommunication.egg-info/entry_points.txt
+[2.639s] writing requirements to userCommunication.egg-info/requires.txt
+[2.639s] writing top-level names to userCommunication.egg-info/top_level.txt
+[2.687s] reading manifest file 'userCommunication.egg-info/SOURCES.txt'
+[2.687s] writing manifest file 'userCommunication.egg-info/SOURCES.txt'
+[2.716s] running build_ext
+[2.716s] Creating /home/upo/TFG/ros2_ws/install/userCommunication/lib/python3.12/site-packages/userCommunication.egg-link (link to .)
+[2.717s] Installing userCommunication script to /home/upo/TFG/ros2_ws/install/userCommunication/lib/userCommunication
+[2.717s] 
+[2.718s] Installed /home/upo/TFG/ros2_ws/build/userCommunication
+[2.718s] running symlink_data
+[2.783s] Invoked command in '/home/upo/TFG/ros2_ws/build/userCommunication' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/upo/TFG/ros2_ws/build/userCommunication/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/upo/TFG/ros2_ws/install/userCommunication/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/upo/TFG/ros2_ws/build/userCommunication/build --no-deps symlink_data

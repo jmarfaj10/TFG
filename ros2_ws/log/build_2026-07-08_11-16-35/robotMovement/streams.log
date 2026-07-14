@@ -1,0 +1,17 @@
+[2.041s] Invoking command in '/home/upo/TFG/ros2_ws/build/robotMovement': AMENT_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/upo/TFG/ros2_ws/install/interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/upo/TFG/ros2_ws/build/robotMovement/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/upo/TFG/ros2_ws/install/robotMovement/lib/python3.12/site-packages:/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/upo/TFG/ros2_ws/build/robotMovement/build --no-deps symlink_data
+[2.423s] running develop
+[2.670s] running egg_info
+[2.696s] writing robotMovement.egg-info/PKG-INFO
+[2.696s] writing dependency_links to robotMovement.egg-info/dependency_links.txt
+[2.696s] writing entry points to robotMovement.egg-info/entry_points.txt
+[2.696s] writing requirements to robotMovement.egg-info/requires.txt
+[2.696s] writing top-level names to robotMovement.egg-info/top_level.txt
+[2.742s] reading manifest file 'robotMovement.egg-info/SOURCES.txt'
+[2.742s] writing manifest file 'robotMovement.egg-info/SOURCES.txt'
+[2.769s] running build_ext
+[2.769s] Creating /home/upo/TFG/ros2_ws/install/robotMovement/lib/python3.12/site-packages/robotMovement.egg-link (link to .)
+[2.770s] Installing robotMovement script to /home/upo/TFG/ros2_ws/install/robotMovement/lib/robotMovement
+[2.770s] 
+[2.770s] Installed /home/upo/TFG/ros2_ws/build/robotMovement
+[2.770s] running symlink_data
+[2.843s] Invoked command in '/home/upo/TFG/ros2_ws/build/robotMovement' returned '0': AMENT_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/upo/TFG/ros2_ws/install/interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/upo/TFG/ros2_ws/build/robotMovement/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/upo/TFG/ros2_ws/install/robotMovement/lib/python3.12/site-packages:/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/upo/TFG/ros2_ws/build/robotMovement/build --no-deps symlink_data

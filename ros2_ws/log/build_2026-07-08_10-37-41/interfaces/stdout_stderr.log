@@ -1,0 +1,8 @@
+failed to create symbolic link '/home/upo/TFG/ros2_ws/build/interfaces/ament_cmake_python/interfaces/interfaces' because existing path cannot be removed: Is a directory
+[  1%] Built target interfaces__rosidl_generator_type_description
+gmake[2]: *** [CMakeFiles/ament_cmake_python_symlink_interfaces.dir/build.make:70: CMakeFiles/ament_cmake_python_symlink_interfaces] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:471: CMakeFiles/ament_cmake_python_symlink_interfaces.dir/all] Error 2
+gmake[1]: *** Waiting for unfinished jobs....
+[  2%] Built target interfaces__rs
+[ 25%] Built target interfaces__rosidl_generator_c
+gmake: *** [Makefile:146: all] Error 2

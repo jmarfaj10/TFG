@@ -1,0 +1,402 @@
+[0.020s] Invoking command in '/home/upo/TFG/ros2_ws/build/interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/upo/turtlebot3_ws/install/userCommunication:/home/upo/turtlebot3_ws/install/turtlebot3_teleop:/home/upo/turtlebot3_ws/install/turtlebot3_example:/home/upo/turtlebot3_ws/install/robotMovement:/home/upo/turtlebot3_ws/install/robotCommunication:/home/upo/turtlebot3_ws/install/VLMProcessing:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/upo/TFG/ros2_ws/src/interfaces -DCMAKE_INSTALL_PREFIX=/home/upo/TFG/ros2_ws/install/interfaces
+[0.189s] -- The C compiler identification is GNU 13.3.0
+[0.307s] -- The CXX compiler identification is GNU 13.3.0
+[0.338s] -- Detecting C compiler ABI info
+[0.475s] -- Detecting C compiler ABI info - done
+[0.485s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.485s] -- Detecting C compile features
+[0.486s] -- Detecting C compile features - done
+[0.500s] -- Detecting CXX compiler ABI info
+[0.627s] -- Detecting CXX compiler ABI info - done
+[0.634s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.634s] -- Detecting CXX compile features
+[0.635s] -- Detecting CXX compile features - done
+[0.647s] -- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.815s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[0.963s] -- Found geometry_msgs: 5.3.8 (/opt/ros/jazzy/share/geometry_msgs/cmake)
+[1.042s] -- Found rosidl_generator_c: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[1.065s] -- Found rosidl_generator_cpp: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[1.092s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.120s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.179s] -- Found sensor_msgs: 5.3.8 (/opt/ros/jazzy/share/sensor_msgs/cmake)
+[1.220s] -- Found ament_lint_auto: 0.17.5 (/opt/ros/jazzy/share/ament_lint_auto/cmake)
+[1.333s] -- Found rosidl_default_generators: 1.6.1 (/opt/ros/jazzy/share/rosidl_default_generators/cmake)
+[1.369s] -- Found rosidl_adapter: 4.6.9 (/opt/ros/jazzy/share/rosidl_adapter/cmake)
+[1.946s] -- Found ament_cmake_ros: 0.12.1 (/opt/ros/jazzy/share/ament_cmake_ros/cmake)
+[2.774s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.100s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.106s] -- Found python_cmake_module: 0.11.1 (/opt/ros/jazzy/share/python_cmake_module/cmake)
+[3.227s] -- Found PythonExtra: /usr/bin/python3  
+[3.652s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter Development NumPy Development.Module Development.Embed 
+[3.779s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[3.785s] -- Added test 'lint_cmake' to check CMake code style
+[3.787s] -- Added test 'xmllint' to check XML markup files
+[3.796s] -- Configuring done (3.7s)
+[3.842s] -- Generating done (0.0s)
+[3.853s] -- Build files have been written to: /home/upo/TFG/ros2_ws/build/interfaces
+[3.865s] Invoked command in '/home/upo/TFG/ros2_ws/build/interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/upo/turtlebot3_ws/install/userCommunication:/home/upo/turtlebot3_ws/install/turtlebot3_teleop:/home/upo/turtlebot3_ws/install/turtlebot3_example:/home/upo/turtlebot3_ws/install/robotMovement:/home/upo/turtlebot3_ws/install/robotCommunication:/home/upo/turtlebot3_ws/install/VLMProcessing:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/upo/TFG/ros2_ws/src/interfaces -DCMAKE_INSTALL_PREFIX=/home/upo/TFG/ros2_ws/install/interfaces
+[3.866s] Invoking command in '/home/upo/TFG/ros2_ws/build/interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/upo/turtlebot3_ws/install/userCommunication:/home/upo/turtlebot3_ws/install/turtlebot3_teleop:/home/upo/turtlebot3_ws/install/turtlebot3_example:/home/upo/turtlebot3_ws/install/robotMovement:/home/upo/turtlebot3_ws/install/robotCommunication:/home/upo/turtlebot3_ws/install/VLMProcessing:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/upo/TFG/ros2_ws/build/interfaces -- -j16 -l16
+[3.923s] [  1%] [34m[1mGenerating type hashes for ROS interfaces[0m
+[3.924s] [  2%] [34m[1mGenerating Rust code for ROS interfaces[0m
+[3.933s] [  2%] Built target ament_cmake_python_copy_interfaces
+[4.125s] running egg_info
+[4.126s] creating interfaces.egg-info
+[4.137s] [  2%] Built target interfaces__rosidl_generator_type_description
+[4.144s] writing interfaces.egg-info/PKG-INFO
+[4.144s] writing dependency_links to interfaces.egg-info/dependency_links.txt
+[4.144s] writing top-level names to interfaces.egg-info/top_level.txt
+[4.144s] writing manifest file 'interfaces.egg-info/SOURCES.txt'
+[4.151s] [  4%] [34m[1mGenerating C code for ROS interfaces[0m
+[4.164s] [  5%] [34m[1mGenerating C++ code for ROS interfaces[0m
+[4.181s] [  5%] Built target interfaces__rs
+[4.199s] reading manifest file 'interfaces.egg-info/SOURCES.txt'
+[4.199s] writing manifest file 'interfaces.egg-info/SOURCES.txt'
+[4.227s] [  5%] Built target ament_cmake_python_build_interfaces_egg
+[4.608s] [  5%] Built target interfaces__cpp
+[4.680s] [  6%] [32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/request__functions.c.o[0m
+[4.680s] [  9%] [32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/goal__description.c.o[0m
+[4.680s] [  9%] [32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/combo_image__functions.c.o[0m
+[4.680s] [ 10%] [32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/goal__type_support.c.o[0m
+[4.680s] [ 13%] [32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/request__description.c.o[0m
+[4.682s] [ 14%] [32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/combo_image__description.c.o[0m
+[4.682s] [ 16%] [32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/combo_image__type_support.c.o[0m
+[4.682s] [ 16%] [32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/goal__functions.c.o[0m
+[4.682s] [ 17%] [32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/response__description.c.o[0m
+[4.682s] [ 18%] [32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/request__type_support.c.o[0m
+[4.682s] [ 20%] [32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/response__functions.c.o[0m
+[4.682s] [ 21%] [32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/msg/detail/response__type_support.c.o[0m
+[4.682s] [ 22%] [32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/action/detail/move__description.c.o[0m
+[4.682s] [ 24%] [32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/action/detail/move__functions.c.o[0m
+[4.683s] [ 25%] [32mBuilding C object CMakeFiles/interfaces__rosidl_generator_c.dir/rosidl_generator_c/interfaces/action/detail/move__type_support.c.o[0m
+[4.826s] [ 26%] [32m[1mLinking C shared library libinterfaces__rosidl_generator_c.so[0m
+[4.877s] [ 26%] Built target interfaces__rosidl_generator_c
+[4.889s] [ 34%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[4.889s] [ 34%] [34m[1mGenerating C++ introspection for ROS interfaces[0m
+[4.890s] [ 34%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[4.890s] [ 34%] [34m[1mGenerating C++ type support dispatch for ROS interfaces[0m
+[4.890s] [ 34%] [34m[1mGenerating C++ type support for eProsima Fast-RTPS[0m
+[4.890s] [ 34%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[5.196s] [ 37%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/interfaces/msg/request__type_support.cpp.o[0m
+[5.196s] [ 37%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/interfaces/msg/goal__type_support.cpp.o[0m
+[5.196s] [ 40%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/interfaces/msg/combo_image__type_support.cpp.o[0m
+[5.197s] [ 38%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/interfaces/action/move__type_support.cpp.o[0m
+[5.197s] [ 41%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/interfaces/msg/response__type_support.cpp.o[0m
+[5.200s] [ 45%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/interfaces/msg/request__type_support.cpp.o[0m
+[5.201s] [ 45%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/interfaces/msg/response__type_support.cpp.o[0m
+[5.201s] [ 45%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/interfaces/msg/goal__type_support.cpp.o[0m
+[5.201s] [ 46%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/interfaces/msg/combo_image__type_support.cpp.o[0m
+[5.201s] [ 48%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/interfaces/action/move__type_support.cpp.o[0m
+[5.286s] [ 49%] [32m[1mLinking CXX shared library libinterfaces__rosidl_typesupport_c.so[0m
+[5.294s] [ 54%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/interfaces/action/detail/move__type_support.cpp.o[0m
+[5.294s] [ 54%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/interfaces/msg/detail/request__type_support.cpp.o[0m
+[5.294s] [ 54%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/interfaces/msg/detail/goal__type_support.cpp.o[0m
+[5.294s] [ 54%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/interfaces/msg/detail/response__type_support.cpp.o[0m
+[5.295s] [ 56%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/interfaces/msg/detail/combo_image__type_support.cpp.o[0m
+[5.354s] [ 60%] [32mBuilding C object CMakeFiles/interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/interfaces/msg/detail/request__type_support.c.o[0m
+[5.354s] [ 60%] [32mBuilding C object CMakeFiles/interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/interfaces/msg/detail/combo_image__type_support.c.o[0m
+[5.355s] [ 60%] [32mBuilding C object CMakeFiles/interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/interfaces/msg/detail/goal__type_support.c.o[0m
+[5.355s] [ 60%] Built target interfaces__rosidl_typesupport_c
+[5.371s] [ 61%] [32mBuilding C object CMakeFiles/interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/interfaces/msg/detail/response__type_support.c.o[0m
+[5.416s] [ 62%] [32mBuilding C object CMakeFiles/interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/interfaces/action/detail/move__type_support.c.o[0m
+[5.517s] [ 64%] [32m[1mLinking C shared library libinterfaces__rosidl_typesupport_introspection_c.so[0m
+[5.581s] [ 64%] Built target interfaces__rosidl_typesupport_introspection_c
+[5.588s] [ 69%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/response__type_support.cpp.o[0m
+[5.588s] [ 69%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/request__type_support.cpp.o[0m
+[5.588s] [ 69%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/goal__type_support.cpp.o[0m
+[5.589s] [ 70%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/interfaces/msg/detail/dds_fastrtps/combo_image__type_support.cpp.o[0m
+[5.589s] [ 70%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/interfaces/action/detail/dds_fastrtps/move__type_support.cpp.o[0m
+[5.604s] [ 72%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/interfaces/msg/detail/goal__type_support_c.cpp.o[0m
+[5.604s] [ 73%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/interfaces/msg/detail/combo_image__type_support_c.cpp.o[0m
+[5.638s] [ 74%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/interfaces/msg/detail/request__type_support_c.cpp.o[0m
+[5.640s] [ 76%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/interfaces/msg/detail/response__type_support_c.cpp.o[0m
+[5.646s] [ 77%] [32mBuilding CXX object CMakeFiles/interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/interfaces/action/detail/move__type_support_c.cpp.o[0m
+[6.119s] [ 78%] [32m[1mLinking CXX shared library libinterfaces__rosidl_typesupport_cpp.so[0m
+[6.219s] [ 78%] Built target interfaces__rosidl_typesupport_cpp
+[6.225s] [ 81%] [32m[1mLinking CXX shared library libinterfaces__rosidl_typesupport_introspection_cpp.so[0m
+[6.225s] [ 81%] [32m[1mLinking CXX shared library libinterfaces__rosidl_typesupport_fastrtps_c.so[0m
+[6.305s] [ 81%] Built target interfaces__rosidl_typesupport_introspection_cpp
+[6.310s] [ 81%] Built target interfaces__rosidl_typesupport_fastrtps_c
+[6.467s] [ 82%] [32m[1mLinking CXX shared library libinterfaces__rosidl_typesupport_fastrtps_cpp.so[0m
+[6.545s] [ 82%] Built target interfaces__rosidl_typesupport_fastrtps_cpp
+[6.568s] [ 82%] Built target interfaces
+[6.592s] [ 84%] [34m[1mGenerating Python code for ROS interfaces[0m
+[7.288s] [ 84%] Built target interfaces__py
+[7.313s] [ 90%] [32mBuilding C object CMakeFiles/interfaces__rosidl_generator_py.dir/rosidl_generator_py/interfaces/action/_move_s.c.o[0m
+[7.313s] [ 90%] [32mBuilding C object CMakeFiles/interfaces__rosidl_generator_py.dir/rosidl_generator_py/interfaces/msg/_request_s.c.o[0m
+[7.313s] [ 90%] [32mBuilding C object CMakeFiles/interfaces__rosidl_generator_py.dir/rosidl_generator_py/interfaces/msg/_combo_image_s.c.o[0m
+[7.313s] [ 90%] [32mBuilding C object CMakeFiles/interfaces__rosidl_generator_py.dir/rosidl_generator_py/interfaces/msg/_goal_s.c.o[0m
+[7.314s] [ 90%] [32mBuilding C object CMakeFiles/interfaces__rosidl_generator_py.dir/rosidl_generator_py/interfaces/msg/_response_s.c.o[0m
+[7.497s] [ 92%] [32m[1mLinking C shared library libinterfaces__rosidl_generator_py.so[0m
+[7.549s] [ 92%] Built target interfaces__rosidl_generator_py
+[7.570s] [ 94%] [32mBuilding C object CMakeFiles/interfaces_s__rosidl_typesupport_fastrtps_c.dir/rosidl_generator_py/interfaces/_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[7.570s] [ 94%] [32mBuilding C object CMakeFiles/interfaces_s__rosidl_typesupport_c.dir/rosidl_generator_py/interfaces/_interfaces_s.ep.rosidl_typesupport_c.c.o[0m
+[7.572s] [ 96%] [32mBuilding C object CMakeFiles/interfaces_s__rosidl_typesupport_introspection_c.dir/rosidl_generator_py/interfaces/_interfaces_s.ep.rosidl_typesupport_introspection_c.c.o[0m
+[7.690s] [ 97%] [32m[1mLinking C shared module rosidl_generator_py/interfaces/interfaces_s__rosidl_typesupport_c.so[0m
+[7.693s] [100%] [32m[1mLinking C shared module rosidl_generator_py/interfaces/interfaces_s__rosidl_typesupport_introspection_c.so[0m
+[7.693s] [100%] [32m[1mLinking C shared module rosidl_generator_py/interfaces/interfaces_s__rosidl_typesupport_fastrtps_c.so[0m
+[7.726s] [100%] Built target interfaces_s__rosidl_typesupport_c
+[7.727s] [100%] Built target interfaces_s__rosidl_typesupport_fastrtps_c
+[7.728s] [100%] Built target interfaces_s__rosidl_typesupport_introspection_c
+[7.742s] Invoked command in '/home/upo/TFG/ros2_ws/build/interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/upo/turtlebot3_ws/install/userCommunication:/home/upo/turtlebot3_ws/install/turtlebot3_teleop:/home/upo/turtlebot3_ws/install/turtlebot3_example:/home/upo/turtlebot3_ws/install/robotMovement:/home/upo/turtlebot3_ws/install/robotCommunication:/home/upo/turtlebot3_ws/install/VLMProcessing:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/upo/TFG/ros2_ws/build/interfaces -- -j16 -l16
+[7.755s] Invoking command in '/home/upo/TFG/ros2_ws/build/interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/upo/turtlebot3_ws/install/userCommunication:/home/upo/turtlebot3_ws/install/turtlebot3_teleop:/home/upo/turtlebot3_ws/install/turtlebot3_example:/home/upo/turtlebot3_ws/install/robotMovement:/home/upo/turtlebot3_ws/install/robotCommunication:/home/upo/turtlebot3_ws/install/VLMProcessing:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/upo/TFG/ros2_ws/build/interfaces
+[7.764s] -- Install configuration: ""
+[7.764s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/ament_index/resource_index/rosidl_interfaces/interfaces
+[7.764s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/msg/Goal.json
+[7.764s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/msg/ComboImage.json
+[7.764s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/msg/Request.json
+[7.765s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/msg/Response.json
+[7.765s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/action/Move.json
+[7.765s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces
+[7.765s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action
+[7.765s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail
+[7.765s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail/move__type_support.h
+[7.765s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail/move__functions.c
+[7.765s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail/move__type_support.c
+[7.766s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail/move__functions.h
+[7.766s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail/move__description.c
+[7.766s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail/move__struct.h
+[7.766s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/move.h
+[7.766s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg
+[7.766s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/goal.h
+[7.766s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/rosidl_generator_c__visibility_control.h
+[7.766s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail
+[7.766s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/request__struct.h
+[7.766s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/response__description.c
+[7.766s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/request__type_support.c
+[7.767s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/goal__functions.c
+[7.767s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/combo_image__type_support.h
+[7.767s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/combo_image__description.c
+[7.767s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/request__description.c
+[7.767s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/goal__type_support.c
+[7.767s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/response__functions.h
+[7.768s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/request__functions.c
+[7.768s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/goal__type_support.h
+[7.768s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/request__functions.h
+[7.768s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/combo_image__functions.h
+[7.768s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/response__type_support.h
+[7.768s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/request__type_support.h
+[7.768s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/goal__functions.h
+[7.768s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/goal__struct.h
+[7.769s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/combo_image__functions.c
+[7.769s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/combo_image__struct.h
+[7.769s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/response__functions.c
+[7.769s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/combo_image__type_support.c
+[7.769s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/response__struct.h
+[7.769s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/response__type_support.c
+[7.769s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/goal__description.c
+[7.769s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/combo_image.h
+[7.769s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/response.h
+[7.770s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/request.h
+[7.770s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/environment/library_path.sh
+[7.770s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/environment/library_path.dsv
+[7.770s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/libinterfaces__rosidl_generator_c.so
+[7.771s] -- Set non-toolchain portion of runtime path of "/home/upo/TFG/ros2_ws/install/interfaces/lib/libinterfaces__rosidl_generator_c.so" to ""
+[7.771s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces
+[7.771s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action
+[7.771s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail
+[7.771s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail/move__rosidl_typesupport_fastrtps_c.h
+[7.771s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg
+[7.771s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[7.771s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail
+[7.771s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/request__rosidl_typesupport_fastrtps_c.h
+[7.771s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/response__rosidl_typesupport_fastrtps_c.h
+[7.771s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/combo_image__rosidl_typesupport_fastrtps_c.h
+[7.771s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/goal__rosidl_typesupport_fastrtps_c.h
+[7.771s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/libinterfaces__rosidl_typesupport_fastrtps_c.so
+[7.772s] -- Set non-toolchain portion of runtime path of "/home/upo/TFG/ros2_ws/install/interfaces/lib/libinterfaces__rosidl_typesupport_fastrtps_c.so" to ""
+[7.772s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces
+[7.772s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action
+[7.772s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail
+[7.772s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail/move__struct.hpp
+[7.772s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail/move__builder.hpp
+[7.772s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail/move__traits.hpp
+[7.772s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail/move__type_support.hpp
+[7.773s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/move.hpp
+[7.773s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg
+[7.773s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/response.hpp
+[7.773s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/goal.hpp
+[7.773s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/rosidl_generator_cpp__visibility_control.hpp
+[7.773s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail
+[7.773s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/request__traits.hpp
+[7.773s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/goal__struct.hpp
+[7.773s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/request__builder.hpp
+[7.773s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/combo_image__type_support.hpp
+[7.774s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/request__type_support.hpp
+[7.774s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/request__struct.hpp
+[7.774s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/goal__traits.hpp
+[7.774s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/response__type_support.hpp
+[7.774s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/response__struct.hpp
+[7.774s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/goal__builder.hpp
+[7.774s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/combo_image__builder.hpp
+[7.774s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/response__builder.hpp
+[7.774s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/combo_image__struct.hpp
+[7.775s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/response__traits.hpp
+[7.775s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/goal__type_support.hpp
+[7.775s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/combo_image__traits.hpp
+[7.775s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/request.hpp
+[7.775s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/combo_image.hpp
+[7.775s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces
+[7.775s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action
+[7.775s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail
+[7.775s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail/dds_fastrtps
+[7.775s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail/move__rosidl_typesupport_fastrtps_cpp.hpp
+[7.775s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg
+[7.776s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[7.776s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail
+[7.776s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/response__rosidl_typesupport_fastrtps_cpp.hpp
+[7.776s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/goal__rosidl_typesupport_fastrtps_cpp.hpp
+[7.776s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/request__rosidl_typesupport_fastrtps_cpp.hpp
+[7.776s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/dds_fastrtps
+[7.776s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/combo_image__rosidl_typesupport_fastrtps_cpp.hpp
+[7.776s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/libinterfaces__rosidl_typesupport_fastrtps_cpp.so
+[7.777s] -- Set non-toolchain portion of runtime path of "/home/upo/TFG/ros2_ws/install/interfaces/lib/libinterfaces__rosidl_typesupport_fastrtps_cpp.so" to ""
+[7.777s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces
+[7.777s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action
+[7.777s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail
+[7.777s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail/move__type_support.c
+[7.777s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail/move__rosidl_typesupport_introspection_c.h
+[7.777s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg
+[7.777s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[7.777s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail
+[7.777s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/request__type_support.c
+[7.778s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/goal__type_support.c
+[7.778s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/combo_image__rosidl_typesupport_introspection_c.h
+[7.778s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/request__rosidl_typesupport_introspection_c.h
+[7.778s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/response__rosidl_typesupport_introspection_c.h
+[7.778s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/combo_image__type_support.c
+[7.778s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/response__type_support.c
+[7.778s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/goal__rosidl_typesupport_introspection_c.h
+[7.778s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/libinterfaces__rosidl_typesupport_introspection_c.so
+[7.779s] -- Set non-toolchain portion of runtime path of "/home/upo/TFG/ros2_ws/install/interfaces/lib/libinterfaces__rosidl_typesupport_introspection_c.so" to ""
+[7.779s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/libinterfaces__rosidl_typesupport_c.so
+[7.779s] -- Set non-toolchain portion of runtime path of "/home/upo/TFG/ros2_ws/install/interfaces/lib/libinterfaces__rosidl_typesupport_c.so" to ""
+[7.779s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces
+[7.779s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action
+[7.779s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail
+[7.779s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail/move__type_support.cpp
+[7.779s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/action/detail/move__rosidl_typesupport_introspection_cpp.hpp
+[7.780s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg
+[7.780s] -- Up-to-date: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail
+[7.780s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/response__type_support.cpp
+[7.780s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/request__type_support.cpp
+[7.780s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/combo_image__type_support.cpp
+[7.780s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/combo_image__rosidl_typesupport_introspection_cpp.hpp
+[7.780s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/request__rosidl_typesupport_introspection_cpp.hpp
+[7.780s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/response__rosidl_typesupport_introspection_cpp.hpp
+[7.780s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/goal__type_support.cpp
+[7.780s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/include/interfaces/interfaces/msg/detail/goal__rosidl_typesupport_introspection_cpp.hpp
+[7.781s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/libinterfaces__rosidl_typesupport_introspection_cpp.so
+[7.781s] -- Set non-toolchain portion of runtime path of "/home/upo/TFG/ros2_ws/install/interfaces/lib/libinterfaces__rosidl_typesupport_introspection_cpp.so" to ""
+[7.781s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/libinterfaces__rosidl_typesupport_cpp.so
+[7.782s] -- Set non-toolchain portion of runtime path of "/home/upo/TFG/ros2_ws/install/interfaces/lib/libinterfaces__rosidl_typesupport_cpp.so" to ""
+[7.782s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/environment/pythonpath.sh
+[7.782s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/environment/pythonpath.dsv
+[7.782s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces-0.0.0-py3.12.egg-info
+[7.782s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces-0.0.0-py3.12.egg-info/top_level.txt
+[7.782s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces-0.0.0-py3.12.egg-info/SOURCES.txt
+[7.782s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces-0.0.0-py3.12.egg-info/dependency_links.txt
+[7.782s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces-0.0.0-py3.12.egg-info/PKG-INFO
+[7.782s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces
+[7.782s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/interfaces_s__rosidl_typesupport_c.so
+[7.783s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/interfaces_s__rosidl_typesupport_introspection_c.so
+[7.783s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/interfaces_s__rosidl_typesupport_fastrtps_c.so
+[7.783s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/_interfaces_s.ep.rosidl_typesupport_introspection_c.c
+[7.783s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/action
+[7.783s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/action/_move_s.c
+[7.783s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/action/__init__.py
+[7.784s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/action/_move.py
+[7.784s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/msg
+[7.784s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/msg/_combo_image_s.c
+[7.784s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/msg/_combo_image.py
+[7.784s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/msg/_response.py
+[7.784s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/msg/_goal_s.c
+[7.784s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/msg/_response_s.c
+[7.784s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/msg/_request_s.c
+[7.784s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/msg/_request.py
+[7.785s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/msg/_goal.py
+[7.785s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/msg/__init__.py
+[7.785s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/_interfaces_s.ep.rosidl_typesupport_c.c
+[7.785s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/__init__.py
+[7.785s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c
+[7.829s] Listing '/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces'...
+[7.829s] Compiling '/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/__init__.py'...
+[7.829s] Listing '/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/action'...
+[7.829s] Compiling '/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/action/__init__.py'...
+[7.830s] Compiling '/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/action/_move.py'...
+[7.830s] Listing '/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/msg'...
+[7.830s] Compiling '/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/msg/__init__.py'...
+[7.830s] Compiling '/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/msg/_combo_image.py'...
+[7.830s] Compiling '/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/msg/_goal.py'...
+[7.830s] Compiling '/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/msg/_request.py'...
+[7.830s] Compiling '/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/msg/_response.py'...
+[7.835s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/interfaces_s__rosidl_typesupport_fastrtps_c.so
+[7.836s] -- Set non-toolchain portion of runtime path of "/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/interfaces_s__rosidl_typesupport_fastrtps_c.so" to ""
+[7.836s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/interfaces_s__rosidl_typesupport_introspection_c.so
+[7.837s] -- Set non-toolchain portion of runtime path of "/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/interfaces_s__rosidl_typesupport_introspection_c.so" to ""
+[7.837s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/interfaces_s__rosidl_typesupport_c.so
+[7.837s] -- Set non-toolchain portion of runtime path of "/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages/interfaces/interfaces_s__rosidl_typesupport_c.so" to ""
+[7.837s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/lib/libinterfaces__rosidl_generator_py.so
+[7.838s] -- Set non-toolchain portion of runtime path of "/home/upo/TFG/ros2_ws/install/interfaces/lib/libinterfaces__rosidl_generator_py.so" to ""
+[7.838s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/ament_index/resource_index/rust_packages/interfaces
+[7.838s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/rust
+[7.838s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/rust/build.rs
+[7.838s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/rust/Cargo.toml
+[7.838s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/rust/src
+[7.838s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/rust/src/action.rs
+[7.838s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/rust/src/action
+[7.838s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/rust/src/action/rmw.rs
+[7.839s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/rust/src/msg
+[7.839s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/rust/src/msg/rmw.rs
+[7.839s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/rust/src/msg.rs
+[7.839s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/rust/src/lib.rs
+[7.839s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/msg/Goal.idl
+[7.839s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/msg/ComboImage.idl
+[7.839s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/msg/Request.idl
+[7.839s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/msg/Response.idl
+[7.840s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/action/Move.idl
+[7.840s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/msg/Goal.msg
+[7.840s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/msg/ComboImage.msg
+[7.840s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/msg/Request.msg
+[7.840s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/msg/Response.msg
+[7.840s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/action/Move.action
+[7.840s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/ament_index/resource_index/package_run_dependencies/interfaces
+[7.840s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/ament_index/resource_index/parent_prefix_path/interfaces
+[7.841s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/environment/ament_prefix_path.sh
+[7.841s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/environment/ament_prefix_path.dsv
+[7.841s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/environment/path.sh
+[7.841s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/environment/path.dsv
+[7.841s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/local_setup.bash
+[7.841s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/local_setup.sh
+[7.841s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/local_setup.zsh
+[7.842s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/local_setup.dsv
+[7.842s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/package.dsv
+[7.842s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/ament_index/resource_index/packages/interfaces
+[7.842s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/export_interfaces__rosidl_generator_cExport.cmake
+[7.842s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/export_interfaces__rosidl_generator_cExport-noconfig.cmake
+[7.842s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/export_interfaces__rosidl_typesupport_fastrtps_cExport.cmake
+[7.842s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/export_interfaces__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[7.843s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/export_interfaces__rosidl_generator_cppExport.cmake
+[7.843s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/export_interfaces__rosidl_typesupport_fastrtps_cppExport.cmake
+[7.843s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/export_interfaces__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[7.843s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/interfaces__rosidl_typesupport_introspection_cExport.cmake
+[7.843s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/interfaces__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[7.843s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/interfaces__rosidl_typesupport_cExport.cmake
+[7.843s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/interfaces__rosidl_typesupport_cExport-noconfig.cmake
+[7.844s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/interfaces__rosidl_typesupport_introspection_cppExport.cmake
+[7.844s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/interfaces__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[7.844s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/interfaces__rosidl_typesupport_cppExport.cmake
+[7.844s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/interfaces__rosidl_typesupport_cppExport-noconfig.cmake
+[7.844s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/export_interfaces__rosidl_generator_pyExport.cmake
+[7.844s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/export_interfaces__rosidl_generator_pyExport-noconfig.cmake
+[7.844s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/rosidl_cmake-extras.cmake
+[7.844s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/ament_cmake_export_dependencies-extras.cmake
+[7.845s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/ament_cmake_export_include_directories-extras.cmake
+[7.845s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/ament_cmake_export_libraries-extras.cmake
+[7.845s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/ament_cmake_export_targets-extras.cmake
+[7.845s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[7.845s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[7.845s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/rosidl_cmake_aggregate_target-extras.cmake
+[7.846s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/interfacesConfig.cmake
+[7.846s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/cmake/interfacesConfig-version.cmake
+[7.846s] -- Installing: /home/upo/TFG/ros2_ws/install/interfaces/share/interfaces/package.xml
+[7.848s] Invoked command in '/home/upo/TFG/ros2_ws/build/interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/upo/turtlebot3_ws/install/userCommunication:/home/upo/turtlebot3_ws/install/turtlebot3_teleop:/home/upo/turtlebot3_ws/install/turtlebot3_example:/home/upo/turtlebot3_ws/install/robotMovement:/home/upo/turtlebot3_ws/install/robotCommunication:/home/upo/turtlebot3_ws/install/VLMProcessing:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/upo/TFG/ros2_ws/build/interfaces

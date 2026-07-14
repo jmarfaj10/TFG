@@ -1,0 +1,11 @@
+#RGB topics
+rgb_cam_topic: "/camera/image_raw"
+rgb_info_topic: "/camera/camera_info"
+
+#DEPTH topic
+depth_cam_topic: "/camera/depth_image"
+depth_info_topic: "/camera/camera_info"
+
+#VLM server
+api_url: "http://100.115.56.116:8000/v1/"
+model_name: "Qwen/Qwen3-VL-30B-A3B-Instruct-FP8"

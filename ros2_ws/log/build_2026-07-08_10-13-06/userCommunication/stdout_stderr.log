@@ -1,0 +1,38 @@
+running egg_info
+creating ../../build/userCommunication/userCommunication.egg-info
+writing ../../build/userCommunication/userCommunication.egg-info/PKG-INFO
+writing dependency_links to ../../build/userCommunication/userCommunication.egg-info/dependency_links.txt
+writing entry points to ../../build/userCommunication/userCommunication.egg-info/entry_points.txt
+writing requirements to ../../build/userCommunication/userCommunication.egg-info/requires.txt
+writing top-level names to ../../build/userCommunication/userCommunication.egg-info/top_level.txt
+writing manifest file '../../build/userCommunication/userCommunication.egg-info/SOURCES.txt'
+reading manifest file '../../build/userCommunication/userCommunication.egg-info/SOURCES.txt'
+writing manifest file '../../build/userCommunication/userCommunication.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/upo/TFG/ros2_ws/build/userCommunication/build
+creating /home/upo/TFG/ros2_ws/build/userCommunication/build/lib
+creating /home/upo/TFG/ros2_ws/build/userCommunication/build/lib/userCommunication
+copying userCommunication/constants.py -> /home/upo/TFG/ros2_ws/build/userCommunication/build/lib/userCommunication
+copying userCommunication/userCommunication.py -> /home/upo/TFG/ros2_ws/build/userCommunication/build/lib/userCommunication
+copying userCommunication/__init__.py -> /home/upo/TFG/ros2_ws/build/userCommunication/build/lib/userCommunication
+running install
+running install_lib
+creating /home/upo/TFG/ros2_ws/install/userCommunication/lib/python3.12/site-packages/userCommunication
+copying /home/upo/TFG/ros2_ws/build/userCommunication/build/lib/userCommunication/constants.py -> /home/upo/TFG/ros2_ws/install/userCommunication/lib/python3.12/site-packages/userCommunication
+copying /home/upo/TFG/ros2_ws/build/userCommunication/build/lib/userCommunication/userCommunication.py -> /home/upo/TFG/ros2_ws/install/userCommunication/lib/python3.12/site-packages/userCommunication
+copying /home/upo/TFG/ros2_ws/build/userCommunication/build/lib/userCommunication/__init__.py -> /home/upo/TFG/ros2_ws/install/userCommunication/lib/python3.12/site-packages/userCommunication
+byte-compiling /home/upo/TFG/ros2_ws/install/userCommunication/lib/python3.12/site-packages/userCommunication/constants.py to constants.cpython-312.pyc
+byte-compiling /home/upo/TFG/ros2_ws/install/userCommunication/lib/python3.12/site-packages/userCommunication/userCommunication.py to userCommunication.cpython-312.pyc
+byte-compiling /home/upo/TFG/ros2_ws/install/userCommunication/lib/python3.12/site-packages/userCommunication/__init__.py to __init__.cpython-312.pyc
+running install_data
+creating /home/upo/TFG/ros2_ws/install/userCommunication/share/ament_index
+creating /home/upo/TFG/ros2_ws/install/userCommunication/share/ament_index/resource_index
+creating /home/upo/TFG/ros2_ws/install/userCommunication/share/ament_index/resource_index/packages
+copying resource/userCommunication -> /home/upo/TFG/ros2_ws/install/userCommunication/share/ament_index/resource_index/packages
+copying package.xml -> /home/upo/TFG/ros2_ws/install/userCommunication/share/userCommunication
+running install_egg_info
+Copying ../../build/userCommunication/userCommunication.egg-info to /home/upo/TFG/ros2_ws/install/userCommunication/lib/python3.12/site-packages/userCommunication-0.0.0-py3.12.egg-info
+running install_scripts
+Installing userCommunication script to /home/upo/TFG/ros2_ws/install/userCommunication/lib/userCommunication
+writing list of installed files to '/home/upo/TFG/ros2_ws/build/userCommunication/install.log'

@@ -1,0 +1,18 @@
+[1.473s] Invoking command in '/home/upo/TFG/ros2_ws/build/robotCommunication': AMENT_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/upo/TFG/ros2_ws/install/interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/upo/TFG/ros2_ws/build/robotCommunication/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/upo/TFG/ros2_ws/install/robotCommunication/lib/python3.12/site-packages:/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/upo/TFG/ros2_ws/build/robotCommunication/build --no-deps symlink_data
+[1.766s] running develop
+[1.960s] running egg_info
+[1.979s] writing robotCommunication.egg-info/PKG-INFO
+[1.979s] writing dependency_links to robotCommunication.egg-info/dependency_links.txt
+[1.979s] writing entry points to robotCommunication.egg-info/entry_points.txt
+[1.979s] writing requirements to robotCommunication.egg-info/requires.txt
+[1.979s] writing top-level names to robotCommunication.egg-info/top_level.txt
+[2.016s] reading manifest file 'robotCommunication.egg-info/SOURCES.txt'
+[2.017s] writing manifest file 'robotCommunication.egg-info/SOURCES.txt'
+[2.036s] running build_ext
+[2.036s] Creating /home/upo/TFG/ros2_ws/install/robotCommunication/lib/python3.12/site-packages/robotCommunication.egg-link (link to .)
+[2.037s] Installing robotCommunication script to /home/upo/TFG/ros2_ws/install/robotCommunication/lib/robotCommunication
+[2.037s] 
+[2.037s] Installed /home/upo/TFG/ros2_ws/build/robotCommunication
+[2.037s] running symlink_data
+[2.037s] error: can't copy '/home/upo/TFG/ros2_ws/build/config.yaml': doesn't exist or not a regular file
+[2.070s] Invoked command in '/home/upo/TFG/ros2_ws/build/robotCommunication' returned '1': AMENT_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/upo/TFG/ros2_ws/install/interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/upo/TFG/ros2_ws/build/robotCommunication/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/upo/TFG/ros2_ws/install/robotCommunication/lib/python3.12/site-packages:/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/upo/TFG/ros2_ws/build/robotCommunication/build --no-deps symlink_data

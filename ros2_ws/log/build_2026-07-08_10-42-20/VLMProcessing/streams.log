@@ -1,0 +1,17 @@
+[1.469s] Invoking command in '/home/upo/TFG/ros2_ws/build/VLMProcessing': AMENT_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/upo/TFG/ros2_ws/install/interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/upo/TFG/ros2_ws/build/VLMProcessing/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/upo/TFG/ros2_ws/install/VLMProcessing/lib/python3.12/site-packages:/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/upo/TFG/ros2_ws/build/VLMProcessing/build --no-deps symlink_data
+[1.766s] running develop
+[1.960s] running egg_info
+[1.979s] writing VLMProcessing.egg-info/PKG-INFO
+[1.979s] writing dependency_links to VLMProcessing.egg-info/dependency_links.txt
+[1.979s] writing entry points to VLMProcessing.egg-info/entry_points.txt
+[1.980s] writing requirements to VLMProcessing.egg-info/requires.txt
+[1.980s] writing top-level names to VLMProcessing.egg-info/top_level.txt
+[2.016s] reading manifest file 'VLMProcessing.egg-info/SOURCES.txt'
+[2.017s] writing manifest file 'VLMProcessing.egg-info/SOURCES.txt'
+[2.037s] running build_ext
+[2.037s] Creating /home/upo/TFG/ros2_ws/install/VLMProcessing/lib/python3.12/site-packages/VLMProcessing.egg-link (link to .)
+[2.038s] Installing VLMProcessing script to /home/upo/TFG/ros2_ws/install/VLMProcessing/lib/VLMProcessing
+[2.038s] 
+[2.038s] Installed /home/upo/TFG/ros2_ws/build/VLMProcessing
+[2.038s] running symlink_data
+[2.038s] error: can't copy '/home/upo/TFG/ros2_ws/build/config.yaml': doesn't exist or not a regular file

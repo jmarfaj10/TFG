@@ -1,0 +1,17 @@
+[2.187s] Invoking command in '/home/upo/TFG/ros2_ws/build/VLMProcessing': AMENT_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/upo/TFG/ros2_ws/install/interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/upo/TFG/ros2_ws/build/VLMProcessing/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/upo/TFG/ros2_ws/install/VLMProcessing/lib/python3.12/site-packages:/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/upo/TFG/ros2_ws/build/VLMProcessing/build --no-deps symlink_data
+[2.620s] running develop
+[2.885s] running egg_info
+[2.910s] writing VLMProcessing.egg-info/PKG-INFO
+[2.911s] writing dependency_links to VLMProcessing.egg-info/dependency_links.txt
+[2.911s] writing entry points to VLMProcessing.egg-info/entry_points.txt
+[2.911s] writing requirements to VLMProcessing.egg-info/requires.txt
+[2.911s] writing top-level names to VLMProcessing.egg-info/top_level.txt
+[2.961s] reading manifest file 'VLMProcessing.egg-info/SOURCES.txt'
+[2.962s] writing manifest file 'VLMProcessing.egg-info/SOURCES.txt'
+[2.993s] running build_ext
+[2.993s] Creating /home/upo/TFG/ros2_ws/install/VLMProcessing/lib/python3.12/site-packages/VLMProcessing.egg-link (link to .)
+[2.994s] Installing VLMProcessing script to /home/upo/TFG/ros2_ws/install/VLMProcessing/lib/VLMProcessing
+[2.994s] 
+[2.994s] Installed /home/upo/TFG/ros2_ws/build/VLMProcessing
+[2.994s] running symlink_data
+[3.127s] Invoked command in '/home/upo/TFG/ros2_ws/build/VLMProcessing' returned '0': AMENT_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/upo/TFG/ros2_ws/install/interfaces:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/upo/TFG/ros2_ws/install/interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/upo/TFG/ros2_ws/build/VLMProcessing/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/upo/TFG/ros2_ws/install/VLMProcessing/lib/python3.12/site-packages:/home/upo/TFG/ros2_ws/install/interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/upo/TFG/ros2_ws/build/VLMProcessing/build --no-deps symlink_data
