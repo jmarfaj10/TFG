@@ -1,5 +1,0 @@
-# Dependencias de la web Django (versión detectada en tu venv app/env)
-Django==6.0.7
-
-# Para producción, descomenta y usa gunicorn en vez de runserver:
-# gunicorn==23.0.0

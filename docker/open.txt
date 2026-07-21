@@ -1,9 +1,0 @@
-# En tu PC, solo la web:
-docker compose -f docker-compose.web.yml up --build
-#   → http://localhost:8000
-
-# Stack completo (todo en una máquina):
-docker compose up --build
-
-# En el robot, solo el ROS2 (sin la web):
-docker compose up --build ros2_nodes rosbridge
