@@ -1,0 +1,9 @@
+# Contexto = raíz del repo. Solo necesitamos app/vis_go + requirements.
+.git
+app/env
+ros2_ws
+mapa_pablo
+**/__pycache__
+**/*.py[cod]
+app/vis_go/db.sqlite3
+app/vis_go/.vscode
