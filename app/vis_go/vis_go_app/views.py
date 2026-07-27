@@ -1,6 +1,7 @@
-from django.http import HttpResponse
-
-# Create your views here.
+from django.shortcuts import render
 
 def index(request):
-    return HttpResponse("Bienvenido a django")
+    return render(request, 'vis_go_app/index.html')
+
+def about(request):
+    return render(request, 'vis_go_app/about.html')
