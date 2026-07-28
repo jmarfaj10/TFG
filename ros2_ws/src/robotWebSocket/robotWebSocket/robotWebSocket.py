@@ -112,7 +112,10 @@ class RobotWebSocket(Node):
 
 
     def _on_vlm_response(self, msg: String):
-        pass # To be implemented or handled according to previous logic if needed.
+        if self.pending_vlm_requests:
+            fut = self.pending_vlm_requests.pop(0)
+            if not fut.done():
+                self.loop.call_soon_threadsafe(fut.set_result, msg.data)
 
     async def auth(self, websocket):
         try:
