@@ -6,31 +6,41 @@ import rclpy
 from rclpy import Node
 from urllib.parse import parse_qs, urlparse
 import json
-# 1. Para generar claves RSA (privada y pública)
 from cryptography.hazmat.primitives.asymmetric import rsa
-# 2. Para aplicar relleno (padding) y algoritmos de hash al encriptar/desencriptar
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives import hashes
-# 3. Para convertir la clave pública a formato texto (PEM) y viceversa
 from cryptography.hazmat.primitives import serialization
 from cryptography.fernet import Fernet
 import yaml
-import urllib
 import uuid
 from userCommunication.userCommunication import constants as userCommunication
-import robotCommunication.constants as robotCoummunication
+from robotCommunication.robotCommunication import constants as robotCoummunication
+from robotCommunication.robotCommunication.robotCommunication import Goal
+from robotCommunication.robotCommunication.robotCommunication import Final
 from userCommunication.userCommunication import String
 import threading
 from tf2_ros import Buffer, TransformListener
 from rclpy.time import Time 
 from interfaces.msg import ComboImage
-
+import base64                                                            
+import cv2   
 
 
 class Response:
-    def __init__(self, status, message):
+    def __init__(self, status, message=None, data=None):
         self.status = status
         self.message = message
+        self.data = data
+
+    def to_dict(self):
+        res = {"status": self.status}
+        if self.message:
+            res["message"] = self.message
+        if self.data:
+            res["data"] = self.data
+        return res
+
+
 class ClientSession:
     def __init__(self, ip: str, cipher: Fernet, websocket):
         self.ip = ip
@@ -38,13 +48,16 @@ class ClientSession:
         self.websocket = websocket
         self.ip = websocket.remote_address
         self.token = None
-    def encrypt(self, dict: dict) -> str:
-        json = json.dumps(dict)
-        return self.cipher.encrypt(json.encode('utf-8')).decode('utf-8')
+
+    def encrypt(self, data: dict) -> str:
+        json_data = json.dumps(data)
+        return self.cipher.encrypt(json_data.encode('utf-8')).decode('utf-8')
+
     def decrypt(self, text: str) -> dict:
-        bytes = self.cipher.decrypt(text.encode('utf-8'))
-        return json.loads(bytes.decode('utf-8'))
+        raw_bytes = self.cipher.decrypt(text.encode('utf-8'))
+        return json.loads(raw_bytes.decode('utf-8'))
     
+
 class RobotWebSocket(Node):
 
     def __init__(self, host="localhost", authport="8764", dataport="8765", streamport="8766"):
@@ -55,13 +68,15 @@ class RobotWebSocket(Node):
         self.streamport = streamport
         self.sessions = {}
 
-
-        self.privateKey = rsa.generate_private_key()
-        self.public_key = self.privateKey.public_key
+        self.privateKey = rsa.generate_private_key(
+            public_exponent=65537,
+            key_size=2048
+        )
+        self.public_key = self.privateKey.public_key()
         self.public_pem = self.public_key.public_bytes(
             encoding=serialization.Encoding.PEM,
             format=serialization.PublicFormat.SubjectPublicKeyInfo
-            ).decode('utf-8')
+        ).decode('utf-8')
 
         with open("config.yaml", "r", encoding="utf-8") as f:
             datos = yaml.safe_load(f)
@@ -69,183 +84,214 @@ class RobotWebSocket(Node):
         self.user = datos["user"]
         self.password = datos["password"]
 
-        #ROS CHANNELS
+        # ROS CHANNELS
         self.pub_usercomm = self.create_publisher(String, userCommunication.USER_CHANNEL_COMM, 10)
         self.sub_vlm_resp = self.create_subscription(String, userCommunication.RESPONSE_CHANNEL_VLM, self._on_vlm_response, 10) 
+        self.sub_final = self.create_subscription(Final, robotCoummunication.FINAL_CHANNEL, self._final, 10)
+        self.sub_goal = self.create_subscription(Goal, robotCoummunication.GOAL_CHANNEL, self._goal, 10)
 
-        # Cola/Futuros de peticiones VLM pendientes          constants.IMG_CHANNEL, 10                                                                                                                                                                                    
+        # Cola/Futuros de peticiones VLM pendientes
         self.pending_vlm_requests = []                                                                                                                                                                                                           
         self.loop = None   
 
         self.tf_buffer = Buffer()                                                                                           
         self.tf_listener = TransformListener(self.tf_buffer, self)                                                          
         self.map_frame = "map"          # Frame global de navegación                                                        
-        self.robot_frame = "base_link"   
+        self.robot_frame = "base_link" 
 
-        #Cam
-        self.bridge = cv_bridge()
-        self.sub_cam = self.create_subscription(ComboImage, robotCoummunication.IMG_CHANNEL,self.get_camera, 10)
-        
+        # Final
+        self.current_final = None
+
+        # Goal
+        self.current_goal = None  
+
+        # Cam
+        self.bridge = cv_bridge.CvBridge()
+        self.sub_cam = self.create_subscription(ComboImage, robotCoummunication.IMG_CHANNEL, self.get_camera, 10)
+        self.latest_image = {"rgb": None, "depth": None}
+
+
+    def _on_vlm_response(self, msg: String):
+        pass # To be implemented or handled according to previous logic if needed.
 
     async def auth(self, websocket):
         try:
             client_ip = websocket.remote_address
-            self.get_logger().info("Season requested from (IP): ", client_ip)
-            session=None
+            self.get_logger().info(f"Session requested from (IP): {client_ip}")
+            session = None
             await websocket.send(json.dumps({
                 "type": "init_handshake",
                 "rsa_public_key": self.public_pem
-                }))
+            }))
 
             init_msg = await websocket.recv()
             payload = json.loads(init_msg)
-            fernet_key_bytes = self.private_key.decrypt(
-            bytes.fromhex(payload["fernet_key_encrypted"]),
-            padding.OAEP(
-                mgf=padding.MGF1(algorithm=hashes.SHA256()),
-                algorithm=hashes.SHA256(),
-                label=None
+            fernet_key_bytes = self.privateKey.decrypt(
+                bytes.fromhex(payload["fernet_key_encrypted"]),
+                padding.OAEP(
+                    mgf=padding.MGF1(algorithm=hashes.SHA256()),
+                    algorithm=hashes.SHA256(),
+                    label=None
                 )
             )
 
             cipher = Fernet(fernet_key_bytes)
-
             credentials = json.loads(cipher.decrypt(payload["login_data_encrypted"].encode('utf-8')).decode('utf-8'))
             session = ClientSession(client_ip, cipher, websocket)
-            if credentials["user"]!=None and credentials["user"] == self.user and credentials["password"]!=None and credentials["password"] == self.password:
-
+            
+            if credentials.get("user") == self.user and credentials.get("password") == self.password:
                 session.token = str(uuid.uuid4())
                 self.sessions[websocket] = session
+                self.get_logger().info(f"(IP: {session.ip}) User access OK")
 
-                self.get_logger().info(f"(IP: {session.ip})User access OK")
-
-                response = session.encrypt({"status": "SUCCESS", "token": f"{session.token}","message": f"You has been sucessfully conected {session.ip}"})
-
-                await websocket.send(response)
+                response_ok = {"status": "SUCCESS", "token": f"{session.token}", "message": f"You have been successfully connected {session.ip}"}
+                await websocket.send(session.encrypt(response_ok))
 
                 async for message in websocket:
-                    response = await self.route(message)
-                    response = session.encrypt(response)
-                    await websocket.send(response)
-
-
+                    # Desencriptar el mensaje entrante
+                    decrypted_request = session.decrypt(message)
+                    # Procesar la ruta
+                    response_dict = await self.route(decrypted_request)
+                    # Encriptar la respuesta y enviar
+                    encrypted_response = session.encrypt(response_dict)
+                    await websocket.send(encrypted_response)
             else:
-                self.get_logger().error(f"(IP: {session.ip})User access FAILED")
-
-                response = session.encrypt(json.dumps({"status": "ERROR", "message": "Invalid Credentials"}).encode('utf-8')).decode('utf-8')
-                await websocket.send(response)
+                self.get_logger().error(f"(IP: {session.ip}) User access FAILED")
+                response_err = {"status": "ERROR", "message": "Invalid Credentials"}
+                await websocket.send(session.encrypt(response_err))
                 await websocket.close()
                 return
         except Exception as e:
-            self.get_logger().error(f"Conection error for IP: ({client_ip}): {e}")
+            self.get_logger().error(f"Connection error for IP: ({client_ip}): {e}")
 
-    async def route(self, message):
-        request = None
-        response = None
-        try:
-            request = json.loads(message)
-        except json.JSONDecodeError:
-            response = Response("ERROR")
-            response.message = "Request must be a JSON"
+    async def route(self, request):
+        if not isinstance(request, dict):
+            # En caso de que se pase un string desencriptado en vez del dict
+            if isinstance(request, str):
+                try:
+                    request = json.loads(request)
+                except json.JSONDecodeError:
+                    return Response("ERROR", "Request must be a JSON").to_dict()
+            else:
+                return Response("ERROR", "Request must be a JSON").to_dict()
+                
         action = request.get("action", "")
-        action = [x for x in action.split('/') if x]
+        action_parts = [x for x in action.split('/') if x]
 
-        port_endpoint = action[0]
-        action.pop(0)
+        if not action_parts:
+            return Response("ERROR", "Empty route action").to_dict()
+
+        port_endpoint = action_parts[0]
+        action_parts.pop(0)
 
         if port_endpoint == "data":
             try:
-                request["action"] = "/" + "/".join(action)
+                request["action"] = "/" + "/".join(action_parts)
                 async with websockets.connect(f"ws://127.0.0.1:{self.dataport}") as internal_ws:
                     await internal_ws.send(json.dumps(request))
                     internal_response_raw = await internal_ws.recv()
-                    response = json.loads(internal_response_raw)
-
+                    return json.loads(internal_response_raw)
             except Exception as e:
                 self.get_logger().error(f"Error comunicando con Puerto Data (8765): {e}")
-                response = Response("ERROR")
-                response.message = f"Fallo en el servicio interno de datos: {str(e)}"
-
+                return Response("ERROR", f"Fallo en el servicio interno de datos: {str(e)}").to_dict()
             
         elif port_endpoint == "stream":
-            
+            try:
+                request["action"] = "/" + "/".join(action_parts)
+                async with websockets.connect(f"ws://127.0.0.1:{self.streamport}") as internal_ws:
+                    await internal_ws.send(json.dumps(request))
+                    internal_response_raw = await internal_ws.recv()
+                    return json.loads(internal_response_raw)
+            except Exception as e:
+                self.get_logger().error(f"Error comunicando con Puerto Stream (8766): {e}")
+                return Response("ERROR", f"Fallo en el servicio interno de streaming: {str(e)}").to_dict()
         else:
-            response = Response("Error")
-            response.message = "Invalid route"
+            return Response("ERROR", "Invalid route").to_dict()
 
-
-        if request is None or response is None:
-            response = Response("ERROR")
-            response.message = "Empty Response"
-
-        return response
     
-    #DATA WEBSOCKET
+    # DATA WEBSOCKET
     async def data_handle(self, websocket):
         try:                                                                                                        
             async for message in websocket:
-                request = None
-                request = json.loads(message)
+                try:
+                    request = json.loads(message)
+                except json.JSONDecodeError:
+                    response = Response("ERROR", "Json format needed")
+                    await websocket.send(json.dumps(response.to_dict()))
+                    continue
+
                 if request.get("token") not in [s.token for s in self.sessions.values()]:
-                    response = Response("ERROR")
-                    response.message = "Server cannot find 'token' attribute"
-                    return await websocket.send(json.dumps(request))
+                    response = Response("ERROR", "Server cannot find 'token' attribute")
+                    await websocket.send(json.dumps(response.to_dict()))
+                    continue
 
-                action = request.get("action")
-                action = action.split("/")
-                params = dict(request.get("params"))
+                action = request.get("action", "")
+                action_parts = [x for x in action.split("/") if x]
+                params = request.get("params", {})
+                if isinstance(params, str):
+                    try:
+                        params = json.loads(params)
+                    except Exception:
+                        params = {}
 
-                if action is None:
-                    response = Response("ERROR")
-                    response.message = "Not valid action"
+                if not action_parts:
+                    response = Response("ERROR", "Not valid action")
+                    await websocket.send(json.dumps(response.to_dict()))
+                    continue
 
-                match action[0]:
+                match action_parts[0]:
                     case "position":
-                        response = self.get_robot_pose()
+                        response = await self.get_robot_pose()
                     case "vlm_request":
-                        response = self.vlm_request(params)
-        except json.JSONDecodeError:
-            response = Response("ERROR", "Json format needed")
+                        response = await self.vlm_request(params)
+                    case "goal":
+                        if self.current_goal is not None:
+                            response = Response("SUCCESS", data=self.current_goal)
+                        else:
+                            response = Response("ERROR", "There's no goal assigned - first prompt something")
+                    case "final":
+                        if self.current_final is not None:
+                            response = Response("SUCCESS", data=self.current_final)
+                        else:
+                            response = Response("ERROR", "There's no final assigned - first prompt something")
+                    case "help":
+                        response = await self.help()
+                    case _:
+                        response = Response("ERROR", f"Unknown action '{action_parts[0]}'")
 
-        except asyncio.TimeoutError:
-            response = Response("ERROR", "Timeout error")
+                await websocket.send(json.dumps(response.to_dict()))
 
+        except websockets.exceptions.ConnectionClosed:
+            pass
         except Exception as e:
-            response = Response("ERROR", f"{e}")
-
-        return response
+            self.get_logger().error(f"Error in data_handle: {e}")
 
     async def vlm_request(self, params):                                                                                                                                                   
-            prompt_text = params.get("prompt")                                                                                                                                                         
-            if not prompt_text:   
-                response = Response("ERROR")
-                response.message = "Atribute 'prompt' required for this action"                                                                                                                                                                      
-                return response
-            fut = self.loop.create_future()
-            self.pending_vlm_requests.append(fut)
+        prompt_text = params.get("prompt")                                                                                                                                                         
+        if not prompt_text:   
+            return Response("ERROR", "Atribute 'prompt' required for this action")
 
-            msg = String()
-            msg.data = prompt_text
-            self.pub_usercomm.publish(msg)
-            self.get_logger().info(f"[Server]Request was sent to VLM Node: '{prompt_text}'")
+        fut = self.loop.create_future()
+        self.pending_vlm_requests.append(fut)
 
-            try:
-                vlm_response = await asyncio.wait_for(fut, timeout=60.0)
-                response = Response("SUCCESS")
-                response.response = vlm_response
-                return response
-            except asyncio.TimeoutError:
-                if fut in self.pending_vlm_requests:
-                    self.pending_vlm_requests.remove(fut)
-                response = Response("ERROR")
-                response.message = "Timeout exception"
-                return response
-            except Exception as e:
-                response = Response("ERROR")
-                response.message = f"Error processing request in VLM Node: {str(e)}"
+        msg = String()
+        msg.data = prompt_text
+        self.pub_usercomm.publish(msg)
+        self.get_logger().info(f"[Server] Request was sent to VLM Node: '{prompt_text}'")
+
+        try:
+            vlm_response = await asyncio.wait_for(fut, timeout=60.0)
+            return Response("SUCCESS", data=vlm_response)
+        except asyncio.TimeoutError:
+            if fut in self.pending_vlm_requests:
+                self.pending_vlm_requests.remove(fut)
+            return Response("ERROR", "Timeout exception waiting for VLM")
+        except Exception as e:
+            if fut in self.pending_vlm_requests:
+                self.pending_vlm_requests.remove(fut)
+            return Response("ERROR", f"Error processing request in VLM Node: {str(e)}")
 
     async def get_robot_pose(self):
-        response = None
         try:                                                                                                            
             t = self.tf_buffer.lookup_transform(                                                                        
                 self.map_frame,                                                                                         
@@ -254,7 +300,7 @@ class RobotWebSocket(Node):
             )                                                                                                           
             p = t.transform.translation                                                                                 
             r = t.transform.rotation
-            response = Response("SUCCESS", {                                                                                                    
+            pose_data = {                                                                                                    
                 "x": round(float(p.x), 3),                                                                              
                 "y": round(float(p.y), 3),                                                                              
                 "z": round(float(p.z), 3),                                                                              
@@ -262,74 +308,114 @@ class RobotWebSocket(Node):
                 "qy": round(float(r.y), 4),                                                                             
                 "qz": round(float(r.z), 4),                                                                             
                 "qw": round(float(r.w), 4)
-            })                                                                                 
-            return response
+            }
+            return Response("SUCCESS", data=pose_data)
         except Exception as e:
             self.get_logger().warn(f"No hay TF {self.map_frame}->{self.robot_frame}: {e}")
-            response = Response("ERROR", "Cannot find robot pose")
-            return None
+            return Response("ERROR", "Cannot find robot pose")
 
-    #STREAM WEBSOCKET
+    def _goal(self, goal):
+        self.current_goal = goal
+
+    def _final(self, final):
+        self.current_final = final
+
+    async def help(self):
+        message = (
+            "COMMAND LIST\n"
+            "------------\n"
+            "/data/position - returns the robot position\n"
+            "/data/vlm_request - expects a prompt and returns a response from VLM\n"
+            "/data/goal - returns the goal of the tarjet (None if there's no tarjet)\n"
+            "/data/final - returns essential data when the move action finished"
+        )
+        return Response("SUCCESS", message)
+
+    # STREAM WEBSOCKET
     async def stream_handle(self, websocket):
         try:                                                                                                        
             async for message in websocket:
-                request = None
-                request = json.loads(message)
+                try:
+                    request = json.loads(message)
+                except json.JSONDecodeError:
+                    response = Response("ERROR", "Json format needed")
+                    await websocket.send(json.dumps(response.to_dict()))
+                    continue
+                
                 if request.get("token") not in [s.token for s in self.sessions.values()]:
-                    response = Response("ERROR")
-                    response.message = "Server cannot find 'token' attribute"
-                    return await websocket.send(json.dumps(request))
+                    response = Response("ERROR", "Server cannot find 'token' attribute")
+                    await websocket.send(json.dumps(response.to_dict()))
+                    continue
+                
+                action_str = request.get("action", "")
+                action_parts = [x for x in action_str.split("/") if x]
 
-                action = request.get("action")
-                action = action.split("/")
-                params = dict(request.get("params"))
+                if not action_parts:
+                    response = Response("ERROR", "Not valid action")
+                    await websocket.send(json.dumps(response.to_dict()))
+                    continue
 
-                match action[0]:
+                match action_parts[0]:
                     case "camera":
-                        response = self.get_robot_pose()
+                        if len(action_parts) > 1 and action_parts[1] in ["rgb", "depth"]:
+                            camera_type = action_parts[1]
+                            while not websocket.closed:
+                                if self.latest_image[camera_type] is not None:
+                                    response = Response("SUCCESS", data=self.latest_image[camera_type])
+                                else:
+                                    response = Response("ERROR", "No image")
+                                
+                                await websocket.send(json.dumps(response.to_dict()))
+                                await asyncio.sleep(1 / 30)
+                        else:
+                            response = Response("ERROR", "Command not found")
+                            await websocket.send(json.dumps(response.to_dict()))
+                    case _:
+                        response = Response("ERROR", f"Command '{action_parts[0]}' not found")
+                        await websocket.send(json.dumps(response.to_dict()))
 
-        except json.JSONDecodeError:
-            response = Response("ERROR", "Json format needed")
-
-        except asyncio.TimeoutError:
-            response = Response("ERROR", "Timeout error")
-
+        except websockets.exceptions.ConnectionClosed:
+            pass
         except Exception as e:
-            response = Response("ERROR", f"{e}")
+            self.get_logger().error(f"Error in stream_handle: {e}")
 
-        return response
+    def get_camera(self, combo):
+        try:
+            cv_img_rgb = self.bridge.imgmsg_to_cv2(combo.img_rgb, desired_encoding='bgr8')
+            cv_img_depth = self.bridge.imgmsg_to_cv2(combo.img_depth, desired_encoding='bgr8')
+            success_rgb, encoded_image_rgb = cv2.imencode('.jpg', cv_img_rgb)
+            success_depth, encoded_image_depth = cv2.imencode('.jpg', cv_img_depth)
+            
+            if success_rgb and success_depth:
+                self.latest_image["rgb"] = base64.b64encode(encoded_image_rgb).decode('utf-8')
+                self.latest_image["depth"] = base64.b64encode(encoded_image_depth).decode('utf-8')
+        except Exception as e:
+            self.get_logger().error(f"Error procesando imagen de cámara: {e}")
 
-    async def get_camera(self, combo):
 
-
-async def main_async(node):                                                                                                                                                                                                  
+async def main_async(node):                                              
     node.loop = asyncio.get_running_loop()
-        
-    # Iniciar ambos servidores WebSocket                
+
     server_auth = await serve(node.auth, "0.0.0.0", node.authport)
     server_data = await serve(node.data_handle, node.host, node.dataport)
-    server_stream = await serve(node.handle_stream_connection, node.host, node.streamport)
+    server_stream = await serve(node.stream_handle, node.host, node.streamport)
 
-    node.get_logger().info(f"🚀 WebSocket AUTH (8764) iniciado en ws://0.0.0.0:{node.authport}")
-    node.get_logger().info(f"🚀 WebSocket DATA (8765) iniciado en ws://{node.host}:{node.dataport}")
-    node.get_logger().info(f"🚀 WebSocket STREAMING (8766) iniciado en ws://{node.host}:{node.streamport}")
-        
-    # Tarea asíncrona en segundo plano: Difusión continua de posición a 5 Hz
-    asyncio.create_task(node.)
-    asyncio.create_task(node.)
+    node.get_logger().info(f"🚀 WebSocket AUTH ({node.authport}) iniciado en ws://0.0.0.0:{node.authport}")
+    node.get_logger().info(f"🚀 WebSocket DATA ({node.dataport}) iniciado en ws://{node.host}:{node.dataport}")
+    node.get_logger().info(f"🚀 WebSocket STREAMING ({node.streamport}) iniciado en ws://{node.host}:{node.streamport}")
 
     await asyncio.gather(
         server_auth.wait_closed(),
         server_data.wait_closed(),
         server_stream.wait_closed()
     )
-    
+
 
 def main(args=None):
     rclpy.init(args=args)
     node = RobotWebSocket()
 
-        # El spin de ROS 2 corre en un hilo secundario para no bloquear asyncio
+    # El spin de ROS 2 corre en un hilo secundario para no bloquear asyncio
     ros_thread = threading.Thread(target=rclpy.spin, args=(node,), daemon=True)
     ros_thread.start()
 
@@ -341,8 +427,7 @@ def main(args=None):
         node.destroy_node()
         if rclpy.ok():
             rclpy.shutdown()
-    
+
+
 if __name__ == '__main__':
     main()
-
-

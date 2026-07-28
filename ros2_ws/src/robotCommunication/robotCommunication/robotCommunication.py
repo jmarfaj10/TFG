@@ -23,7 +23,17 @@ import shutil
 import subprocess
 from pathlib import Path
 
+class Goal:
+    def __init__(self):
+        self.pose = None
+        self.status = None
+        
 
+class Final:
+    def __int__(self):
+        self.distance = None
+        self.time = None
+        self.final_pose = None
 
 class RobotCommunication(Node):
 
@@ -52,6 +62,10 @@ class RobotCommunication(Node):
         self.sub_usercomm = self.create_subscription(String, constants.USER_CHANNEL_COMM, self.userRequest, 10)
         self.pub_usercomm = self.create_publisher(String, constants.RESPONSE_CHANNEL_VLM, 10)
 
+        #LOGGER
+        self.pub_final = self.create_publisher(Final, constants.FINAL_CHANNEL, 10)
+        self.pub_goal = self.create_publisher(Goal, constants.GOAL_CHANNEL, 10)
+
         #CÁMARA
         rgb_sub        = message_filters.Subscriber(self, Image,      constants.RGB_TOPIC)
         depth_sub      = message_filters.Subscriber(self, Image,      constants.DEPTH_TOPIC)
@@ -78,6 +92,10 @@ class RobotCommunication(Node):
         self.logger = {"prompt": None, "response": None, "tarjet": None, "initialPose": None, "finalPose": None, "gt": None, "reachTime": None, "distance":None}
 
         self.gt_modelos = None
+
+        self.current_goal = None
+
+        self.last_final = None
 
     #CAM TOPIC
     def recvCam(self, imgRgb, imgDepth, rgbCameraInfo, depthCameraInfo):
@@ -128,10 +146,14 @@ class RobotCommunication(Node):
 
     #MOVE TOPIC
     def send_goal(self, x, y, z):
+
+        self.current_goal = Goal()
         goal = Move.Goal()
         goal.x_goal = float(x)
         goal.y_goal = float(y)
         goal.z_goal = float(z)
+
+        self.current_goal.goal_pose = {"x": goal.x_goal, "y": goal.y_goal, "z": goal.z_goal}
 
         # Goal estimado por el VLM (lo que llega desde VLMProcessing).
         self.logger["goalEstimated"] = (goal.x_goal, goal.y_goal, goal.z_goal)
@@ -143,14 +165,19 @@ class RobotCommunication(Node):
         
         future = self.client_goal.send_goal_async(goal,feedback_callback=self.moveFeedback)   # progreso en vivo
         future.add_done_callback(self.moveResponse)  # ¿aceptado/rechazado?
+    
     #MOVE ACTION
     def moveResponse(self, future):
         
         goal_handle = future.result()
         if not goal_handle.accepted:
             self.get_logger().warn("Goal rechazado por el servidor.")
+            self.current_goal.status="REJECTED"
+            self.pub_goal(self.current_goal)
             return
+        self.current_goal.status = "ACCEPTED"
         goal_handle.get_result_async().add_done_callback(self.moveResult)
+        self.pub_goal(self.current_goal)
 
     def moveResult(self, future):
         outcome = future.result()
@@ -161,9 +188,17 @@ class RobotCommunication(Node):
         self.logger["reachTime"]=int(time.time() * 1000)-self.init_time
         self.logger["finalPose"] = (result.x, result.y, result.z)
         self.logger["distance"] = result.distancia
+
         self.get_logger().info(f"Movimiento terminado. distancia={result.distancia:.2f}")
         self.pintarLogger()
         self.pub_usercomm.publish(String(data="The robot has reached the goal"))
+
+        final = Final()
+        final.distance = result.distancia
+        final.final_pose = (result.x, result.y, result.z)
+        final.time = int(time.time() * 1000)-self.init_time
+
+        self.pub_logger.publish(final)
 
     def moveFeedback(self, feedback_msg):
         fb = feedback_msg.feedback
