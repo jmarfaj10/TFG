@@ -24,6 +24,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            'robotWebSocket = robotWebSocket.robotWebSocket:main'
         ],
     },
 )

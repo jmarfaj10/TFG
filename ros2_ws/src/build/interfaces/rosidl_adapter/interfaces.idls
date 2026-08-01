@@ -1,0 +1,5 @@
+/home/upo/Documents/TFG/TFG/ros2_ws/src/build/interfaces/rosidl_adapter/interfaces:msg/Goal.idl
+/home/upo/Documents/TFG/TFG/ros2_ws/src/build/interfaces/rosidl_adapter/interfaces:msg/ComboImage.idl
+/home/upo/Documents/TFG/TFG/ros2_ws/src/build/interfaces/rosidl_adapter/interfaces:msg/Request.idl
+/home/upo/Documents/TFG/TFG/ros2_ws/src/build/interfaces/rosidl_adapter/interfaces:msg/Response.idl
+/home/upo/Documents/TFG/TFG/ros2_ws/src/build/interfaces/rosidl_adapter/interfaces:action/Move.idl
