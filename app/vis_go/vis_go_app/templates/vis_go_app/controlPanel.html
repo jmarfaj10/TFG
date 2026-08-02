@@ -1,0 +1,38 @@
+{% extends "vis_go_app/base.html" %}
+
+{% block title %}Control Panel{% endblock %}
+
+{% block content %}
+
+<div class="grid grid-cols-8 grid-rows-6 gap-4 min-h-[600px] lg:h-[80vh]">
+    <div class="col-span-5 row-span-4 relative bg-black rounded overflow-hidden border-4 border-primary">
+        <img src="" id="cam-robot-display" class="absolute inset-0 w-full h-full object-cover"/>
+    </div>
+    
+    <div class="col-span-3 row-span-6 col-start-6 border-4 border-secondary-800 rounded">
+        <!-- Contenedor Grid: 1fr para el chat (espacio sobrante) y 'auto' para el formulario -->
+        <div class="grid grid-rows-[1fr_auto] w-full h-full rounded-lg overflow-hidden">
+            <!-- Fila 1 (Arriba): Área de chat con fondo oscuro -->
+            <div id="chat" class="bg-gray-950 p-4 overflow-y-auto">
+                <div class="rounded bg-primary" >example 1</div>
+            </div>
+            
+            <!-- Fila 2 (Abajo): Formulario con fondo secundario -->
+            <div class="bg-gray-900 border border-gray-900 rounded p-4">
+                <form class="flex gap-2">
+                    <input type="text" class="border border-secondary-300 rounded px-2 py-2 w-full focus:outline-none focus:border-secondary bg-zinc-900 text-white" placeholder="Type some movement instruction..."/>
+                    <button class="bg-primary text-white px-4 py-2 rounded hover:bg-primary-600 transition-colors">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Info del Robot (Celda 3) -->
+    <div class="col-span-5 row-span-2 row-start-5">
+        <div id="robot-info" class="w-full h-full bg-zinc-800 rounded-lg grid grid-cols-2 grid-rows-2 gap-4 p-4">
+            <!-- Aquí irá la info del robot -->
+        </div>
+    </div>
+</div>
+
+{% endblock content%}
