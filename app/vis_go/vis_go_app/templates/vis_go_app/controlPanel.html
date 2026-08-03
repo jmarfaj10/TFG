@@ -4,21 +4,34 @@
 
 {% block content %}
 
-<div class="grid grid-cols-8 grid-rows-6 gap-4 min-h-[600px] lg:h-[80vh]">
-    <div class="col-span-5 row-span-4 relative bg-black rounded overflow-hidden border-4 border-primary">
-        <img src="" id="cam-robot-display" class="absolute inset-0 w-full h-full object-cover"/>
+<div class="grid grid-cols-8 grid-rows-6 gap-4 min-h-[600px] lg:h-[80vh] relative overflow-hidden p-1">
+    <div id="cam-container" class="col-span-5 row-span-4 bg-black rounded overflow-hidden border-4 border-primary transition-all duration-300">
+        <div class="grid grid-rows-[auto_1fr] h-full w-full" >
+            <div class="text-center py-1 bg-gray-900">
+                <p class="font-bold text-primary-200 tracking-widest">ROBOT CAM</p>
+            </div>
+            <img src="" id="cam-robot-display" class="w-full h-full object-cover"/>
+        </div>
     </div>
+        
     
-    <div class="col-span-3 row-span-6 col-start-6 border-4 border-secondary-800 rounded">
-        <!-- Contenedor Grid: 1fr para el chat (espacio sobrante) y 'auto' para el formulario -->
-        <div class="grid grid-rows-[1fr_auto] w-full h-full rounded-lg overflow-hidden">
-            <!-- Fila 1 (Arriba): Área de chat con fondo oscuro -->
-            <div id="chat" class="bg-gray-950 p-4 overflow-y-auto">
-                <div class="rounded bg-primary" >example 1</div>
+    <div id="chat-wrapper" class="col-span-3 row-span-6 col-start-6 border-4 border-secondary-800 rounded bg-gray-950 flex flex-col overflow-hidden transition-all duration-[750ms] opacity-100 translate-x-0">
+        <div class="text-center py-2 bg-gray-900 cursor-pointer flex justify-center items-center px-2 hover:bg-gray-800 min-h-[40px]" onclick="toggleChat()">
+            <p id="chat-title" class="font-bold text-secondary-200 tracking-widest m-0 flex-1 text-center whitespace-nowrap">VLM CHAT</p>
+            <div id="chat-icon" class="text-secondary-200 transition-transform duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+            </div>
+        </div>
+        
+        <div id="chat-content" class="flex-1 flex flex-col min-h-0">
+            <div id="chat" class="p-4 overflow-y-auto flex-1 flex flex-col gap-3">
+                <div class="rounded bg-primary px-2 py-0.5 w-3/4 self-end">example 1</div>
+                <div class="rounded bg-secondary px-2 py-0.5 w-3/4 self-start">example 2</div>
             </div>
             
-            <!-- Fila 2 (Abajo): Formulario con fondo secundario -->
-            <div class="bg-gray-900 border border-gray-900 rounded p-4">
+            <div class="bg-gray-900 p-4 border-t border-gray-800">
                 <form class="flex gap-2">
                     <input type="text" class="border border-secondary-300 rounded px-2 py-2 w-full focus:outline-none focus:border-secondary bg-zinc-900 text-white" placeholder="Type some movement instruction..."/>
                     <button class="bg-primary text-white px-4 py-2 rounded hover:bg-primary-600 transition-colors">Send</button>
@@ -27,10 +40,67 @@
         </div>
     </div>
     
-    <!-- Info del Robot (Celda 3) -->
-    <div class="col-span-5 row-span-2 row-start-5">
-        <div id="robot-info" class="w-full h-full bg-zinc-800 rounded-lg grid grid-cols-2 grid-rows-2 gap-4 p-4">
-            <!-- Aquí irá la info del robot -->
+    <div id="open-chat-btn" class="hidden col-span-1 row-span-6 col-start-8 flex justify-end items-start transition-all duration-[750ms] opacity-0">
+        <div onclick="toggleChat()" class="border-4 border-secondary-800 rounded bg-gray-950 flex flex-col overflow-hidden cursor-pointer shadow-lg transition-colors">
+            <div class="text-center py-2 bg-gray-900 flex justify-center items-center px-3 hover:bg-gray-800 min-h-[40px]">
+                <div class="text-secondary-200 transition-transform duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleChat() {
+            const wrapper = document.getElementById('chat-wrapper');
+            const cam = document.getElementById('cam-container');
+            const info = document.getElementById('info-wrapper');
+            const openBtn = document.getElementById('open-chat-btn');
+            const title = document.getElementById('chat-title');
+            const icon = document.getElementById('chat-icon');
+            
+            if (wrapper.classList.contains('hidden')) {
+                wrapper.classList.remove('hidden');
+                cam.classList.replace('col-span-7', 'col-span-5');
+                info.classList.replace('col-span-7', 'col-span-5');
+                title.classList.remove('hidden');
+                icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>';
+                
+                openBtn.classList.add('hidden');
+                openBtn.classList.remove('opacity-100');
+                openBtn.classList.add('opacity-0');
+                
+                void wrapper.offsetWidth;
+                
+                wrapper.classList.remove('opacity-0', 'translate-x-full');
+                wrapper.classList.add('opacity-100', 'translate-x-0');
+            } else {
+                wrapper.classList.remove('opacity-100', 'translate-x-0');
+                wrapper.classList.add('opacity-0', 'translate-x-full');
+                
+                setTimeout(() => {
+                    wrapper.classList.add('hidden');
+                    cam.classList.replace('col-span-5', 'col-span-7');
+                    info.classList.replace('col-span-5', 'col-span-7');
+                    
+                    openBtn.classList.remove('hidden');
+                    // Forzar repintado
+                    void openBtn.offsetWidth;
+                    openBtn.classList.remove('opacity-0');
+                    openBtn.classList.add('opacity-100');
+                }, 750);
+            }
+        }
+    </script>
+    
+    <div id="info-wrapper" class="col-span-5 row-span-2 row-start-5 transition-all duration-300">
+        <div id="robot-info" class="w-full h-full border-4 border-white bg-zinc-800 rounded grid grid-cols-2 grid-rows-2 gap-4 p-4">
+            <div class="row-start-1 col-start-1">TIEMPO</div>
+            <div class="row-start-1 col-start-2">GOAL</div>
+            <div class="row-start-2 col-start-1">DISTANCIA</div>
+            <div class="row-start-2 col-start-2">TARJET</div>
         </div>
     </div>
 </div>
