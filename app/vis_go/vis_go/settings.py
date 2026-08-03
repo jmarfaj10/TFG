@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -73,7 +74,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'vis_go.wsgi.application'
+ASGI_APPLICATION = 'vis_go.asgi.application'
 
 
 # Database
@@ -122,3 +123,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+CHANNEL_LAYERS = {                                                       
+        "default": {                                                         
+            "BACKEND": "channels_redis.core.RedisChannelLayer",              
+            "CONFIG": {                                                      
+                "hosts": [("127.0.0.1", 6379)],                                               
+            },                                                               
+        },                                                                   
+    }
