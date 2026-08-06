@@ -9,3 +9,10 @@ depth_info_topic: "/camera/camera_info"
 #VLM server
 api_url: "http://100.115.56.116:8000/v1/"
 model_name: "Qwen/Qwen3-VL-30B-A3B-Instruct-FP8"
+
+#Websocket
+user: "upo-gonzalo"
+password: "upo"
+auth-port: 8070
+data-port: 8071
+stream-port: 8072

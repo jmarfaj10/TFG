@@ -1,0 +1,14 @@
+package.xml
+setup.cfg
+setup.py
+resource/robotWebSocket
+robotWebSocket/__init__.py
+robotWebSocket/robotWebSocket.py
+robotWebSocket/urls.py
+robotWebSocket.egg-info/PKG-INFO
+robotWebSocket.egg-info/SOURCES.txt
+robotWebSocket.egg-info/dependency_links.txt
+robotWebSocket.egg-info/entry_points.txt
+robotWebSocket.egg-info/requires.txt
+robotWebSocket.egg-info/top_level.txt
+robotWebSocket.egg-info/zip-safe

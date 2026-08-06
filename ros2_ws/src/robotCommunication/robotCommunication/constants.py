@@ -20,6 +20,8 @@ RESPONSE_CHANNEL_VLM = "response_channel_vlm"
 COMM_CHANNEL_VLM = "comm_channel_vlm"
 GOAL_CHANNEL_VLM = "goal_channel_vlm"
 GOAL_CHANEL_ACTION = "move"
+FINAL_CHANNEL = "final_channel"
+GOAL_CHANNEL = "goal_channel"
 
 # ---------------------------------------------------------------------------
 # Ground-truth de objetos en la simulación (para el logger de error del goal)

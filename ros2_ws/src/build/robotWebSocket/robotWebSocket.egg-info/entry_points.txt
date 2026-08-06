@@ -1,0 +1,2 @@
+[console_scripts]
+robotWebSocket = robotWebSocket.robotWebSocket:main

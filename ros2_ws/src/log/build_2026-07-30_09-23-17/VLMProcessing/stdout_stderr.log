@@ -1,0 +1,23 @@
+running develop
+running egg_info
+creating VLMProcessing.egg-info
+writing VLMProcessing.egg-info/PKG-INFO
+writing dependency_links to VLMProcessing.egg-info/dependency_links.txt
+writing entry points to VLMProcessing.egg-info/entry_points.txt
+writing requirements to VLMProcessing.egg-info/requires.txt
+writing top-level names to VLMProcessing.egg-info/top_level.txt
+writing manifest file 'VLMProcessing.egg-info/SOURCES.txt'
+reading manifest file 'VLMProcessing.egg-info/SOURCES.txt'
+writing manifest file 'VLMProcessing.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/upo/Documents/TFG/TFG/ros2_ws/src/install/VLMProcessing/lib/python3.12/site-packages/VLMProcessing.egg-link (link to .)
+Installing VLMProcessing script to /home/upo/Documents/TFG/TFG/ros2_ws/src/install/VLMProcessing/lib/VLMProcessing
+
+Installed /home/upo/Documents/TFG/TFG/ros2_ws/src/build/VLMProcessing
+running symlink_data
+creating /home/upo/Documents/TFG/TFG/ros2_ws/src/install/VLMProcessing/share/ament_index
+creating /home/upo/Documents/TFG/TFG/ros2_ws/src/install/VLMProcessing/share/ament_index/resource_index
+creating /home/upo/Documents/TFG/TFG/ros2_ws/src/install/VLMProcessing/share/ament_index/resource_index/packages
+symbolically linking /home/upo/Documents/TFG/TFG/ros2_ws/src/build/VLMProcessing/resource/VLMProcessing -> /home/upo/Documents/TFG/TFG/ros2_ws/src/install/VLMProcessing/share/ament_index/resource_index/packages
+symbolically linking /home/upo/Documents/TFG/TFG/ros2_ws/src/build/VLMProcessing/package.xml -> /home/upo/Documents/TFG/TFG/ros2_ws/src/install/VLMProcessing/share/VLMProcessing
+symbolically linking /home/upo/Documents/TFG/TFG/ros2_ws/src/build/config.yaml -> /home/upo/Documents/TFG/TFG/ros2_ws/src/install/VLMProcessing/share/VLMProcessing

@@ -1,0 +1,16 @@
+#GOAL
+# Coordenadas métricas del objetivo en el frame 'map' (metros)
+float32 x_goal
+float32 y_goal
+float32 z_goal
+---
+#Result
+# Distancia total recorrida (m) y posición final alcanzada en el frame 'map' (m)
+float32 distancia
+float32 x
+float32 y
+float32 z
+---
+#Feedback
+float32 x_current
+float32 y_current

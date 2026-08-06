@@ -1,0 +1,22 @@
+running develop
+running egg_info
+creating userCommunication.egg-info
+writing userCommunication.egg-info/PKG-INFO
+writing dependency_links to userCommunication.egg-info/dependency_links.txt
+writing entry points to userCommunication.egg-info/entry_points.txt
+writing requirements to userCommunication.egg-info/requires.txt
+writing top-level names to userCommunication.egg-info/top_level.txt
+writing manifest file 'userCommunication.egg-info/SOURCES.txt'
+reading manifest file 'userCommunication.egg-info/SOURCES.txt'
+writing manifest file 'userCommunication.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/upo/Documents/TFG/TFG/ros2_ws/src/install/userCommunication/lib/python3.12/site-packages/userCommunication.egg-link (link to .)
+Installing userCommunication script to /home/upo/Documents/TFG/TFG/ros2_ws/src/install/userCommunication/lib/userCommunication
+
+Installed /home/upo/Documents/TFG/TFG/ros2_ws/src/build/userCommunication
+running symlink_data
+creating /home/upo/Documents/TFG/TFG/ros2_ws/src/install/userCommunication/share/ament_index
+creating /home/upo/Documents/TFG/TFG/ros2_ws/src/install/userCommunication/share/ament_index/resource_index
+creating /home/upo/Documents/TFG/TFG/ros2_ws/src/install/userCommunication/share/ament_index/resource_index/packages
+symbolically linking /home/upo/Documents/TFG/TFG/ros2_ws/src/build/userCommunication/resource/userCommunication -> /home/upo/Documents/TFG/TFG/ros2_ws/src/install/userCommunication/share/ament_index/resource_index/packages
+symbolically linking /home/upo/Documents/TFG/TFG/ros2_ws/src/build/userCommunication/package.xml -> /home/upo/Documents/TFG/TFG/ros2_ws/src/install/userCommunication/share/userCommunication

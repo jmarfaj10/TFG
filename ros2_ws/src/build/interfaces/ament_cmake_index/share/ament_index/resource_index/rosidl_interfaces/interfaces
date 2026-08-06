@@ -1,0 +1,10 @@
+action/Move.action
+action/Move.idl
+msg/ComboImage.idl
+msg/ComboImage.msg
+msg/Goal.idl
+msg/Goal.msg
+msg/Request.idl
+msg/Request.msg
+msg/Response.idl
+msg/Response.msg

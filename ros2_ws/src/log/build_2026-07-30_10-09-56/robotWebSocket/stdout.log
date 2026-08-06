@@ -1,0 +1,35 @@
+running develop
+Removing /home/upo/Documents/TFG/TFG/ros2_ws/src/install/robotWebSocket/lib/python3.12/site-packages/robotWebSocket.egg-link (link to .)
+running egg_info
+writing ../build/robotWebSocket/robotWebSocket.egg-info/PKG-INFO
+writing dependency_links to ../build/robotWebSocket/robotWebSocket.egg-info/dependency_links.txt
+writing entry points to ../build/robotWebSocket/robotWebSocket.egg-info/entry_points.txt
+writing requirements to ../build/robotWebSocket/robotWebSocket.egg-info/requires.txt
+writing top-level names to ../build/robotWebSocket/robotWebSocket.egg-info/top_level.txt
+reading manifest file '../build/robotWebSocket/robotWebSocket.egg-info/SOURCES.txt'
+writing manifest file '../build/robotWebSocket/robotWebSocket.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/upo/Documents/TFG/TFG/ros2_ws/src/build/robotWebSocket/build
+creating /home/upo/Documents/TFG/TFG/ros2_ws/src/build/robotWebSocket/build/lib
+creating /home/upo/Documents/TFG/TFG/ros2_ws/src/build/robotWebSocket/build/lib/robotWebSocket
+copying robotWebSocket/urls.py -> /home/upo/Documents/TFG/TFG/ros2_ws/src/build/robotWebSocket/build/lib/robotWebSocket
+copying robotWebSocket/robotWebSocket.py -> /home/upo/Documents/TFG/TFG/ros2_ws/src/build/robotWebSocket/build/lib/robotWebSocket
+copying robotWebSocket/__init__.py -> /home/upo/Documents/TFG/TFG/ros2_ws/src/build/robotWebSocket/build/lib/robotWebSocket
+running install
+running install_lib
+creating /home/upo/Documents/TFG/TFG/ros2_ws/src/install/robotWebSocket/lib/python3.12/site-packages/robotWebSocket
+copying /home/upo/Documents/TFG/TFG/ros2_ws/src/build/robotWebSocket/build/lib/robotWebSocket/urls.py -> /home/upo/Documents/TFG/TFG/ros2_ws/src/install/robotWebSocket/lib/python3.12/site-packages/robotWebSocket
+copying /home/upo/Documents/TFG/TFG/ros2_ws/src/build/robotWebSocket/build/lib/robotWebSocket/robotWebSocket.py -> /home/upo/Documents/TFG/TFG/ros2_ws/src/install/robotWebSocket/lib/python3.12/site-packages/robotWebSocket
+copying /home/upo/Documents/TFG/TFG/ros2_ws/src/build/robotWebSocket/build/lib/robotWebSocket/__init__.py -> /home/upo/Documents/TFG/TFG/ros2_ws/src/install/robotWebSocket/lib/python3.12/site-packages/robotWebSocket
+byte-compiling /home/upo/Documents/TFG/TFG/ros2_ws/src/install/robotWebSocket/lib/python3.12/site-packages/robotWebSocket/urls.py to urls.cpython-312.pyc
+byte-compiling /home/upo/Documents/TFG/TFG/ros2_ws/src/install/robotWebSocket/lib/python3.12/site-packages/robotWebSocket/robotWebSocket.py to robotWebSocket.cpython-312.pyc
+byte-compiling /home/upo/Documents/TFG/TFG/ros2_ws/src/install/robotWebSocket/lib/python3.12/site-packages/robotWebSocket/__init__.py to __init__.cpython-312.pyc
+running install_data
+copying resource/robotWebSocket -> /home/upo/Documents/TFG/TFG/ros2_ws/src/install/robotWebSocket/share/ament_index/resource_index/packages
+copying package.xml -> /home/upo/Documents/TFG/TFG/ros2_ws/src/install/robotWebSocket/share/robotWebSocket
+running install_egg_info
+Copying ../build/robotWebSocket/robotWebSocket.egg-info to /home/upo/Documents/TFG/TFG/ros2_ws/src/install/robotWebSocket/lib/python3.12/site-packages/robotWebSocket-0.0.0-py3.12.egg-info
+running install_scripts
+Installing robotWebSocket script to /home/upo/Documents/TFG/TFG/ros2_ws/src/install/robotWebSocket/lib/robotWebSocket
+writing list of installed files to '/home/upo/Documents/TFG/TFG/ros2_ws/src/build/robotWebSocket/install.log'
