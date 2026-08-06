@@ -1,0 +1,23 @@
+running develop
+running egg_info
+creating robotCommunication.egg-info
+writing robotCommunication.egg-info/PKG-INFO
+writing dependency_links to robotCommunication.egg-info/dependency_links.txt
+writing entry points to robotCommunication.egg-info/entry_points.txt
+writing requirements to robotCommunication.egg-info/requires.txt
+writing top-level names to robotCommunication.egg-info/top_level.txt
+writing manifest file 'robotCommunication.egg-info/SOURCES.txt'
+reading manifest file 'robotCommunication.egg-info/SOURCES.txt'
+writing manifest file 'robotCommunication.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/upo/Documents/TFG/TFG/ros2_ws/src/install/robotCommunication/lib/python3.12/site-packages/robotCommunication.egg-link (link to .)
+Installing robotCommunication script to /home/upo/Documents/TFG/TFG/ros2_ws/src/install/robotCommunication/lib/robotCommunication
+
+Installed /home/upo/Documents/TFG/TFG/ros2_ws/src/build/robotCommunication
+running symlink_data
+creating /home/upo/Documents/TFG/TFG/ros2_ws/src/install/robotCommunication/share/ament_index
+creating /home/upo/Documents/TFG/TFG/ros2_ws/src/install/robotCommunication/share/ament_index/resource_index
+creating /home/upo/Documents/TFG/TFG/ros2_ws/src/install/robotCommunication/share/ament_index/resource_index/packages
+symbolically linking /home/upo/Documents/TFG/TFG/ros2_ws/src/build/robotCommunication/resource/robotCommunication -> /home/upo/Documents/TFG/TFG/ros2_ws/src/install/robotCommunication/share/ament_index/resource_index/packages
+symbolically linking /home/upo/Documents/TFG/TFG/ros2_ws/src/build/robotCommunication/package.xml -> /home/upo/Documents/TFG/TFG/ros2_ws/src/install/robotCommunication/share/robotCommunication
+symbolically linking /home/upo/Documents/TFG/TFG/ros2_ws/src/build/config.yaml -> /home/upo/Documents/TFG/TFG/ros2_ws/src/install/robotCommunication/share/robotCommunication

@@ -1,0 +1,2 @@
+[console_scripts]
+robotMovement = robotMovement.robotMovement:main
