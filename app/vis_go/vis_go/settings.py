@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'daphne'
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -132,3 +132,21 @@ CHANNEL_LAYERS = {
             },                                                               
         },                                                                   
     }
+
+import yaml
+import os
+
+
+config_path = os.path.join(BASE_DIR, 'config.yaml')
+with open(config_path, 'r') as f:
+    _config = yaml.safe_load(f)
+                                                                                                                                                                                              
+IP = _config.get('ip')
+WS_PORT = _config.get('ws_port')
+
+B_WS_NAME = _config.get('b_ws_name')
+
+USER = _config.get('user')
+PASSWORD = _config.get('password')
+ROBOT_USER = _config.get('robot_user')
+ROBOT_PASS = _config.get('robot_password')

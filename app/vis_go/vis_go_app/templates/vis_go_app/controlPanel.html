@@ -1,7 +1,8 @@
 {% extends "vis_go_app/base.html" %}
-
+{% load static %}
 {% block title %}Control Panel{% endblock %}
-
+<script>window.WS_ROUTE = 'ws://' + window.location.host + {{b_ws_name}}</script>
+<script src="{% static 'js/sniffer.js' %}"></script>
 {% block content %}
 
 <div class="grid grid-cols-8 grid-rows-6 gap-4 min-h-[600px] lg:h-[80vh] relative overflow-hidden p-1">
@@ -9,6 +10,12 @@
         <div class="grid grid-rows-[auto_1fr] h-full w-full" >
             <div class="text-center py-1 bg-gray-900">
                 <p class="font-bold text-primary-200 tracking-widest">ROBOT CAM</p>
+                <label class="inline-flex items-center cursor-pointer">
+                    <span class="select-none text-sm font-medium text-heading">RGB</span>
+                    <input type="checkbox" value="" class="sr-only peer">
+                    <div class="relative mx-3 w-9 h-5 bg-neutral-quaternary peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-brand-soft dark:peer-focus:ring-brand-soft rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-buffer after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-brand"></div>
+                    <span class="select-none text-sm font-medium text-heading">DEPTH</span>
+                </label>
             </div>
             <img src="" id="cam-robot-display" class="w-full h-full object-cover"/>
         </div>
@@ -104,5 +111,7 @@
         </div>
     </div>
 </div>
+
+
 
 {% endblock content%}

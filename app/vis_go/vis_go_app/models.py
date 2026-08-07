@@ -14,4 +14,4 @@ class Log(models.Model):
     
     
     class Meta:
-        ordering = ['-timestamp']
+        ordering = ['-init_time']

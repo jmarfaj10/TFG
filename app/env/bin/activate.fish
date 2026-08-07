@@ -60,7 +60,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV /home/upo/Documents/TFG/TFG/app/env
+set -gx VIRTUAL_ENV /home/jose/TFG/app/env
 if string match -qr 'CYGWIN|MSYS|MINGW' (uname)
     set -gx VIRTUAL_ENV (cygpath -u $VIRTUAL_ENV)
 end

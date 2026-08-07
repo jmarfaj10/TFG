@@ -1,4 +1,4 @@
-#!/home/upo/Documents/TFG/TFG/app/env/bin/python
+#!/home/jose/TFG/app/env/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

@@ -82,6 +82,7 @@ class RobotWebSocket(Node):
         self.authport = datos["auth-port"]
         self.dataport = datos["data-port"]
         self.streamport = datos["stream-port"]
+        self.ip = datos["ip"]
 
         # ROS CHANNELS
         self.pub_usercomm = self.create_publisher(String, userCommunication.USER_CHANNEL_COMM, 10)
@@ -145,22 +146,18 @@ class RobotWebSocket(Node):
                 session.token = str(uuid.uuid4())
                 self.sessions[websocket] = session
                 self.get_logger().info(f"(IP: {session.ip}) User access OK")
-
-                response_ok = {"status": "SUCCESS", "token": f"{session.token}", "message": f"You have been successfully connected {session.ip}"}
-                await websocket.send(session.encrypt(response_ok))
+                response = Response("SUCCESS", f"You have been successfully connected {session.ip}", f"{session.token}")
+                await websocket.send(session.encrypt(response.to_dict()))
 
                 async for message in websocket:
-                    # Desencriptar el mensaje entrante
                     decrypted_request = session.decrypt(message)
-                    # Procesar la ruta
                     response_dict = await self.route(decrypted_request)
-                    # Encriptar la respuesta y enviar
                     encrypted_response = session.encrypt(response_dict)
                     await websocket.send(encrypted_response)
             else:
                 self.get_logger().error(f"(IP: {session.ip}) User access FAILED")
-                response_err = {"status": "ERROR", "message": "Invalid Credentials"}
-                await websocket.send(session.encrypt(response_err))
+                response_err = Response("ERROR", "Invalid Credentials")
+                await websocket.send(session.encrypt(response_err.to_dict()))
                 await websocket.close()
                 return
         except Exception as e:
@@ -208,6 +205,15 @@ class RobotWebSocket(Node):
             except Exception as e:
                 self.get_logger().error(f"Error comunicando con Puerto Stream (8766): {e}")
                 return Response("ERROR", f"Fallo en el servicio interno de streaming: {str(e)}").to_dict()
+        elif port_endpoint == "exit":
+            # Cerramos todos los sockets que estén en la lista de sesiones
+            for ws in list(self.sessions.keys()):
+                if not ws.closed:
+                    # Lo hacemos como una tarea en segundo plano para permitir que el mensaje de SUCCESS se envíe antes de cortarse del todo
+                    asyncio.create_task(ws.close())
+            self.sessions.clear()
+            
+            return Response("SUCCESS", "Todas las conexiones se han cerrado correctamente").to_dict()
         else:
             return Response("ERROR", "Invalid route").to_dict()
 
@@ -249,12 +255,12 @@ class RobotWebSocket(Node):
                         response = await self.vlm_request(params)
                     case "goal":
                         if self.current_goal is not None:
-                            response = Response("SUCCESS", data=self.current_goal)
+                            response = Response("SUCCESS", data={"type": "goal", "data": self.current_goal})
                         else:
                             response = Response("ERROR", "There's no goal assigned - first prompt something")
                     case "final":
                         if self.current_final is not None:
-                            response = Response("SUCCESS", data=self.current_final)
+                            response = Response("SUCCESS", data={"type": "final", "data": self.current_final})
                         else:
                             response = Response("ERROR", "There's no final assigned - first prompt something")
                     case "help":
@@ -284,7 +290,7 @@ class RobotWebSocket(Node):
 
         try:
             vlm_response = await asyncio.wait_for(fut, timeout=60.0)
-            return Response("SUCCESS", data=vlm_response)
+            return Response("SUCCESS", data={"type": "vlm_request", "data": vlm_response})
         except asyncio.TimeoutError:
             if fut in self.pending_vlm_requests:
                 self.pending_vlm_requests.remove(fut)
@@ -312,7 +318,7 @@ class RobotWebSocket(Node):
                 "qz": round(float(r.z), 4),                                                                             
                 "qw": round(float(r.w), 4)
             }
-            return Response("SUCCESS", data=pose_data)
+            return Response("SUCCESS", data={"type": "position", "data": pose_data})
         except Exception as e:
             self.get_logger().warn(f"No hay TF {self.map_frame}->{self.robot_frame}: {e}")
             return Response("ERROR", "Cannot find robot pose")
@@ -364,7 +370,7 @@ class RobotWebSocket(Node):
                             camera_type = action_parts[1]
                             while not websocket.closed:
                                 if self.latest_image[camera_type] is not None:
-                                    response = Response("SUCCESS", data=self.latest_image[camera_type])
+                                    response = Response("SUCCESS", data={"type": f"camera_{camera_type}", "data": self.latest_image[camera_type]})
                                 else:
                                     response = Response("ERROR", "No image")
                                 
@@ -400,7 +406,9 @@ class RobotWebSocket(Node):
 async def main_async(node):                                              
     node.loop = asyncio.get_running_loop()
 
-    server_auth = await serve(node.auth, "0.0.0.0", node.authport)
+
+
+    server_auth = await serve(node.auth, node.ip, node.authport)
     server_data = await serve(node.data_handle, node.host, node.dataport)
     server_stream = await serve(node.stream_handle, node.host, node.streamport)
 

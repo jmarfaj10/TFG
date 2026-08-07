@@ -16,3 +16,4 @@ password: "upo"
 auth-port: 8070
 data-port: 8071
 stream-port: 8072
+ip: "0.0.0.0"

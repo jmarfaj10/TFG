@@ -59,13 +59,13 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-if [ ! -d /home/upo/Documents/TFG/TFG/app/env ]; then
-    echo "Virtual environment directory /home/upo/Documents/TFG/TFG/app/env does not exist!" >&2
+if [ ! -d /home/jose/TFG/app/env ]; then
+    echo "Virtual environment directory /home/jose/TFG/app/env does not exist!" >&2
     CURRENT_PATH=$(realpath "${BASH_SOURCE[0]}")
     CURRENT_DIR=$(dirname "${CURRENT_PATH}")
     VIRTUAL_ENV="$(realpath "${CURRENT_DIR}/../")"
 else
-    VIRTUAL_ENV=/home/upo/Documents/TFG/TFG/app/env
+    VIRTUAL_ENV=/home/jose/TFG/app/env
 fi
 
 case "$(uname)" in

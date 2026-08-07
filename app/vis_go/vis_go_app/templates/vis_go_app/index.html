@@ -1,37 +1,30 @@
 {% extends "vis_go_app/base.html" %}
+{% load static %}
 
-{% block title %}Index{% endblock %}
+{% block title %}Control Panel{% endblock %}
 
 {% block content %}
-<div class="grid  gap-6">
-    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-    <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Introduce the auth user</h2>
-  </div>
 
-  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <form action="#" method="POST" class="space-y-6">
-      <div>
-        <label for="email" class="block text-sm/6 font-medium text-gray-100">User</label>
-        <div class="mt-2">
-          <input id="email" type="email" name="email" required autocomplete="email" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-secondary sm:text-sm/6" />
+<div class="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
+    <div class="relative w-full max-w-4xl group">
+            <img src="{% static 'img/logo-con-title.png' %}" class="mx-auto h-60 mb-10 bg-zinc-950/80 rounded-xl p-4 shadow-inner ring-1 ring-white/10" alt="Logo"/>
+            
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-8 text-white">
+                Command robots with <br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400 drop-shadow-sm">Natural Language</span>
+            </h1>
+            
+            <p class="text-lg md:text-xl text-zinc-400 leading-relaxed max-w-2xl mx-auto font-medium">
+                An intuitive interface that allows users to command autonomous robots to reach any destination seamlessly.
+            </p>
+            
+            <div class="mt-12 flex justify-center gap-6">
+                <a href="{% url 'controlPanel' %}" class="px-8 py-4 rounded-full bg-primary-600 hover:bg-primary-500 text-white font-semibold  flex items-center gap-2">
+                    Open Control Panel
+                </a>
+            </div>
         </div>
-      </div>
-
-      <div>
-        <div class="flex items-center justify-between">
-          <label for="password" class="block text-sm/6 font-medium text-gray-100">Password</label>
-        </div>
-        <div class="mt-2">
-          <input id="password" type="password" name="password" required autocomplete="current-password" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-secondary sm:text-sm/6" />
-        </div>
-      </div>
-
-      <div>
-        <button type="submit" class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-primary-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">Sign in</button>
-      </div>
-    </form>
-  </div>
+    </div>
 </div>
-</div>
-{% endblock content %}
+
+{% endblock content%}
