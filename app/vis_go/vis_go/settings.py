@@ -11,11 +11,14 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import yaml
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
@@ -124,17 +127,21 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-CHANNEL_LAYERS = {                                                       
-        "default": {                                                         
-            "BACKEND": "channels_redis.core.RedisChannelLayer",              
-            "CONFIG": {                                                      
-                "hosts": [("127.0.0.1", 6379)],                                               
-            },                                                               
-        },                                                                   
-    }
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+    # "default": {
+    #     "BACKEND": "channels_redis.core.RedisChannelLayer",
+    #     "CONFIG": {
+    #         "hosts": [("127.0.0.1", 6379)],
+    #     },
+    # },
+}
 
-import yaml
-import os
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'vis_go_app.User'
+LOGIN_URL = 'login'
 
 
 config_path = os.path.join(BASE_DIR, 'config.yaml')
@@ -142,7 +149,10 @@ with open(config_path, 'r') as f:
     _config = yaml.safe_load(f)
                                                                                                                                                                                               
 IP = _config.get('ip')
-WS_PORT = _config.get('ws_port')
+WS_AUTH_PORT = _config.get('ws_auth_port')
+WS_DATA_PORT = _config.get('ws_data_port')
+WS_STREAMING_PORT = _config.get('ws_streaming_port')
+
 
 B_WS_NAME = _config.get('b_ws_name')
 

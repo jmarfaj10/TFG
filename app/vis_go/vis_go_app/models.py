@@ -1,17 +1,37 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.conf import settings
+
+class User(AbstractUser):
+    pass
 
 class Log(models.Model):
-    init_time = models.FloatField(default=0.0, verbose_name="init_time")
-    final_time =  models.FloatField(default=0.0, verbose_name="final_time")
-    velocity = models.FloatField(default=0.0, verbose_name="velocity")
-    image = models.BinaryField(verbose_name="image")
-    prompt = models.CharField(default='', verbose_name="prompt")
-    trajet = models.CharField(default='', verbose_name="tarjet")
-    initial_pose_X = models.FloatField(default=0.0, verbose_name="initial_pose_X")
-    initial_pose_Y = models.FloatField(default=0.0, verbose_name="initial_pose_Y")
-    final_pose_X = models.FloatField(default=0.0, verbose_name="final_pose_X")
-    final_pose_Y = models.FloatField(default=0.0, verbose_name="final_pose_Y")
+    date = models.DateTimeField()
+    ip = models.CharField(max_length=20)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='logs')
+
+class Mission(models.Model):
+    class State(models.TextChoices):
+        ACCEPTED = 'ACC', 'Accepted'
+        REJECTED = 'REJ', 'Rejected'
+    state = models.CharField(max_length=3, choices=State.choices, default=State.ACCEPTED)
+    distance = models.IntegerField()
+    time = models.TimeField()
+    x = models.IntegerField()
+    y = models.IntegerField()
+    z = models.IntegerField()
+    log = models.OneToOneField(Log, on_delete=models.CASCADE, related_name='mission')
+
+class Prompt(models.Model):
+    prompt = models.CharField(max_length=255)
+    object = models.CharField(max_length=255)
+    bbox = models.ImageField(upload_to='bboxes/')
+    mission = models.OneToOneField(Mission, on_delete=models.CASCADE, related_name='prompt')
+
+class Goal(models.Model):
+    x = models.IntegerField()
+    y = models.IntegerField()
+    z = models.IntegerField()
+    mission = models.OneToOneField(Mission, on_delete=models.CASCADE, related_name='goal')
+
     
-    
-    class Meta:
-        ordering = ['-init_time']

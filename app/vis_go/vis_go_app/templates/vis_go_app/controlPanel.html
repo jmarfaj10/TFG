@@ -1,21 +1,44 @@
 {% extends "vis_go_app/base.html" %}
 {% load static %}
 {% block title %}Control Panel{% endblock %}
-<script>window.WS_ROUTE = 'ws://' + window.location.host + {{b_ws_name}}</script>
-<script src="{% static 'js/sniffer.js' %}"></script>
 {% block content %}
+<script>window.WS_ROUTE = 'ws://' + window.location.host + "{{b_ws_name}}"</script>
+<script src="{% static 'js/sniffer.js' %}" defer></script>
 
 <div class="grid grid-cols-8 grid-rows-6 gap-4 min-h-[600px] lg:h-[80vh] relative overflow-hidden p-1">
     <div id="cam-container" class="col-span-5 row-span-4 bg-black rounded overflow-hidden border-4 border-primary transition-all duration-300">
         <div class="grid grid-rows-[auto_1fr] h-full w-full" >
-            <div class="text-center py-1 bg-gray-900">
-                <p class="font-bold text-primary-200 tracking-widest">ROBOT CAM</p>
-                <label class="inline-flex items-center cursor-pointer">
-                    <span class="select-none text-sm font-medium text-heading">RGB</span>
-                    <input type="checkbox" value="" class="sr-only peer">
-                    <div class="relative mx-3 w-9 h-5 bg-neutral-quaternary peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-brand-soft dark:peer-focus:ring-brand-soft rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-buffer after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-brand"></div>
-                    <span class="select-none text-sm font-medium text-heading">DEPTH</span>
-                </label>
+            <style>
+                /* Fuerza el color de fondo a morado (secondary-800) sin necesidad de recompilar Tailwind */
+                #image-selector:checked ~ .switch-track {
+                    background-color: #5b21b6 !important; /* Ajusta aquí el color exacto si no es 5b21b6 */
+                }
+                /* Fuerza los colores de texto por si no están compilados */
+                .label-rgb { color: #15a445; } /* primary-600 aprox */
+                #image-selector:checked ~ .label-rgb { color: #6b7280; } /* gray-500 */
+                
+                .label-depth { color: #6b7280; } /* gray-500 */
+                #image-selector:checked ~ .label-depth { color: #7c3aed !important; } /* secondary-600 aprox */
+            </style>
+            <div class="flex items-center justify-between py-2 bg-gray-900 w-full px-3">
+                <!-- 1. Spacer invisible -->
+                <div class="flex-1"></div>
+                
+                <!-- 2. Título -->
+                <p class="flex-none font-bold text-primary-200 tracking-widest m-0 p-0 leading-none whitespace-nowrap text-lg text-center">ROBOT CAM</p>
+                
+                <!-- 3. Checkbox -->
+                <div class="flex-1 flex justify-end">
+                    <label class="inline-flex items-center cursor-pointer m-0 px-2 py-1 leading-none bg-gray-950 rounded">
+                        <input id="image-selector" type="checkbox" value="" class="sr-only peer">
+                        <span class=" label-rgb select-none text-sm font-bold transition-color whitespace-nowrap">RGB</span>
+                        
+                        <!-- Track original (con la animación restaurada y el comportamiento original) -->
+                        <div class="switch-track shrink-0 relative mx-3 w-9 h-5 bg-primary peer-focus:outline-none rounded-full peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-secondary-800"></div>
+                        
+                        <span class="label-depth select-none text-sm font-bold transition-colors whitespace-nowrap">DEPTH</span>
+                    </label>
+                </div>
             </div>
             <img src="" id="cam-robot-display" class="w-full h-full object-cover"/>
         </div>
@@ -32,16 +55,15 @@
             </div>
         </div>
         
-        <div id="chat-content" class="flex-1 flex flex-col min-h-0">
-            <div id="chat" class="p-4 overflow-y-auto flex-1 flex flex-col gap-3">
-                <div class="rounded bg-primary px-2 py-0.5 w-3/4 self-end">example 1</div>
-                <div class="rounded bg-secondary px-2 py-0.5 w-3/4 self-start">example 2</div>
+        <div class="flex-1 flex flex-col min-h-0">
+            <div id="chat-content" class="p-4 overflow-y-auto flex-1 flex flex-col gap-3">
+                
             </div>
             
             <div class="bg-gray-900 p-4 border-t border-gray-800">
-                <form class="flex gap-2">
-                    <input type="text" class="border border-secondary-300 rounded px-2 py-2 w-full focus:outline-none focus:border-secondary bg-zinc-900 text-white" placeholder="Type some movement instruction..."/>
-                    <button class="bg-primary text-white px-4 py-2 rounded hover:bg-primary-600 transition-colors">Send</button>
+                <form id="chat-form" class="flex gap-2">
+                    <input id="chat-field" type="text" class="border border-secondary-300 rounded px-2 py-2 w-full focus:outline-none focus:border-secondary bg-zinc-900 text-white" placeholder="Type some movement instruction..."/>
+                    <button id="chat-button" class="bg-primary text-white px-4 py-2 rounded hover:bg-primary-600 transition-colors">Send</button>
                 </form>
             </div>
         </div>
@@ -93,7 +115,6 @@
                     info.classList.replace('col-span-5', 'col-span-7');
                     
                     openBtn.classList.remove('hidden');
-                    // Forzar repintado
                     void openBtn.offsetWidth;
                     openBtn.classList.remove('opacity-0');
                     openBtn.classList.add('opacity-100');
@@ -103,11 +124,110 @@
     </script>
     
     <div id="info-wrapper" class="col-span-5 row-span-2 row-start-5 transition-all duration-300">
-        <div id="robot-info" class="w-full h-full border-4 border-white bg-zinc-800 rounded grid grid-cols-2 grid-rows-2 gap-4 p-4">
-            <div class="row-start-1 col-start-1">TIEMPO</div>
-            <div class="row-start-1 col-start-2">GOAL</div>
-            <div class="row-start-2 col-start-1">DISTANCIA</div>
-            <div class="row-start-2 col-start-2">TARJET</div>
+        <div id="robot-info" class="w-full h-full bg-gray-950 border-4 border-gray-800 rounded p-3 grid grid-cols-3 gap-3 text-gray-200">
+            
+            <!-- POSITION & ORIENTATION -->
+            <div class="col-start-1 bg-gray-900 rounded flex flex-col border border-gray-800 overflow-y-auto">
+                <div class="grid grid-cols-2 bg-gray-950 border-b border-gray-800 shrink-0">
+                    <p class="text-center font-bold text-primary-200 tracking-wider text-[10px] py-1">POSITION</p>
+                    <p class="text-center font-bold text-primary-200 tracking-wider text-[10px] py-1 border-l border-gray-800">ORIENTATION</p>
+                </div>
+                <div class="grid grid-cols-2 flex-1 p-1 gap-1">
+                    <div class="flex flex-col justify-between gap-1 h-full">
+                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
+                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">X</span>
+                            <span id="info-position-x" class="font-mono text-xs sm:text-sm text-gray-200">0.00</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
+                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Y</span>
+                            <span id="info-position-y" class="font-mono text-xs sm:text-sm text-gray-200">0.00</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
+                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Z</span>
+                            <span id="info-position-z" class="font-mono text-xs sm:text-sm text-gray-200">0.00</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-between gap-1 h-full">
+                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
+                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">QX</span>
+                            <span id="info-orientation-qx" class="font-mono text-xs sm:text-sm text-gray-200">0.00</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
+                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">QY</span>
+                            <span id="info-orientation-qy" class="font-mono text-xs sm:text-sm text-gray-200">0.00</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
+                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">QZ</span>
+                            <span id="info-orientation-qz" class="font-mono text-xs sm:text-sm text-gray-200">0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- GOAL -->
+            <div class="col-start-2 bg-gray-900 rounded flex flex-col border border-gray-800 overflow-hidden">
+                <p class="text-center font-bold text-primary-200 tracking-wider text-[10px] sm:text-xs py-1.5 bg-gray-950 border-b border-gray-800 shrink-0">GOAL</p>
+                <div class="grid grid-cols-2 flex-1 p-1 gap-1">
+                    <div class="flex flex-col justify-between gap-1 h-full">
+                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
+                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">X</span>
+                            <span id="info-goal-x" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
+                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Y</span>
+                            <span id="info-goal-y" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
+                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Z</span>
+                            <span id="info-goal-z" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
+                        </div>
+                    </div>
+                    <div class="flex-1 flex items-center justify-center p-3">
+                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
+                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Tarjet</span>
+                            <span id="info-goal-tarjet" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- MISSION -->
+            <div class="col-start-3 bg-gray-900 rounded flex flex-col border border-gray-800 overflow-hidden">
+                <div class="grid grid-cols-3 bg-gray-950 border-b border-gray-800 shrink-0">
+                    <p class="text-center font-bold text-primary-200 tracking-wider text-[10px] py-1 border-l border-gray-800">MISSION</p>
+                </div>
+                <div class="grid grid-cols-3 bg-gray-950 border-b border-gray-800 shrink-0">
+                    <p class="text-center font-bold text-primary-200 tracking-wider text-[10px] py-1 border-l border-gray-800">DISTANCE</p>
+                    <p class="text-center font-bold text-primary-200 tracking-wider text-[10px] py-1 border-l border-gray-800">FINAL POSE</p>
+                    <p class="text-center font-bold text-primary-200 tracking-wider text-[10px] py-1 border-l border-gray-800">TIME</p>
+                </div>
+                <div class="grid grid-cols-3 flex-1 p-1 gap-1">
+                    <div class="flex flex-col justify-between gap-1 h-full">
+                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
+                            <span id="info-mission-distance" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
+                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">meters</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-between gap-1 h-full">
+                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
+                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">X</span>
+                            <span id="info-mission-x" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
+                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Y</span>
+                            <span id="info-mission-y" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
+                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Z</span>
+                            <span id="info-mission-z" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-between gap-1 h-full">
+                        <span id="info-mission-time" class="text-gray-500 font-bold text-[10px] sm:text-xs">-</span>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </div>
 </div>

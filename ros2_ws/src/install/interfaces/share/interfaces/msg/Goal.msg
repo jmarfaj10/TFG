@@ -1,1 +1,0 @@
-/home/upo/Documents/TFG/TFG/ros2_ws/src/interfaces/msg/Goal.msg

@@ -1,5 +1,6 @@
 import json
 from django.shortcuts import render, redirect
+from asgiref.sync import sync_to_async
 from vis_go_app.services.robot_client import robot_client
 from django.conf import settings
 def index(request):
@@ -22,7 +23,10 @@ async def login_view(request):
             res_raw = json.loads(res_raw_str)
             
             if res_raw.get("status") == "SUCCESS":
-                request.session['auth'] = True
+                @sync_to_async
+                def set_session():
+                    request.session['auth'] = True
+                await set_session()
                 return redirect('controlPanel')
         else:
             res_raw = {"status": "ERROR", "message": "Invalid user or password"}
@@ -35,7 +39,7 @@ def controlPanel(request):
 
     b_ws_name = settings.B_WS_NAME
 
-    if not request.session.get('auth'):
+    if not request.session.get('auth') or not robot_client.session:
         return redirect('login')
         
     return render(request, 'vis_go_app/controlPanel.html', {"b_ws_name":b_ws_name})

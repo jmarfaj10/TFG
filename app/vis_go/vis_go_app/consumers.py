@@ -1,10 +1,12 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
+from asgiref.sync import sync_to_async
 
 class RobotConsumer(AsyncWebsocketConsumer):
 
     async def connect(self):
-        if not self.scope["session"].get("auth"):
+        is_auth = await sync_to_async(self.scope["session"].get)("auth")
+        if not is_auth:
             await self.close()
             return
 
@@ -34,7 +36,19 @@ class RobotConsumer(AsyncWebsocketConsumer):
             )
 
     async def notify(self, event):
-        data_recv = event['datos']
+        data_recv = event['data']
         await self.send(text_data=json.dumps({
             "data": data_recv
         }))
+
+    async def receive(self, text_data):
+        from .services.robot_client import robot_client
+        try:
+            data = json.loads(text_data)
+            action = data.get("action")
+            params = data.get("params", {})
+            
+            if action:
+                await robot_client.send_command(action, params)
+        except Exception as e:
+            print(f"Error procesando mensaje entrante en el consumer: {e}")

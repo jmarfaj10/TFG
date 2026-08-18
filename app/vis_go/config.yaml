@@ -1,5 +1,7 @@
 ip: "0.0.0.0"
-ws_port: 8070
+ws_auth_port: 8070
+ws_data_port: 8071
+ws_streaming_port: 8072
 
 #Backend ws
 b_ws_name: "/ws/robot/"

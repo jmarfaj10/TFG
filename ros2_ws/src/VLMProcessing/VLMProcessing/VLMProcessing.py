@@ -60,6 +60,8 @@ class VLMProcessing(Node):
 
         # VLMProcessing -> userCommunication
         self.pub_resp = self.create_publisher(String, constants.RESPONSE_CHANNEL_VLM, 10)
+
+
         
         self.request = None
 
@@ -110,7 +112,7 @@ class VLMProcessing(Node):
         self.pub_resp.publish(resp_msg)
 
         if deteccion:
-            self.pintarBBox(rgb, deteccion)
+            img_bbox = self.pintarBBox(rgb, deteccion)
 
             punto = self.transformarCooredenadas(deteccion)
 
@@ -120,7 +122,7 @@ class VLMProcessing(Node):
             self.logger["object_pose"] = self._gt_objeto(deteccion.get("label"))
 
             self.pintarLogger()
-            self.send_response(punto, respuesta_texto, deteccion["label"])
+            self.send_response(punto, respuesta_texto, deteccion["label"], img_bbox)
         else:
             self.get_logger().info("ℹ️  El modelo no devolvió detecciones.")
 
@@ -174,12 +176,12 @@ class VLMProcessing(Node):
 
         point = self.estimarObjeto(depth_img, bbox)
 
-        if point is None:
-            self.get_logger().error("No hay suficientes puntos de profundidad validos para estimar el objeto")
-            return
-
-        if point[2] == float('inf'):
-            self.get_logger().error("Profundidad en infinito no valida")
+        if point is None or not math.isfinite(float(point[2])):
+            label = deteccion.get("label") or "the object"
+            self._notify_user(
+                f"I can see {label} in the image, but the depth camera returns "
+                "no valid measurements there, so I cannot tell where it is or "
+                "move towards it.")
             return
 
         # Normalizar a METROS según el encoding de la cámara de profundidad
@@ -241,6 +243,10 @@ class VLMProcessing(Node):
 
         return (u, v, z)
 
+    def _notify_user(self, text):
+        self.get_logger().warn(text)
+        self.pub_resp.publish(String(data=text))
+
     def _aplicar_standoff(self, punto_obj):
         if punto_obj is None:
             return None
@@ -249,23 +255,21 @@ class VLMProcessing(Node):
             self.get_logger().warn(
                 "Sin pose del robot; se usa el punto del objeto como goal "
                 "(puede caer sobre el obstáculo).")
-            return punto_obj
+            return (punto_obj, 0.0)
 
         dx = punto_obj[0] - robot[0]
         dy = punto_obj[1] - robot[1]
         dist = math.hypot(dx, dy)
-        if dist <= constants.STANDOFF_M:
-            # El objeto está más cerca que el standoff: no avanzar más.
-            self.get_logger().info(
-                f"Objeto a {dist:.2f} m (< standoff); goal en la pose actual.")
-            return (robot[0], robot[1], robot[2])
+        if dist < 1e-3:
+            return ((robot[0], robot[1], robot[2]), 0.0)
 
+        yaw = math.atan2(dy, dx)
         f = (dist - constants.STANDOFF_M) / dist
         goal = (robot[0] + dx * f, robot[1] + dy * f, robot[2])
         self.get_logger().info(
             f"Goal con standoff {constants.STANDOFF_M} m: objeto a {dist:.2f} m "
-            f"-> goal=({goal[0]:.2f}, {goal[1]:.2f})")
-        return goal
+            f"-> goal=({goal[0]:.2f}, {goal[1]:.2f}, yaw={math.degrees(yaw):.1f}°)")
+        return (goal, yaw)
     
     def _pose_robot_map(self):
         """Pose del robot en el frame global, tomado del árbol TF
@@ -281,24 +285,26 @@ class VLMProcessing(Node):
                 f"No se pudo obtener el pose del robot desde TF: {e}")
             return None
 
-    def send_response(self, punto, respuesta_texto, objeto):
-        """Publica la detección (texto de respuesta + bbox normalizado 0-1000)
-        en GOAL_CHANNEL_VLM. robotCommunication se encarga del paso a 3D
-        (deproyección con K + TF a 'map')."""
-        if punto is None:
+    def send_response(self, target, respuesta_texto, objeto, bbox_image):
+        if target is None:
             self.get_logger().warn(
                 "No se pudo obtener el punto 3D; no se envía goal.")
             return
+        point, yaw = target
         msg = Response()
         msg.response = respuesta_texto
         msg.object = objeto
-        msg.x = float(punto[0])
-        msg.y = float(punto[1])
-        msg.z = float(punto[2])
+        msg.x = float(point[0])
+        msg.y = float(point[1])
+        msg.z = float(point[2])
+        msg.yaw = float(yaw)
+        if bbox_image is not None:
+            msg.bbox_object = bbox_image
         self.pub_det.publish(msg)
         self.get_logger().info(
             f"📦 Detección enviada: objeto={msg.object} "
-            f"punto=({msg.x:.2f}, {msg.y:.2f}, {msg.z:.2f})")
+            f"punto=({msg.x:.2f}, {msg.y:.2f}, {msg.z:.2f}) "
+            f"yaw={math.degrees(msg.yaw):.1f}°")
 
     def codificarBase64(self, msg):
         try:
@@ -501,9 +507,6 @@ class VLMProcessing(Node):
         return centroide
 
     def _dibujar_bbox(self, imagen, deteccion, color):
-        """Dibuja sobre 'imagen' (BGR) el recuadro de la bbox y la etiqueta del
-        objeto en el 'color' dado (BGR). La bbox llega normalizada 0-scale, así
-        que se escala a las dimensiones de la imagen recibida."""
         H, W = imagen.shape[:2]
         scale = constants.VLM_COORD_SCALE
 
@@ -526,63 +529,25 @@ class VLMProcessing(Node):
             cv2.putText(imagen, etiqueta, (px1, max(0, py1 - 8)),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.7, color, 2)
 
-    def _depth_a_bgr(self, depth_msg):
-        """Convierte la imagen de profundidad a una imagen BGR visualizable:
-        normaliza a 0-255 (ignorando NaN/inf) y aplica un colormap."""
-        depth = self.bridge.imgmsg_to_cv2(depth_msg)
-        depth = np.nan_to_num(depth.astype(np.float32),
-        nan=0.0, posinf=0.0, neginf=0.0)
-        depth_norm = cv2.normalize(depth, None, 0, 255, cv2.NORM_MINMAX)
-        depth_u8 = depth_norm.astype(np.uint8)
-        return cv2.applyColorMap(depth_u8, cv2.COLORMAP_JET)
-
-    def _guardar_imagen(self, carpeta, nombre, imagen):
-        """Guarda 'imagen' en carpeta/nombre y registra el resultado."""
-        ruta = os.path.join(carpeta, nombre)
-        if cv2.imwrite(ruta, imagen):
-            self.get_logger().info(f"🖼️  Imagen guardada en: {ruta}")
-        else:
-            self.get_logger().error(f"No se pudo guardar la imagen en: {ruta}")
-        return ruta
-
     def pintarBBox(self, rgb_msg, deteccion):
-        """Guarda cuatro imágenes en ~/bbox-snapshoots con el mismo timestamp:
-        la RGB y la de profundidad, cada una con la bbox (magenta) y sin ella
-        (sufijo '_raw'). Devuelve la ruta de la RGB con bbox."""
-        # Magenta en BGR (el formato de OpenCV).
         MAGENTA = (255, 0, 255)
         try:
             cv_image = self.bridge.imgmsg_to_cv2(rgb_msg, desired_encoding='bgr8')
 
-            # cv2.imwrite NO crea directorios; hay que asegurarse de que exista
-            # (y usar una ruta bajo $HOME, no '/bbox-snapshoots' en la raíz, que
-            # requeriría permisos de root).
-            carpeta = os.path.expanduser('~/bbox-snapshoots')
-            os.makedirs(carpeta, exist_ok=True)
-
-            # Base de nombre común a la pareja RGB/profundidad.
-            base = f"bbox_{int(time.time())}"
-
-            # RGB: primero sin bbox ('_raw'), luego con la bbox dibujada.
-            self._guardar_imagen(carpeta, f"{base}_raw.jpg", cv_image)
             self._dibujar_bbox(cv_image, deteccion, MAGENTA)
-            ruta = self._guardar_imagen(carpeta, f"{base}.jpg", cv_image)
 
-            # Profundidad: misma lógica, con el prefijo 'depth-'.
-            try:
-                depth_bgr = self._depth_a_bgr(self.request.img.img_depth)
-                self._guardar_imagen(carpeta, f"depth-{base}_raw.jpg", depth_bgr)
-                self._dibujar_bbox(depth_bgr, deteccion, MAGENTA)
-                self._guardar_imagen(carpeta, f"depth-{base}.jpg", depth_bgr)
-            except Exception as e:
-                self.get_logger().error(
-                    f"Error al guardar la imagen de profundidad: {e}")
+            params = [int(cv2.IMWRITE_JPEG_QUALITY), 75]
+            success, buffer = cv2.imencode('.jpg', cv_image, params)
+            if not success:
+                self.get_logger().error("No se pudo codificar la imagen con la bbox a JPEG")
+                return ""
 
-            return ruta
+            return base64.b64encode(buffer).decode('utf-8')
 
         except Exception as e:
-            self.get_logger().error(f"Error al pintar/guardar la bbox: {e}")
-            return None
+            self.get_logger().error(f"Error al pintar la bbox: {e}")
+            return ""
+
         
     @staticmethod
     def xyz(pose):

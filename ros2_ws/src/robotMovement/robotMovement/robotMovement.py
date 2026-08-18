@@ -40,7 +40,9 @@ class RobotMovement(Node):
         nav_goal.pose.pose.position.x = float(req.x_goal)
         nav_goal.pose.pose.position.y = float(req.y_goal)
         nav_goal.pose.pose.position.z = float(req.z_goal)
-        nav_goal.pose.pose.orientation.w = 1.0
+        yaw = float(req.yaw_goal)
+        nav_goal.pose.pose.orientation.z = math.sin(yaw / 2.0)
+        nav_goal.pose.pose.orientation.w = math.cos(yaw / 2.0)
 
         # Estado para acumular la distancia recorrida (Nav2 solo informa de la
         # distancia restante) y quedarnos con la última pose conocida.
@@ -73,7 +75,9 @@ class RobotMovement(Node):
                 throttle_duration_sec=1.0)
 
         self.nav2_client.wait_for_server()
-        self.get_logger().info(f'Pasando goal a Nav2: ({req.x_goal}, {req.y_goal})')
+        self.get_logger().info(
+            f'Pasando goal a Nav2: ({req.x_goal}, {req.y_goal}) '
+            f'yaw={math.degrees(yaw):.1f}°')
 
         send_future = self.nav2_client.send_goal_async(
             nav_goal,

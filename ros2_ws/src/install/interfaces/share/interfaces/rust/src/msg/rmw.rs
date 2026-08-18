@@ -1,1 +1,0 @@
-/home/upo/Documents/TFG/TFG/ros2_ws/src/build/interfaces/rosidl_generator_rs/interfaces/rust/src/msg/rmw.rs

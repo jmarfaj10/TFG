@@ -4,10 +4,10 @@ set -e
 
 export TURTLEBOT3_MODEL=${TURTLEBOT3_MODEL:-waffle}
 source /opt/ros/jazzy/setup.bash
-# turtlebot3_navigation2 vive en el workspace, no en /opt/ros: hay que sourcearlo.
-source "$HOME/turtlebot3_ws/install/setup.bash"
+# turtlebot3_navigation2 se asume instalado en el sistema (ej. /opt/ros/jazzy)
+# source "$HOME/turtlebot3_ws/install/setup.bash"
 
-DOCS="$HOME/Documents"
+DOCS="$HOME/TFG/mapa_pablo"
 
 # --- Pose inicial del robot (se usa en Gazebo y en RViz/Nav2) ---
 read -p ">> Coordenada X [0.0]: " X;        X=${X:-0.0}
@@ -36,9 +36,12 @@ echo ">> Esperando a que Gazebo arranque..."
 sleep 10
 
 echo ">> Lanzando RViz + Nav2 con el mapa street..."
-ros2 launch turtlebot3_navigation2 navigation2.launch.py \
+ros2 launch nav2_bringup bringup_launch.py \
     use_sim_time:=True map:="$DOCS/maps/street.yaml" \
     params_file:="$DOCS/params/nav2_street.yaml" &
+
+echo ">> Abriendo RViz2..."
+ros2 launch nav2_bringup rviz_launch.py &
 
 echo ">> Esperando a que Nav2/AMCL arranque..."
 sleep 12

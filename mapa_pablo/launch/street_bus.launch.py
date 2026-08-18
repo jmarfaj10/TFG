@@ -13,7 +13,7 @@ from launch_ros.actions import Node
 
 
 # Carpeta Documents (donde viven /models, /world, /maps)
-DOCS = os.path.expanduser('~/Documents')
+DOCS = os.path.expanduser('~/TFG/mapa_pablo')
 
 
 def generate_launch_description():
@@ -69,7 +69,14 @@ def generate_launch_description():
     # la pose inicial de RViz/Nav2 coincidan.
     turtlebot3_model = os.environ['TURTLEBOT3_MODEL']
     model_folder = 'turtlebot3_' + turtlebot3_model
-    urdf_path = os.path.join(tb3_gazebo, 'models', model_folder, 'model.sdf')
+    # Para el waffle usamos nuestra copia con la camara como rgbd_camera: el
+    # modelo de turtlebot3_gazebo solo lleva camara RGB, asi que gz nunca
+    # publicaba camera/depth_image y el sincronizador de robotCommunication
+    # (rgb + depth + camera_info) no llegaba a dispararse nunca.
+    if turtlebot3_model == 'waffle':
+        urdf_path = os.path.join(DOCS, 'models', 'turtlebot3_waffle_rgbd', 'model.sdf')
+    else:
+        urdf_path = os.path.join(tb3_gazebo, 'models', model_folder, 'model.sdf')
 
     spawn_turtlebot_cmd = Node(
         package='ros_gz_sim',
@@ -100,7 +107,8 @@ def generate_launch_description():
     gz_image_bridge_cmd = Node(
         package='ros_gz_image',
         executable='image_bridge',
-        arguments=['/camera/image_raw', '/camera/depth_image'],
+        # La rgbd_camera publica el color en /camera/image (no /camera/image_raw).
+        arguments=['/camera/image', '/camera/depth_image'],
         parameters=[{'use_sim_time': use_sim_time}],
         output='screen',
     )

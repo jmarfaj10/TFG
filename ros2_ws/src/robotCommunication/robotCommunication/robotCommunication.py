@@ -1,5 +1,6 @@
 import rclpy
 from rclpy.node import Node
+from rclpy.parameter import Parameter
 import json
 import robotCommunication.constants as constants
 from interfaces.action import Move
@@ -31,6 +32,9 @@ class RobotCommunication(Node):
     def __init__(self):
         super().__init__('robotCommunication')
 
+        if not self.get_parameter('use_sim_time').get_parameter_value().bool_value:
+            self.set_parameters([Parameter('use_sim_time', Parameter.Type.BOOL, True)])
+
         self.bridge = CvBridge()
 
         #TF (para consultar poses en el árbol de transformaciones)
@@ -58,18 +62,26 @@ class RobotCommunication(Node):
         self.pub_goal = self.create_publisher(String, constants.GOAL_CHANNEL, 10)
 
         #CÁMARA
-        rgb_sub        = message_filters.Subscriber(self, Image,      constants.RGB_TOPIC)
-        depth_sub      = message_filters.Subscriber(self, Image,      constants.DEPTH_TOPIC)
-        rgb_info_sub   = message_filters.Subscriber(self, CameraInfo, constants.RGB_INFO_TOPIC)
-        depth_info_sub = message_filters.Subscriber(self, CameraInfo, constants.DEPTH_INFO_TOPIC)
+        from rclpy.qos import qos_profile_sensor_data
+        rgb_sub        = message_filters.Subscriber(self, Image,      constants.RGB_TOPIC, qos_profile=qos_profile_sensor_data)
+        depth_sub      = message_filters.Subscriber(self, Image,      constants.DEPTH_TOPIC, qos_profile=qos_profile_sensor_data)
+        rgb_info_sub   = message_filters.Subscriber(self, CameraInfo, constants.RGB_INFO_TOPIC, qos_profile=qos_profile_sensor_data)
 
-        self.sync = message_filters.ApproximateTimeSynchronizer(
-            [rgb_sub, depth_sub, rgb_info_sub, depth_info_sub],
-            queue_size=10,
-            slop=0.05
-        )
-
-        self.sync.registerCallback(self.recvCam)
+        if constants.RGB_INFO_TOPIC == constants.DEPTH_INFO_TOPIC:
+            self.sync = message_filters.ApproximateTimeSynchronizer(
+                [rgb_sub, depth_sub, rgb_info_sub],
+                queue_size=20,
+                slop=0.2
+            )
+            self.sync.registerCallback(lambda r, d, i: self.recvCam(r, d, i, i))
+        else:
+            depth_info_sub = message_filters.Subscriber(self, CameraInfo, constants.DEPTH_INFO_TOPIC, qos_profile=qos_profile_sensor_data)
+            self.sync = message_filters.ApproximateTimeSynchronizer(
+                [rgb_sub, depth_sub, rgb_info_sub, depth_info_sub],
+                queue_size=20,
+                slop=0.2
+            )
+            self.sync.registerCallback(self.recvCam)
 
         self.img_pub = self.create_publisher(ComboImage, constants.IMG_CHANNEL, 10)
 
@@ -136,15 +148,18 @@ class RobotCommunication(Node):
             return None
 
     #MOVE TOPIC
-    def send_goal(self, x, y, z):
+    def send_goal(self, x, y, z, yaw, object, bbox_object):
 
         self.current_goal = {}
         goal = Move.Goal()
         goal.x_goal = float(x)
         goal.y_goal = float(y)
         goal.z_goal = float(z)
+        goal.yaw_goal = float(yaw)
 
         self.current_goal["goal_pose"] = {"x": goal.x_goal, "y": goal.y_goal, "z": goal.z_goal}
+        self.current_goal["tarjet"] = object
+        self.current_goal["bbox_image"] = bbox_object
 
         # Goal estimado por el VLM (lo que llega desde VLMProcessing).
         self.logger["goalEstimated"] = (goal.x_goal, goal.y_goal, goal.z_goal)
@@ -208,6 +223,8 @@ class RobotCommunication(Node):
         x = msg.x
         y = msg.y
         z = msg.z
+        yaw = msg.yaw
+        bbox_image = msg.bbox_object
 
         self.get_logger().info(f"[RESPUESTA DEL VLM detección: {object}]: {response}\n\n GOAL: (x = {x}, y= {y}, z= {z})")
 
@@ -215,7 +232,7 @@ class RobotCommunication(Node):
         # para poder compararla con el goal estimado por el VLM en el logger.
         self.logger["gt"] = self._gt_objeto(object)
 
-        self.send_goal(x, y, z)
+        self.send_goal(x, y, z, yaw, object, bbox_image)
         # La respuesta en texto ya la publica VLMProcessing en RESPONSE_CHANNEL_VLM,
         # así que no la reenviamos aquí para no duplicarla al usuario.
 
@@ -249,7 +266,6 @@ class RobotCommunication(Node):
         self.logger["prompt"] = msg.data
         self.pub_pet.publish(request)
 
-    #--LOGS METHODS--
 
     #GROUND-TRUTH DE LA SIMULACIÓN
     def _cargar_gt_modelos(self):

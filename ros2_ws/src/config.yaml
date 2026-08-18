@@ -1,5 +1,5 @@
 #RGB topics
-rgb_cam_topic: "/camera/image_raw"
+rgb_cam_topic: "/camera/image"
 rgb_info_topic: "/camera/camera_info"
 
 #DEPTH topic
