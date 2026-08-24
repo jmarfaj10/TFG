@@ -92,7 +92,7 @@ class RobotCommunication(Node):
         self.debug = self.get_parameter('debug').get_parameter_value().bool_value
 
         self.init_time = None
-        self.logger = {"prompt": None, "response": None, "tarjet": None, "initialPose": None, "finalPose": None, "gt": None, "reachTime": None, "distance":None}
+        self.logger = {"prompt": None, "response": None, "target": None, "initialPose": None, "finalPose": None, "gt": None, "reachTime": None, "distance":None}
 
         self.gt_modelos = None
 
@@ -158,7 +158,7 @@ class RobotCommunication(Node):
         goal.yaw_goal = float(yaw)
 
         self.current_goal["goal_pose"] = {"x": goal.x_goal, "y": goal.y_goal, "z": goal.z_goal}
-        self.current_goal["tarjet"] = object
+        self.current_goal["target"] = object
         self.current_goal["bbox_image"] = bbox_object
 
         # Goal estimado por el VLM (lo que llega desde VLMProcessing).
@@ -174,37 +174,65 @@ class RobotCommunication(Node):
     
     #MOVE ACTION
     def moveResponse(self, future):
-        
         goal_handle = future.result()
         if not goal_handle.accepted:
             self.get_logger().warn("Goal rechazado por el servidor.")
-            self.current_goal["status"]="REJECTED"
             self.pub_goal.publish(String(data=json.dumps(self.current_goal)))
+            self.pub_usercomm.publish(String(data=json.dumps({
+            "type": "notify", "data": "Robot cannot trace a route for the object."})))
+            self.pub_final.publish(String(data=json.dumps({
+                "state": "REJECTED",
+                "distance": None,
+                "final_pose": (None, None, None),
+                "time": int(time.time() * 1000) - self.init_time,
+            })))
             return
-        self.current_goal["status"] = "ACCEPTED"
         goal_handle.get_result_async().add_done_callback(self.moveResult)
         self.pub_goal.publish(String(data=json.dumps(self.current_goal)))
 
     def moveResult(self, future):
-        outcome = future.result()
-        if outcome.status != GoalStatus.STATUS_SUCCEEDED:
-            return
-
-        result = outcome.result
+        result = future.result()
+        result = result.result
         self.logger["reachTime"]=int(time.time() * 1000)-self.init_time
-        self.logger["finalPose"] = (result.x, result.y, result.z)
-        self.logger["distance"] = result.distancia
-
-        self.get_logger().info(f"Movimiento terminado. distancia={result.distancia:.2f}")
+        match result.outcome:
+            case "REACHED":
+                self.logger["finalPose"] = (result.x, result.y, result.z)
+                self.logger["distance"] = result.distancia
+                self.get_logger().info(f"Movimiento terminado. distancia={result.distancia:.2f}")
+                self.pub_usercomm.publish(String(data=json.dumps({
+                "type": "notify", "data": "The robot has reached the goal."})))
+                pass
+            case "NOT_REACHED":
+                self.logger["finalPose"] = self.get_camera_pose()
+                self.logger["distance"] = result.distancia
+                self.get_logger().info("Movimiento no terminado.")
+                self.pub_usercomm.publish(String(data=json.dumps({
+                "type": "notify", "data": "The robot has not reached the goal."})))
+                pass
+            case "NO_ROUTE":
+                self.logger["finalPose"] = (None, None, None)
+                self.logger["distance"] = 0.0
+                self.get_logger().info("Meta no calculada.")
+                self.pub_usercomm.publish(String(data=json.dumps({
+                "type": "notify", "data": "The robot cannot find a path to the goal."})))
+                pass
+            case _:
+                self.get_logger().warn("Estado no reconocido.")
+                self.logger["finalPose"] = (None, None, None)
+                self.logger["distance"] = 0.0
         self.pintarLogger()
-        self.pub_usercomm.publish(String(data="The robot has reached the goal"))
 
-        final_data = {
-            "distance": result.distancia,
-            "final_pose": (result.x, result.y, result.z),
-            "time": int(time.time() * 1000)-self.init_time
-        }
-        self.pub_final.publish(String(data=json.dumps(final_data)))
+        if result.outcome in ["REACHED", "NOT_REACHED", "NO_ROUTE"]:
+            final_data = {
+                    "state": result.outcome,
+                    "distance": self.logger["distance"],
+                    "final_pose": self.logger["finalPose"],
+                    "time": self.logger["reachTime"]
+            }
+                    
+            self.pub_final.publish(String(data=json.dumps(final_data)))
+        else:
+            return
 
     def moveFeedback(self, feedback_msg):
         fb = feedback_msg.feedback
@@ -237,7 +265,7 @@ class RobotCommunication(Node):
         # así que no la reenviamos aquí para no duplicarla al usuario.
 
         self.logger["response"] = response
-        self.logger["tarjet"] = object
+        self.logger["target"] = object
 
     #USER TOPIC
     def userRequest(self, msg):
@@ -344,7 +372,7 @@ class RobotCommunication(Node):
         return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2 + (a[2] - b[2]) ** 2)
 
     def pintarLogger(self):
-        cabecera = ["Prompt", "Response", "Tarjet", "initial pose","Goal estimated", "Ground Truth", "Travel Time", "Distance traveled"]
+        cabecera = ["Prompt", "Response", "Target", "initial pose","Goal estimated", "Ground Truth", "Travel Time", "Distance traveled"]
 
         ruta = os.path.expanduser("~/src-local-ros-logger-exp2.csv")
 

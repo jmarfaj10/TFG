@@ -15,7 +15,6 @@ import yaml
 import uuid
 from userCommunication.userCommunication import constants as userCommunication
 from robotCommunication.robotCommunication import constants as robotCoummunication
-
 from userCommunication.userCommunication import String
 import threading
 from tf2_ros import Buffer, TransformListener
@@ -24,6 +23,7 @@ from interfaces.msg import ComboImage
 import base64
 import cv2
 import numpy as np
+
 
 DEPTH_VIS_MIN_M = 0.1
 DEPTH_VIS_MAX_M = 10.0
@@ -136,8 +136,12 @@ class RobotWebSocket(Node):
 
 
     def _on_vlm_response(self, msg: String):
-        data = Response("SUCCESS", data={"type": "vlm_request", "data": msg.data}).to_dict()
-        self._broadcast_data(data)
+        try:
+            payload = json.loads(msg.data)
+            tipo, texto = payload.get("type", "vlm_response"), payload.get("data", "")
+        except (json.JSONDecodeError, TypeError):
+            tipo, texto = "vlm_response", msg.data
+        self._broadcast_data(Response("SUCCESS", data={"type": tipo, "data": texto}).to_dict())
 
     def _broadcast_data(self, data: dict):
         """Envia un paquete ya serializado a todos los clientes del socket DATA
@@ -246,8 +250,6 @@ class RobotWebSocket(Node):
                 match action_parts[0]:
                     case "vlm_request":
                         response = await self.vlm_request(params)
-                    case "help":
-                        response = await self.help()
                     case _:
                         response = Response("ERROR", f"Unknown action '{action_parts[0]}'")
 
@@ -273,7 +275,7 @@ class RobotWebSocket(Node):
         self.pub_usercomm.publish(msg)
         self.get_logger().info(f"[Server] Request was sent to VLM Node: '{prompt_text}'")
 
-        return Response("SUCCESS", "Procesando petición VLM...")
+        return None
 
     def _resolve_robot_frame(self):
         for frame in self.robot_frame_candidates:
@@ -328,17 +330,6 @@ class RobotWebSocket(Node):
         self.current_final = json.loads(msg.data)
         data = Response("SUCCESS", data={"type": "final", "data": self.current_final}).to_dict()
         self._broadcast_data(data)
-
-    async def help(self):
-        message = (
-            "COMMAND LIST\n"
-            "------------\n"
-            "/data/position - returns the robot position\n"
-            "/data/vlm_request - expects a prompt and returns a response from VLM\n"
-            "/data/goal - returns the goal of the tarjet (None if there's no tarjet)\n"
-            "/data/final - returns essential data when the move action finished"
-        )
-        return Response("SUCCESS", message)
 
     # STREAM WEBSOCKET
     async def stream_handle(self, websocket):

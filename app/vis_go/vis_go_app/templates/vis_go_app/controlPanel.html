@@ -2,41 +2,43 @@
 {% load static %}
 {% block title %}Control Panel{% endblock %}
 {% block content %}
-<script>window.WS_ROUTE = 'ws://' + window.location.host + "{{b_ws_name}}"</script>
+<script>
+    window.WS_ROUTE = (window.location.protocol === 'https:' ? 'wss://' : 'ws://')
+        + window.location.host + "{{ b_ws_name }}";
+    window.LOGIN_URL = "{% url 'login' %}";
+</script>
 <script src="{% static 'js/sniffer.js' %}" defer></script>
+
+<div id="robot-alert"
+     class="{% if robot_status == 'SUCCESS' %}hidden {% endif %} mb-5 rounded border border-secondary-600 bg-secondary px-3 py-2 text-sm text-secondary-300">
+    <span class="font-bold text-secondary-200">Robot unavailable.</span>
+    <span id="robot-alert-message">{% if robot_status != 'SUCCESS' %}{{ robot_message|default:"Unknown error while connecting to the robot." }}{% endif %}</span>
+    <span class="text-secondary-400">Reload the page to retry the connection.</span>
+</div>
 
 <div class="grid grid-cols-8 grid-rows-6 gap-4 min-h-[600px] lg:h-[80vh] relative overflow-hidden p-1">
     <div id="cam-container" class="col-span-5 row-span-4 bg-black rounded overflow-hidden border-4 border-primary transition-all duration-300">
         <div class="grid grid-rows-[auto_1fr] h-full w-full" >
-            <style>
-                /* Fuerza el color de fondo a morado (secondary-800) sin necesidad de recompilar Tailwind */
-                #image-selector:checked ~ .switch-track {
-                    background-color: #5b21b6 !important; /* Ajusta aquí el color exacto si no es 5b21b6 */
-                }
-                /* Fuerza los colores de texto por si no están compilados */
-                .label-rgb { color: #15a445; } /* primary-600 aprox */
-                #image-selector:checked ~ .label-rgb { color: #6b7280; } /* gray-500 */
-                
-                .label-depth { color: #6b7280; } /* gray-500 */
-                #image-selector:checked ~ .label-depth { color: #7c3aed !important; } /* secondary-600 aprox */
-            </style>
             <div class="flex items-center justify-between py-2 bg-gray-900 w-full px-3">
                 <!-- 1. Spacer invisible -->
                 <div class="flex-1"></div>
                 
                 <!-- 2. Título -->
-                <p class="flex-none font-bold text-primary-200 tracking-widest m-0 p-0 leading-none whitespace-nowrap text-lg text-center">ROBOT CAM</p>
+                <div class="flex-none flex items-center gap-2">
+                    <span id="ws-status-dot" class="inline-block w-2.5 h-2.5 rounded-full bg-gray-600 transition-colors" title="Disconnected"></span>
+                    <p class="font-bold text-primary-200 tracking-widest m-0 p-0 leading-none whitespace-nowrap text-lg text-center">ROBOT CAM</p>
+                </div>
                 
                 <!-- 3. Checkbox -->
                 <div class="flex-1 flex justify-end">
                     <label class="inline-flex items-center cursor-pointer m-0 px-2 py-1 leading-none bg-gray-950 rounded">
                         <input id="image-selector" type="checkbox" value="" class="sr-only peer">
-                        <span class=" label-rgb select-none text-sm font-bold transition-color whitespace-nowrap">RGB</span>
+                        <span class="select-none text-sm font-bold text-primary-600 peer-checked:text-gray-500 transition-colors whitespace-nowrap">RGB</span>
                         
                         <!-- Track original (con la animación restaurada y el comportamiento original) -->
-                        <div class="switch-track shrink-0 relative mx-3 w-9 h-5 bg-primary peer-focus:outline-none rounded-full peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-secondary-800"></div>
+                        <div class="shrink-0 relative mx-3 w-9 h-5 bg-primary peer-focus:outline-none rounded-full peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-secondary transition-colors"></div>
                         
-                        <span class="label-depth select-none text-sm font-bold transition-colors whitespace-nowrap">DEPTH</span>
+                        <span class="select-none text-sm font-bold text-gray-500 peer-checked:text-secondary-400 transition-colors whitespace-nowrap">DEPTH</span>
                     </label>
                 </div>
             </div>
@@ -184,8 +186,8 @@
                     </div>
                     <div class="flex-1 flex items-center justify-center p-3">
                         <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
-                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Tarjet</span>
-                            <span id="info-goal-tarjet" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
+                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Target</span>
+                            <span id="info-goal-target" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
                         </div>
                     </div>
                 </div>

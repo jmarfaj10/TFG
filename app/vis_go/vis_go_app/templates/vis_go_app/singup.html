@@ -1,0 +1,76 @@
+{% extends "vis_go_app/base.html" %}
+
+{% block title %}Signup{% endblock %}
+
+{% block content %}
+<div class="grid gap-6">
+    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm rounded p-8 bg-zinc-800 shadow-2xl ring-1 ring-white/10">
+            <h2 class="text-center text-2xl/9 font-bold tracking-tight text-white pb-4">Sign Up</h2>
+
+            <div class="mt-10">
+                <form action="" method="POST" class="space-y-6">
+                    {% csrf_token %}
+                    <div>
+                        <label for="username" class="block text-sm/6 font-medium text-gray-100">Username</label>
+                        <div class="mt-2">
+                            <input id="username" type="text" name="username" value="{{ form.username.value|default:'' }}" required class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 sm:text-sm/6" />
+                        </div>
+                        {% if form.username.errors %}
+                        <div class="mt-1">
+                            {% for error in form.username.errors %}
+                                <p class="text-secondary-200 font-bold text-sm">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <div class="flex items-center justify-between">
+                        <label for="password1" class="block text-sm/6 font-medium text-gray-100">Password</label>
+                        </div>
+                        <div class="mt-2">
+                            <input id="password1" type="password" name="password1" required autocomplete="new-password" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 sm:text-sm/6" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center justify-between">
+                        <label for="password2" class="block text-sm/6 font-medium text-gray-100">Rewrite Password</label>
+                        </div>
+                        <div class="mt-2">
+                        <input id="password2" type="password" name="password2" required autocomplete="new-password" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 sm:text-sm/6" />
+                        </div>
+                    </div>
+
+                    {% if form.password1.errors%}
+                    <div class="mt-1">
+                        {% for error in form.password1.errors %}
+                            <p class="text-secondary-200 font-bold text-sm">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if form.password2.errors%}
+                    <div class="mt-1">
+                        {% for error in form.password2.errors %}
+                            <p class="text-secondary-200 font-bold text-sm">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if form.non_field_errors %}
+                    <div class="mt-1">
+                        {% for error in form.non_field_errors %}
+                            <p class="text-secondary-200 font-bold text-sm">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <button type="submit" class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-primary-600">Sign up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

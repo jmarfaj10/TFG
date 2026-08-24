@@ -1,13 +1,15 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
-from asgiref.sync import sync_to_async
+from .services.robot_client import robot_client
 
 class RobotConsumer(AsyncWebsocketConsumer):
 
     async def connect(self):
-        is_auth = await sync_to_async(self.scope["session"].get)("auth")
-        if not is_auth:
-            await self.close()
+        user = self.scope.get("user")
+
+        if user is None or not user.is_authenticated:
+            await self.accept()
+            await self.close(code=4001)
             return
 
         self.image_group = "image_group"
@@ -24,7 +26,14 @@ class RobotConsumer(AsyncWebsocketConsumer):
 
         await self.accept()
 
-    async def disconnect(self, close_code):
+
+        await self.send(text_data=json.dumps({
+            "event": "connected",
+            "user": user.get_username(),
+            "robot_connected": robot_client.session is not None,
+        }))
+
+    async def disconnect(self, code):
         if hasattr(self, 'image_group'):
             await self.channel_layer.group_discard(
                 self.image_group,
@@ -34,6 +43,13 @@ class RobotConsumer(AsyncWebsocketConsumer):
                 self.data_group,
                 self.channel_name
             )
+
+    async def robot_status(self, event):
+        await self.send(text_data=json.dumps({
+            "event": "robot_status",
+            "robot_connected": event.get("connected", False),
+            "message": event.get("message"),
+        }))
 
     async def notify(self, event):
         data_recv = event['data']
@@ -51,4 +67,4 @@ class RobotConsumer(AsyncWebsocketConsumer):
             if action:
                 await robot_client.send_command(action, params)
         except Exception as e:
-            print(f"Error procesando mensaje entrante en el consumer: {e}")
+            print(f"Error handling incoming message in the consumer: {e}")

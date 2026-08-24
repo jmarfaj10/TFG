@@ -106,10 +106,8 @@ class VLMProcessing(Node):
         respuesta_texto = datos.get("reply", "")
         deteccion = datos.get("detection", {})
 
-        # VLMProcessing -> userCommunication (respuesta en texto al usuario)
-        resp_msg = String()
-        resp_msg.data = respuesta_texto
-        self.pub_resp.publish(resp_msg)
+        self.pub_resp.publish(String(data=json.dumps({
+    "type": "vlm_response", "data": respuesta_texto})))
 
         if deteccion:
             img_bbox = self.pintarBBox(rgb, deteccion)
@@ -245,7 +243,8 @@ class VLMProcessing(Node):
 
     def _notify_user(self, text):
         self.get_logger().warn(text)
-        self.pub_resp.publish(String(data=text))
+        self.pub_resp.publish(String(data=json.dumps({
+    "type": "vlm_response", "data": text})))
 
     def _aplicar_standoff(self, punto_obj):
         if punto_obj is None:

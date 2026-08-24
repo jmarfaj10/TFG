@@ -1,43 +1,60 @@
 {% extends "vis_go_app/base.html" %}
 
-{% block title %}Index{% endblock %}
+{% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="grid  gap-6">
+<div class="grid gap-6">
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-    <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Introduce the auth user</h2>
-  </div>
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm rounded p-8 bg-zinc-800 shadow-2xl ring-1 ring-white/10">
+            <h2 class="text-center text-2xl/9 font-bold tracking-tight text-white pb-4">Login</h2>
 
-  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <form action="#" method="POST" class="space-y-6">
-      {% csrf_token %}
-      <div>
-        <label for="user" class="block text-sm/6 font-medium text-gray-100">User</label>
-        <div class="mt-2">
-          <input id="user" type="text" name="user" required class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-secondary sm:text-sm/6" />
-        </div>
-      </div>
+            <div class="mt-10">
+                <form action="" method="POST" class="space-y-6">
+                    {% csrf_token %}
+                    {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+                    <div>
+                        <label for="username" class="block text-sm/6 font-medium text-gray-100">Username</label>
+                        <div class="mt-2">
+                            <input id="username" type="text" name="username" value="{{ form.username.value|default:'' }}" required class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 sm:text-sm/6" />
+                        </div>
+                        {% if form.username.errors %}
+                        <div class="mt-1">
+                            {% for error in form.username.errors %}
+                                <p class="text-secondary-200 font-bold text-sm">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
 
-      <div>
-        <div class="flex items-center justify-between">
-          <label for="password" class="block text-sm/6 font-medium text-gray-100">Password</label>
-        </div>
-        <div class="mt-2">
-          <input id="password" type="password" name="password" required autocomplete="current-password" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-secondary sm:text-sm/6" />
-        </div>
-      </div>
+                    <div>
+                        <div class="flex items-center justify-between">
+                        <label for="password" class="block text-sm/6 font-medium text-gray-100">Password</label>
+                        </div>
+                        <div class="mt-2">
+                            <input id="password" type="password" name="password" required autocomplete="current-password" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 sm:text-sm/6" />
+                        </div>
+                    </div>
 
-      <div>
-        {% if response.status == "ERROR"%}
-        <div id="error" class="bg-secondary-100 mb-4 p-2 rounded flex items-center gap-2 w-fit h-fit">
-          <i class="fa-solid fa-circle-xmark text-secondary"></i><p id="error-msg" class="text-secondary">{{response.message}}</p>
+                    {% if form.password.errors%}
+                    <div class="mt-1">
+                        {% for error in form.password.errors %}
+                            <p class="text-secondary text-sm">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if form.non_field_errors %}
+                    <div class="mt-1">
+                        {% for error in form.non_field_errors %}
+                            <p class="text-secondary text-sm">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <button type="submit" class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-primary-600 ">Login</button>
+                </form>
+            </div>
         </div>
-        {% endif %}
-        <button type="submit" class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-primary-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">Sign in</button>
-      </div>
-    </form>
-  </div>
-</div>
+    </div>
 </div>
 {% endblock content %}

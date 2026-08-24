@@ -142,6 +142,8 @@ CHANNEL_LAYERS = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'vis_go_app.User'
 LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'home'
 
 
 config_path = os.path.join(BASE_DIR, 'config.yaml')

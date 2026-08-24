@@ -4,6 +4,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
 import userCommunication.constants as constants
+import json
 
 # --- AUDIO (speech-to-text) -------------------------------------------------
 # Parte de audio dejada preparada pero comentada. Para activarla:
@@ -59,8 +60,11 @@ class UserCommunication(Node):
     # Recepción de la respuesta del VLM
     # ------------------------------------------------------------------ #
     def _on_response(self, msg):
-        # \r + salto de línea para no pisar el prompt "> " del input()
-        print(f'\n🤖 {msg.data}\n> ', end='', flush=True)
+        try:
+            texto = json.loads(msg.data).get("data", msg.data)
+        except (json.JSONDecodeError, TypeError):
+            texto = msg.data
+        print(f'\n🤖 {texto}\n> ', end='', flush=True)
 
     # ------------------------------------------------------------------ #
     # Bucle de entrada

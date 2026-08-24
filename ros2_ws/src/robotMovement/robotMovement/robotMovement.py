@@ -10,6 +10,7 @@ from action_msgs.msg import GoalStatus
 from nav2_msgs.action import NavigateToPose
 from interfaces.action import Move
 import robotMovement.constants as constants
+from rclpy.action import GoalResponse
 
 
 class RobotMovement(Node):
@@ -23,13 +24,19 @@ class RobotMovement(Node):
             Move,
             constants.GOAL_CHANEL_ACTION,
             self.mover,
+            goal_callback=self.validar_goal,
             callback_group=cb_group)
 
         self.nav2_client= ActionClient(
             self, NavigateToPose, 'navigate_to_pose',
             callback_group=cb_group)
 
-        
+    def validar_goal(self, request):
+        if not all(math.isfinite(v) for v in (request.x_goal, request.y_goal, request.yaw_goal)):
+            return GoalResponse.REJECT
+        if not self.nav2_client.server_is_ready():
+            return GoalResponse.REJECT
+        return GoalResponse.ACCEPT
     def mover(self, goal_handle):
         self.get_logger().info('Ejecutando goal...')
         req = goal_handle.request
@@ -92,7 +99,9 @@ class RobotMovement(Node):
         if not nav_handle.accepted:
             self.get_logger().info('Nav2 rechazó el goal')
             goal_handle.abort()
-            return Move.Result()
+            result = Move.Result()
+            result.outcome = "NO_ROUTE"
+            return result
 
         result_future = nav_handle.get_result_async()
         result_done = threading.Event()
@@ -107,11 +116,13 @@ class RobotMovement(Node):
         result.z = float(track["z"])
         if status == GoalStatus.STATUS_SUCCEEDED:
             self.get_logger().info('Nav2 llegó al destino')
+            result.outcome = "REACHED"
             goal_handle.succeed()
         else:
             self.get_logger().warn(
                 f'Nav2 no alcanzó el destino (status={status})',
                 throttle_duration_sec=5.0)
+            result.outcome = "NOT_REACHED"
             goal_handle.abort()
         return result
 

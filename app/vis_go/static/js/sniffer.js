@@ -1,4 +1,4 @@
-const djangoSocket = new WebSocket(window.WS_ROUTE);
+let djangoSocket = null;
 const opcImage = document.getElementById('image-selector');
 const robotImage = document.getElementById('cam-robot-display');
 const robotChatForm = document.getElementById('chat-form');
@@ -14,7 +14,7 @@ const info_orientation_qz = document.getElementById('info-orientation-qz');
 const info_goal_x = document.getElementById('info-goal-x');
 const info_goal_y = document.getElementById('info-goal-y');
 const info_goal_z = document.getElementById('info-goal-z');
-const info_goal_tarjet = document.getElementById('info-goal-tarjet');
+const info_goal_target = document.getElementById('info-goal-target');
 const info_mission_distance = document.getElementById('info-mission-distance');
 const info_mission_x = document.getElementById('info-mission-x');
 const info_mission_y = document.getElementById('info-mission-y');
@@ -49,16 +49,81 @@ function toXYZ(pose){
     return pose;
 }
 
-djangoSocket.onopen = function(e){
-    console.log("Conectado exitosamente al control panel de Django");
+const wsStatusDot = document.getElementById('ws-status-dot');
+
+let reconnectDelay = 1000;
+let reconnectTimer = null;
+
+const WS_DOT_CLASSES = {
+    idle: 'bg-gray-600',
+    pending: 'bg-yellow-500',
+    ok: 'bg-primary',
+    error: 'bg-red-500',
+};
+
+function setWSStatus(state, title){
+    if(!wsStatusDot) return;
+    const next = WS_DOT_CLASSES[state] || WS_DOT_CLASSES.idle;
+    Object.values(WS_DOT_CLASSES).forEach((cls) => wsStatusDot.classList.remove(cls));
+    wsStatusDot.classList.add(next);
+    wsStatusDot.title = title;
 }
 
-djangoSocket.onmessage = function(e){
+const robotAlert = document.getElementById('robot-alert');
+const robotAlertMessage = document.getElementById('robot-alert-message');
+
+function setRobotStatus(connected, message){
+    if(connected){
+        setWSStatus('ok', 'Connected to Django and to the robot');
+        if(robotAlert) robotAlert.classList.add('hidden');
+        return;
+    }
+
+    setWSStatus('pending', 'Connected to Django, robot unavailable');
+    if(robotAlertMessage && message) robotAlertMessage.textContent = message;
+    if(robotAlert) robotAlert.classList.remove('hidden');
+
+    unlockChat();
+}
+
+function scheduleReconnect(){
+    if(reconnectTimer) return;
+    reconnectTimer = setTimeout(() => {
+        reconnectTimer = null;
+        connectDjangoSocket();
+    }, reconnectDelay);
+    reconnectDelay = Math.min(reconnectDelay * 2, 15000);
+}
+
+function connectDjangoSocket(){
+    setWSStatus('pending', 'Connecting...');
+    djangoSocket = new WebSocket(window.WS_ROUTE);
+
+    djangoSocket.onopen = onSocketOpen;
+    djangoSocket.onmessage = onSocketMessage;
+    djangoSocket.onclose = onSocketClose;
+    djangoSocket.onerror = onSocketError;
+}
+
+function onSocketOpen(e){
+    reconnectDelay = 1000;
+    setWSStatus('ok', 'Connected to Django');
+    console.log("Successfully connected to the Django control panel");
+}
+
+function onSocketMessage(e){
     const parsedData = JSON.parse(e.data);
+
+    if(parsedData.event === "connected" || parsedData.event === "robot_status"){
+        setRobotStatus(parsedData.robot_connected, parsedData.message);
+        return;
+    }
+
     const data = parsedData.data;
+    if(!data) return;
 
     if(data.status !== "SUCCESS"){
-        console.error("Estado no es SUCCESS", data);
+        console.error("Status is not SUCCESS", data);
         return;
     }
 
@@ -87,7 +152,8 @@ djangoSocket.onmessage = function(e){
         case "final":
             if(payload) updateMission(payload);
             break;
-        case "vlm_request":
+        case "vlm_response":
+        case "notify":
             if(payload) updateChatVLMResponse(payload);
             break;
         default:
@@ -95,13 +161,24 @@ djangoSocket.onmessage = function(e){
     }
 }
 
-djangoSocket.onclose = function(e){
-    console.log("Desconectado de Django");
+function onSocketClose(e){
+    console.log("Disconnected from Django", e.code, e.reason);
+
+    if(e.code === 4001){
+        setWSStatus('error', 'Session not authenticated');
+        window.location.href = window.LOGIN_URL || '/login/';
+        return;
+    }
+
+    setWSStatus('error', 'Disconnected, retrying...');
+    scheduleReconnect();
 }
 
-djangoSocket.onerror = function(e){
-    console.error("Error en Django WebSocket", e);
+function onSocketError(e){
+    console.error("Django WebSocket error", e);
 }
+
+connectDjangoSocket();
 
 robotChatForm.addEventListener('submit', function(event){
     event.preventDefault();
@@ -128,6 +205,11 @@ robotChatForm.addEventListener('submit', function(event){
         .replace(/[\u0300-\u036f]/g, "")
     );
 
+    if (!djangoSocket || djangoSocket.readyState !== WebSocket.OPEN) {
+        createAIMessage("No connection to the server. Retrying...");
+        return;
+    }
+
     djangoSocket.send(JSON.stringify({action: "vlm_request", params: {prompt: sanitizeMsg}}));
 
     createUserMessage(msg);
@@ -137,7 +219,7 @@ robotChatForm.addEventListener('submit', function(event){
     robotChatButton.disabled = true
     robotChatTextField.disabled = true
     robotChatTextField.value = ""
-    robotChatTextField.placeholder = "Esperando respuesta del robot..."
+    robotChatTextField.placeholder = "Waiting for the robot's response..."
 })
 
 function unlockChat(){
@@ -176,7 +258,7 @@ function updateGoal(payload){
     setNumber(info_goal_y, pose.y);
     setNumber(info_goal_z, pose.z);
 
-    if(info_goal_tarjet && payload.tarjet) info_goal_tarjet.textContent = payload.tarjet;
+    if(info_goal_target && payload.target) info_goal_target.textContent = payload.target;
 }
 
 function updateMission(payload){

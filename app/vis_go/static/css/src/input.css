@@ -1,7 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @import "tailwindcss";
+@import "flowbite/src/themes/minimal";
+@plugin "flowbite/plugin";
 @source "../../../vis_go_app";
+@source "../../js";
+@source "../../../node_modules/flowbite";
 
 @theme {
+    /* Datepicker/Flowbite: mismos colores que la tabla de logs */
+    --color-neutral-primary-medium: var(--color-gray-900);   /* fondo del calendario */
+    --color-neutral-secondary-medium: var(--color-gray-900); /* fondo de inputs y boton clear */
+    --color-neutral-tertiary-medium: var(--color-gray-800);  /* hover de dia, igual que hover de fila */
+    --color-neutral-tertiary: var(--color-gray-700);         /* anillo de foco */
+    --color-default-medium: var(--color-gray-700);           /* bordes */
+    --color-heading: var(--color-white);
+    --color-body: var(--color-white);
+    --color-body-subtle: var(--color-gray-400);
+    --color-brand: #20bf55;                                  /* dia seleccionado = cabecera tabla */
+    --color-brand-strong: #15a445;
+    --color-brand-medium: #148139;
+
     --color-primary-50: #f0fdf4;
     --color-primary-100: #dcfce6;
     --color-primary-200: #bbf7ce;
