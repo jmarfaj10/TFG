@@ -40,3 +40,32 @@
     --color-secondary-700: #572565;
     --color-secondary-800: #492153;
 }
+
+@layer base {
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+    }
+
+    ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 9999px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.45);
+    }
+
+    ::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+}

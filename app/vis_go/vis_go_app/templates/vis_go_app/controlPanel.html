@@ -127,109 +127,99 @@
     
     <div id="info-wrapper" class="col-span-5 row-span-2 row-start-5 transition-all duration-300">
         <div id="robot-info" class="w-full h-full bg-gray-950 border-4 border-gray-800 rounded p-3 grid grid-cols-3 gap-3 text-gray-200">
-            
+
             <!-- POSITION & ORIENTATION -->
-            <div class="col-start-1 bg-gray-900 rounded flex flex-col border border-gray-800 overflow-y-auto">
+            <div class="col-start-1 bg-gray-900 rounded flex flex-col border border-gray-800 overflow-hidden">
                 <div class="grid grid-cols-2 bg-gray-950 border-b border-gray-800 shrink-0">
                     <p class="text-center font-bold text-primary-200 tracking-wider text-[10px] py-1">POSITION</p>
                     <p class="text-center font-bold text-primary-200 tracking-wider text-[10px] py-1 border-l border-gray-800">ORIENTATION</p>
                 </div>
-                <div class="grid grid-cols-2 flex-1 p-1 gap-1">
-                    <div class="flex flex-col justify-between gap-1 h-full">
-                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
-                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">X</span>
-                            <span id="info-position-x" class="font-mono text-xs sm:text-sm text-gray-200">0.00</span>
-                        </div>
-                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
-                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Y</span>
-                            <span id="info-position-y" class="font-mono text-xs sm:text-sm text-gray-200">0.00</span>
-                        </div>
-                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
-                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Z</span>
-                            <span id="info-position-z" class="font-mono text-xs sm:text-sm text-gray-200">0.00</span>
-                        </div>
+                <div class="grid grid-cols-2 grid-rows-12 flex-1 p-1 gap-1">
+                    <div class="col-start-1 row-start-1 row-end-5 flex justify-between items-center bg-gray-950 px-2 rounded min-h-0">
+                        <span class="text-gray-500 font-bold text-[10px] sm:text-xs">X</span>
+                        <span id="info-position-x" class="font-mono text-xs sm:text-sm text-gray-200">0.00</span>
                     </div>
-                    <div class="flex flex-col justify-between gap-1 h-full">
-                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
-                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">QX</span>
-                            <span id="info-orientation-qx" class="font-mono text-xs sm:text-sm text-gray-200">0.00</span>
-                        </div>
-                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
-                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">QY</span>
-                            <span id="info-orientation-qy" class="font-mono text-xs sm:text-sm text-gray-200">0.00</span>
-                        </div>
-                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
-                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">QZ</span>
-                            <span id="info-orientation-qz" class="font-mono text-xs sm:text-sm text-gray-200">0.00</span>
-                        </div>
+                    <div class="col-start-1 row-start-5 row-end-9 flex justify-between items-center bg-gray-950 px-2 rounded min-h-0">
+                        <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Y</span>
+                        <span id="info-position-y" class="font-mono text-xs sm:text-sm text-gray-200">0.00</span>
+                    </div>
+                    <div class="col-start-1 row-start-9 row-end-13 flex justify-between items-center bg-gray-950 px-2 rounded min-h-0">
+                        <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Z</span>
+                        <span id="info-position-z" class="font-mono text-xs sm:text-sm text-gray-200">0.00</span>
+                    </div>
+                    <div class="col-start-2 row-start-1 row-end-4 flex justify-between items-center bg-gray-950 px-2 rounded min-h-0">
+                        <span class="text-gray-500 font-bold text-[10px] sm:text-xs">QX</span>
+                        <span id="info-orientation-qx" class="font-mono text-xs sm:text-sm text-gray-200">0.00</span>
+                    </div>
+                    <div class="col-start-2 row-start-4 row-end-7 flex justify-between items-center bg-gray-950 px-2 rounded min-h-0">
+                        <span class="text-gray-500 font-bold text-[10px] sm:text-xs">QY</span>
+                        <span id="info-orientation-qy" class="font-mono text-xs sm:text-sm text-gray-200">0.00</span>
+                    </div>
+                    <div class="col-start-2 row-start-7 row-end-10 flex justify-between items-center bg-gray-950 px-2 rounded min-h-0">
+                        <span class="text-gray-500 font-bold text-[10px] sm:text-xs">QZ</span>
+                        <span id="info-orientation-qz" class="font-mono text-xs sm:text-sm text-gray-200">0.00</span>
+                    </div>
+                    <div class="col-start-2 row-start-10 row-end-13 flex justify-between items-center bg-gray-950 px-2 rounded min-h-0">
+                        <span class="text-gray-500 font-bold text-[10px] sm:text-xs">QW</span>
+                        <span id="info-orientation-qw" class="font-mono text-xs sm:text-sm text-gray-200">0.00</span>
                     </div>
                 </div>
             </div>
-            
+
             <!-- GOAL -->
             <div class="col-start-2 bg-gray-900 rounded flex flex-col border border-gray-800 overflow-hidden">
-                <p class="text-center font-bold text-primary-200 tracking-wider text-[10px] sm:text-xs py-1.5 bg-gray-950 border-b border-gray-800 shrink-0">GOAL</p>
-                <div class="grid grid-cols-2 flex-1 p-1 gap-1">
-                    <div class="flex flex-col justify-between gap-1 h-full">
-                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
-                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">X</span>
-                            <span id="info-goal-x" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
-                        </div>
-                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
-                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Y</span>
-                            <span id="info-goal-y" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
-                        </div>
-                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
-                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Z</span>
-                            <span id="info-goal-z" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
-                        </div>
+                <p class="text-center font-bold text-primary-200 tracking-wider text-[10px] py-1 bg-gray-950 border-b border-gray-800 shrink-0">GOAL</p>
+                <div class="grid grid-cols-2 grid-rows-3 flex-1 p-1 gap-1 min-h-0">
+                    <div class="col-start-1 row-start-1 flex justify-between items-center bg-gray-950 px-2 rounded min-h-0">
+                        <span class="text-gray-500 font-bold text-[10px] sm:text-xs">X</span>
+                        <span id="info-goal-x" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
                     </div>
-                    <div class="flex-1 flex items-center justify-center p-3">
-                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
-                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Target</span>
-                            <span id="info-goal-target" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
-                        </div>
+                    <div class="col-start-1 row-start-2 flex justify-between items-center bg-gray-950 px-2 rounded min-h-0">
+                        <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Y</span>
+                        <span id="info-goal-y" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
+                    </div>
+                    <div class="col-start-1 row-start-3 flex justify-between items-center bg-gray-950 px-2 rounded min-h-0">
+                        <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Z</span>
+                        <span id="info-goal-z" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
+                    </div>
+                    <div class="col-start-2 row-start-2 flex justify-between items-center bg-gray-950 px-2 rounded min-h-0">
+                        <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Target</span>
+                        <span id="info-goal-target" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
                     </div>
                 </div>
             </div>
-            
+
             <!-- MISSION -->
             <div class="col-start-3 bg-gray-900 rounded flex flex-col border border-gray-800 overflow-hidden">
+                <p class="text-center font-bold text-primary-200 tracking-wider text-[10px] py-1 bg-gray-950 border-b border-gray-800 shrink-0">MISSION</p>
                 <div class="grid grid-cols-3 bg-gray-950 border-b border-gray-800 shrink-0">
-                    <p class="text-center font-bold text-primary-200 tracking-wider text-[10px] py-1 border-l border-gray-800">MISSION</p>
-                </div>
-                <div class="grid grid-cols-3 bg-gray-950 border-b border-gray-800 shrink-0">
-                    <p class="text-center font-bold text-primary-200 tracking-wider text-[10px] py-1 border-l border-gray-800">DISTANCE</p>
+                    <p class="text-center font-bold text-primary-200 tracking-wider text-[10px] py-1">DISTANCE</p>
                     <p class="text-center font-bold text-primary-200 tracking-wider text-[10px] py-1 border-l border-gray-800">FINAL POSE</p>
                     <p class="text-center font-bold text-primary-200 tracking-wider text-[10px] py-1 border-l border-gray-800">TIME</p>
                 </div>
-                <div class="grid grid-cols-3 flex-1 p-1 gap-1">
-                    <div class="flex flex-col justify-between gap-1 h-full">
-                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
-                            <span id="info-mission-distance" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
-                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">meters</span>
-                        </div>
+                <div class="grid grid-cols-3 grid-rows-3 flex-1 p-1 gap-1 min-h-0">
+                    <div class="col-start-1 row-start-2 flex justify-between items-center bg-gray-950 px-2 rounded min-h-0">
+                        <span id="info-mission-distance" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
+                        <span class="text-gray-500 font-bold text-[10px] sm:text-xs">m</span>
                     </div>
-                    <div class="flex flex-col justify-between gap-1 h-full">
-                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
-                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">X</span>
-                            <span id="info-mission-x" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
-                        </div>
-                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
-                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Y</span>
-                            <span id="info-mission-y" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
-                        </div>
-                        <div class="flex justify-between items-center bg-gray-950 px-2 rounded flex-1 min-h-0">
-                            <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Z</span>
-                            <span id="info-mission-z" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
-                        </div>
+                    <div class="col-start-2 row-start-1 flex justify-between items-center bg-gray-950 px-2 rounded min-h-0">
+                        <span class="text-gray-500 font-bold text-[10px] sm:text-xs">X</span>
+                        <span id="info-mission-x" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
                     </div>
-                    <div class="flex flex-col justify-between gap-1 h-full">
-                        <span id="info-mission-time" class="text-gray-500 font-bold text-[10px] sm:text-xs">-</span>
+                    <div class="col-start-2 row-start-2 flex justify-between items-center bg-gray-950 px-2 rounded min-h-0">
+                        <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Y</span>
+                        <span id="info-mission-y" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
+                    </div>
+                    <div class="col-start-2 row-start-3 flex justify-between items-center bg-gray-950 px-2 rounded min-h-0">
+                        <span class="text-gray-500 font-bold text-[10px] sm:text-xs">Z</span>
+                        <span id="info-mission-z" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
+                    </div>
+                    <div class="col-start-3 row-start-2 flex justify-between items-center bg-gray-950 px-2 rounded min-h-0">
+                        <span id="info-mission-time" class="font-mono text-xs sm:text-sm text-gray-200">-</span>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </div>

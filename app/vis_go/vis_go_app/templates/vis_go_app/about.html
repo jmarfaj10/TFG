@@ -1,0 +1,125 @@
+{% extends "vis_go_app/base.html" %}
+{% load static %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+
+<div class="max-w-5xl mx-auto px-4">
+
+    <!-- HERO -->
+    <section class="text-center">
+        <img src="{% static 'img/logo.png' %}" class="mx-auto h-24 w-24 rounded-xl mb-8 bg-zinc-950/80 p-3 shadow-inner ring-1 ring-white/10" alt="Vis GO logo"/>
+
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 text-white">
+            About
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400 drop-shadow-sm">Vis GO</span>
+        </h1>
+
+        <p class="text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto font-medium">
+            Vis GO is a web interface that lets you drive an autonomous robot using plain natural
+            language. You describe where you want it to go, a vision-language model finds the target
+            in the robot's camera, and the robot navigates to it on its own.
+        </p>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="mt-20">
+        <h2 class="text-primary-200 font-bold tracking-widest text-center mb-8">HOW IT WORKS</h2>
+
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <div class="bg-gray-950 rounded border border-gray-800 p-5 text-left">
+                <span class="inline-flex items-center justify-center h-8 w-8 rounded-full bg-primary text-white font-bold text-sm mb-3">1</span>
+                <h3 class="font-bold text-primary-200 mb-2">Prompt</h3>
+                <p class="text-sm text-zinc-400 leading-relaxed">
+                    You type a movement instruction in the VLM chat, such as
+                    <span class="text-zinc-200">"go to the red chair"</span>.
+                </p>
+            </div>
+
+            <div class="bg-gray-950 rounded border border-gray-800 p-5 text-left">
+                <span class="inline-flex items-center justify-center h-8 w-8 rounded-full bg-primary text-white font-bold text-sm mb-3">2</span>
+                <h3 class="font-bold text-primary-200 mb-2">Detection</h3>
+                <p class="text-sm text-zinc-400 leading-relaxed">
+                    The vision-language model reads the camera frame, extracts the target object and
+                    returns its bounding box.
+                </p>
+            </div>
+
+            <div class="bg-gray-950 rounded border border-gray-800 p-5 text-left">
+                <span class="inline-flex items-center justify-center h-8 w-8 rounded-full bg-secondary text-white font-bold text-sm mb-3">3</span>
+                <h3 class="font-bold text-secondary-300 mb-2">Goal</h3>
+                <p class="text-sm text-zinc-400 leading-relaxed">
+                    The depth image turns that box into a 3D goal <span class="font-mono text-zinc-200">(x, y, z)</span>
+                    the navigation stack can reach.
+                </p>
+            </div>
+
+            <div class="bg-gray-950 rounded border border-gray-800 p-5 text-left">
+                <span class="inline-flex items-center justify-center h-8 w-8 rounded-full bg-secondary text-white font-bold text-sm mb-3">4</span>
+                <h3 class="font-bold text-secondary-300 mb-2">Mission</h3>
+                <p class="text-sm text-zinc-400 leading-relaxed">
+                    The robot drives to the goal while you follow its telemetry live. The result is
+                    stored as a mission log.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="mt-20">
+        <h2 class="text-primary-200 font-bold tracking-widest text-center mb-8">WHAT YOU GET</h2>
+
+        <div class="grid gap-4 md:grid-cols-2">
+            <div class="bg-zinc-800 rounded p-6 shadow-2xl ring-1 ring-white/10 text-left">
+                <h3 class="font-bold text-white mb-2">Live robot camera</h3>
+                <p class="text-sm text-zinc-400 leading-relaxed">
+                    RGB and depth streams over WebSocket, switchable with a single toggle, so you always
+                    see what the robot sees.
+                </p>
+            </div>
+
+            <div class="bg-zinc-800 rounded p-6 shadow-2xl ring-1 ring-white/10 text-left">
+                <h3 class="font-bold text-white mb-2">Natural language chat</h3>
+                <p class="text-sm text-zinc-400 leading-relaxed">
+                    No coordinates, no joystick. Describe the destination and the model does the
+                    grounding for you.
+                </p>
+            </div>
+
+            <div class="bg-zinc-800 rounded p-6 shadow-2xl ring-1 ring-white/10 text-left">
+                <h3 class="font-bold text-white mb-2">Real-time telemetry</h3>
+                <p class="text-sm text-zinc-400 leading-relaxed">
+                    Position, orientation, active goal and mission state update as the robot moves.
+                </p>
+            </div>
+
+            <div class="bg-zinc-800 rounded p-6 shadow-2xl ring-1 ring-white/10 text-left">
+                <h3 class="font-bold text-white mb-2">Mission logs</h3>
+                <p class="text-sm text-zinc-400 leading-relaxed">
+                    Every mission is saved with its prompt, bounding box, goal, distance and duration,
+                    ready to review in Logs.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- STACK -->
+    <section class="mt-20">
+        <h2 class="text-primary-200 font-bold tracking-widest text-center mb-8">BUILT WITH</h2>
+
+        <div class="flex flex-wrap justify-center gap-3">
+            <span class="rounded border border-primary-700 bg-primary-800/30 text-primary-200 text-sm px-4 py-1.5">Django</span>
+            <span class="rounded border border-primary-700 bg-primary-800/30 text-primary-200 text-sm px-4 py-1.5">Django Channels</span>
+            <span class="rounded border border-primary-700 bg-primary-800/30 text-primary-200 text-sm px-4 py-1.5">WebSockets</span>
+            <span class="rounded border border-secondary-700 bg-secondary-800/30 text-secondary-300 text-sm px-4 py-1.5">Vision-Language Model</span>
+            <span class="rounded border border-secondary-700 bg-secondary-800/30 text-secondary-300 text-sm px-4 py-1.5">Autonomous navigation</span>
+            <span class="rounded border border-gray-700 bg-gray-900 text-gray-300 text-sm px-4 py-1.5">Tailwind CSS</span>
+            <span class="rounded border border-gray-700 bg-gray-900 text-gray-300 text-sm px-4 py-1.5">Flowbite</span>
+            <span class="rounded border border-gray-700 bg-gray-900 text-gray-300 text-sm px-4 py-1.5">SQLite</span>
+        </div>
+    </section>
+
+</div>
+
+{% endblock content %}

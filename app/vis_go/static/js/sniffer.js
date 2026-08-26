@@ -11,6 +11,7 @@ const info_position_z = document.getElementById('info-position-z');
 const info_orientation_qx = document.getElementById('info-orientation-qx');
 const info_orientation_qy = document.getElementById('info-orientation-qy');
 const info_orientation_qz = document.getElementById('info-orientation-qz');
+const info_orientation_qw = document.getElementById('info-orientation-qw');
 const info_goal_x = document.getElementById('info-goal-x');
 const info_goal_y = document.getElementById('info-goal-y');
 const info_goal_z = document.getElementById('info-goal-z');
@@ -21,6 +22,7 @@ const info_mission_y = document.getElementById('info-mission-y');
 const info_mission_z = document.getElementById('info-mission-z');
 const info_mission_time = document.getElementById('info-mission-time');
 
+const defaultChatPlaceholder = robotChatTextField.placeholder
 let canType = true
 let pendingAIMessage = null
 
@@ -226,7 +228,7 @@ function unlockChat(){
     canType = true
     robotChatButton.disabled = false
     robotChatTextField.disabled = false
-    robotChatTextField.placeholder = ""
+    robotChatTextField.placeholder = defaultChatPlaceholder
 }
 
 function updateChatVLMResponse(payload){
@@ -249,6 +251,7 @@ function updatePosition(payload){
     setNumber(info_orientation_qx, payload.qx);
     setNumber(info_orientation_qy, payload.qy);
     setNumber(info_orientation_qz, payload.qz);
+    setNumber(info_orientation_qw, payload.qw);
 }
 
 function updateGoal(payload){
@@ -281,6 +284,6 @@ function updateMission(payload){
         const m = minutos.toString().padStart(2, '0');
         const s = segundos.toString().padStart(2, '0');
 
-        info_mission_time.textContent = `${h} h ${m} m ${s} s`;
+        info_mission_time.textContent = `${h}:${m}:${s}`;
     }
 }

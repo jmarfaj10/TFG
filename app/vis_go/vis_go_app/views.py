@@ -3,16 +3,16 @@ from django.shortcuts import render, redirect
 from asgiref.sync import async_to_sync
 from vis_go_app.services.robot_client import robot_client
 from django.conf import settings
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.http import url_has_allowed_host_and_scheme
 from vis_go_app.models import Log, Mission, Goal, Prompt
 from datetime import datetime
-from datetime import date
 from .forms import SignUpForm
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
+from django.utils.http import urlencode
 
 def index(request):
     return render(request, 'vis_go_app/index.html')
@@ -69,9 +69,24 @@ def controlPanel_view(request):
 @login_required
 def logs_view(request):
     logs = Log.objects.filter(user=request.user).select_related('mission__prompt').order_by('-date')
+    init_date = request.GET.get('init_date', '')
+    final_date = request.GET.get('final_date', '')
+    if init_date and final_date:
+        try:
+            init = datetime.strptime(init_date, '%Y-%m-%d').date()
+            final = datetime.strptime(final_date, '%Y-%m-%d').date()
+            if init > final:
+                init, final = final, init
+            logs = logs.filter(date__date__range=(init, final))
+        except ValueError:
+            init_date = final_date = ''
+
     paginator = Paginator(logs, 10)
-    n_page = int(request.GET.get('n_page', 1))
-    page = paginator.get_page(int(n_page))
+    try:
+        n_page = int(request.GET.get('n_page', 1))
+    except ValueError:
+        n_page = 1
+    page = paginator.get_page(n_page)
     n_pages = paginator.num_pages
 
     context = {
@@ -82,6 +97,9 @@ def logs_view(request):
         'next_page': min(n_page + 1, n_pages),
         'has_prev': n_page > 1,
         'has_next': n_page < n_pages,
+        'init_date': init_date,
+        'final_date': final_date,
+        'filters': urlencode({'init_date': init_date, 'final_date': final_date}) if init_date and final_date else '',
     }
     return render(request, 'vis_go_app/logs.html', context)
 
@@ -89,23 +107,8 @@ def logs_view(request):
 def logs_remove(request):
     if request.method == "POST" and request.POST.get('id'):
         id = request.POST.get('id')
-        log = get_object_or_404(Log, id=id)
-        log = Log.objects.get(id=id)
+        log = get_object_or_404(Log, id=id, user=request.user)
         log.delete()
-    return redirect('logs')
-
-@login_required
-def logs_search(request):
-    try:
-        init_date = datetime.strptime(init_date, '%Y-%m-%d').date()
-        final_date = datetime.strptime(final_date, '%Y-%m-%d').date()
-    except ValueError:
-        return redirect('logs')
-    if request.method == "GET" and init_date and final_date:
-        init_date = datetime.strptime(init_date, '%Y-%m-%d').date()
-        final_date = datetime.strptime(final_date, '%Y-%m-%d').date()
-        logs = Log.objects.filter(date__range=(init_date, final_date))
-        return render(request, 'vis_go_app/logs.html', {"logs": logs})
     return redirect('logs')
 
 @login_required
