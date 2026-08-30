@@ -30,14 +30,5 @@ STANDOFF_M = 1.2
 
 BBOX_OUTPUT = "/root/tiago_public_ws/src/mis_nodos_tiago/vlm_bbox.jpg"
 
-GZ_POSE_TOPIC = "/world/default/pose/info"
-
 MAP_FRAME = "map"
 ROBOT_FRAME = "base_link"
-
-GT_OBJETOS = [
-    {"keywords": ["buzon", "buzón", "postbox", "mailbox", "mail box", "correos", "post box"],
-     "modelos": ["postbox"]},
-    {"keywords": ["persona", "person", "hombre", "man", "people", "gente", "human"],
-     "modelos": ["person_standing"]},
-]

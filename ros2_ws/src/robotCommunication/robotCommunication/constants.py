@@ -23,20 +23,3 @@ GOAL_CHANEL_ACTION = "move"
 FINAL_CHANNEL = "final_channel"
 GOAL_CHANNEL = "goal_channel"
 
-# ---------------------------------------------------------------------------
-# Ground-truth de objetos en la simulación (para el logger de error del goal)
-# ---------------------------------------------------------------------------
-# La posición REAL de cada objeto se consulta a Gazebo por gz-transport con
-# 'gz topic -e'. Sirve para comparar el goal estimado por el VLM contra la
-# posición real del objeto en el mundo simulado.
-GZ_POSE_TOPIC = "/world/default/pose/info"
-
-# Reglas etiqueta_del_VLM -> modelos de gz. Se busca por subcadena en
-# minúsculas; si una regla casa con varios modelos (p.ej. las 4 cajas) se usa
-# el CENTROIDE del grupo como posición real del objeto.
-GT_OBJETOS = [
-    {"keywords": ["buzon", "buzón", "postbox", "mailbox", "mail box", "correos", "post box"],
-     "modelos": ["postbox"]},
-    {"keywords": ["persona", "person", "hombre", "man", "people", "gente", "human"],
-     "modelos": ["person_standing"]},
-]

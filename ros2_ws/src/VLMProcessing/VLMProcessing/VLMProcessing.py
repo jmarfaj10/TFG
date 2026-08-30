@@ -6,40 +6,27 @@ from sensor_msgs.msg import Image
 from interfaces.msg import Request
 from interfaces.msg import Response
 import VLMProcessing.constants as constants
-import message_filters
 import requests
 import json
 import base64
-import os
 import cv2
 import numpy as np
 from cv_bridge import CvBridge
 import time
 from rclpy.duration import Duration
 from tf2_ros import Buffer, TransformListener, TransformException
-import tf2_geometry_msgs
 from geometry_msgs.msg import PointStamped
 import math
-import csv
-import re
-import shutil
-import subprocess
-from pathlib import Path
 
 class VLMProcessing(Node):
     def __init__(self):
 
         super().__init__('VLMProcessing')
 
-        # Entorno de simulación (Gazebo): TF y sensores se publican en tiempo
-        # de simulación. Sin esto el nodo usa wall-time y las consultas a TF
-        # fallan con "extrapolation into the past" (dominios de reloj distintos).
-        # Se puede sobreescribir al lanzar con -p use_sim_time:=false.
         if not self.get_parameter('use_sim_time').get_parameter_value().bool_value:
             self.set_parameters(
                 [Parameter('use_sim_time', Parameter.Type.BOOL, True)])
 
-        #Cargar constantes (servidor VLM desde config.yaml)
         self.api_url = constants.API_URL
         self.model_name = constants.MODEL_NAME
 
@@ -48,44 +35,25 @@ class VLMProcessing(Node):
 
         if self.api_url and self.model_name:
             self.get_logger().info(
-                f"✅ Servidor configurado: {self.api_url} ({self.model_name})")
+                f"Servidor configurado: {self.api_url} ({self.model_name})")
         else:
-            self.get_logger().error("❌ Faltan api_url o model_name en el config.yaml")
+            self.get_logger().error("Faltan api_url o model_name en el config.yaml")
 
-        # robotCommunication -> VLMProcessing
         self.sub_pet = self.create_subscription(Request, constants.COMM_CHANNEL_VLM, self.pet_VLM, 10)
 
-        # VLMProcessing -> robotCommunication
         self.pub_det = self.create_publisher(Response, constants.GOAL_CHANNEL_VLM, 10)
 
-        # VLMProcessing -> userCommunication
         self.pub_resp = self.create_publisher(String, constants.RESPONSE_CHANNEL_VLM, 10)
 
-
-        
         self.request = None
 
         self.buffer = Buffer()
         self.listener = TransformListener(self.buffer, self)
 
-        # Ground-truth de los objetos (estáticos) del mundo, leído una vez de
-        # Gazebo y cacheado: {nombre_modelo: (x, y, z)}.
-
-        #loggers
-        self.gt_modelos = None
-
-        self.declare_parameter('debug', False)
-        self.debug = self.get_parameter('debug').get_parameter_value().bool_value
-
-        self.logger = {"prompt": None, "initial_pose_r": None, "initial_pose": None, "object_pose_r": None, "object_pose": None, "distance_vlm": None, "distance": None, "error": None}
-
-        self.logger["initial_pose_r"] = (0,0,0)
-
     def pet_VLM(self, request):
         self.request = request
         texto_peticion = request.request
-        self.logger["prompt"] = texto_peticion
-        self.get_logger().info(f"🚀 Petición recibida del robot: \"{texto_peticion}\"")
+        self.get_logger().info(f"Petición recibida del robot: \"{texto_peticion}\"")
 
         rgb = request.img.img_rgb
 
@@ -96,7 +64,7 @@ class VLMProcessing(Node):
 
         respuesta = self.llamarApi(img_b64, texto_peticion)
         if not respuesta:
-            self.get_logger().error("❌ Sin respuesta válida del servidor.")
+            self.get_logger().error("Sin respuesta válida del servidor.")
             return
 
         datos = self.parsearRespuesta(respuesta)
@@ -113,16 +81,9 @@ class VLMProcessing(Node):
             img_bbox = self.pintarBBox(rgb, deteccion)
 
             punto = self.transformarCooredenadas(deteccion)
-
-            # Ground-truth para el logger: pose del robot (TF) y pose real del
-            # objeto detectado (Gazebo). Van al logger antes de pintarLogger.
-            self.logger["initial_pose"] = self._pose_robot_map()
-            self.logger["object_pose"] = self._gt_objeto(deteccion.get("label"))
-
-            self.pintarLogger()
             self.send_response(punto, respuesta_texto, deteccion["label"], img_bbox)
         else:
-            self.get_logger().info("ℹ️  El modelo no devolvió detecciones.")
+            self.get_logger().info("ℹEl modelo no devolvió detecciones.")
 
     def local_to_map(self, local_pose, source_frame):
             if not source_frame:
@@ -156,10 +117,6 @@ class VLMProcessing(Node):
         depth_msg = self.request.img.img_depth
         depth_img = self.bridge.imgmsg_to_cv2(depth_msg)
 
-        # El VLM devuelve el bbox NORMALIZADO 0..VLM_COORD_SCALE (no en
-        # píxeles). Hay que des-normalizarlo a píxeles de la imagen de
-        # profundidad, que es donde muestreamos y donde valen los
-        # intrínsecos cx/cy/fx/fy.
         scale = constants.VLM_COORD_SCALE
         depth_h, depth_w = depth_img.shape[:2]
         bbox = [
@@ -181,9 +138,7 @@ class VLMProcessing(Node):
                 "no valid measurements there, so I cannot tell where it is or "
                 "move towards it.")
             return
-
-        # Normalizar a METROS según el encoding de la cámara de profundidad
-        # (16UC1/mono16 = milímetros; 32FC1 = metros).
+        
         z = float(point[2])
         if depth_msg.encoding in ("16UC1", "mono16"):
             z = z / 1000.0
@@ -193,10 +148,6 @@ class VLMProcessing(Node):
 
         self.get_logger().info(f"Punto del objeto en relativo: (x = {xr}, y = {yr}, z = {z})")
 
-        self.logger["object_pose_r"] = (xr, yr, z)
-
-        # Se usa el frame ÓPTICO de profundidad (no el frame_id del mensaje,
-        # que es no-óptico) para que ejes y convención coincidan con el punto.
         punto_obj_glob = self.local_to_map((xr, yr, z), constants.DEPTH_OPTICAL_FRAME)
         return self._aplicar_standoff(punto_obj_glob)
     
@@ -271,8 +222,6 @@ class VLMProcessing(Node):
         return (goal, yaw)
     
     def _pose_robot_map(self):
-        """Pose del robot en el frame global, tomado del árbol TF
-        (MAP_FRAME -> ROBOT_FRAME). Devuelve (x, y, z) o None."""
         try:
             t = self.buffer.lookup_transform(
                 constants.MAP_FRAME, constants.ROBOT_FRAME,
@@ -301,7 +250,7 @@ class VLMProcessing(Node):
             msg.bbox_object = bbox_image
         self.pub_det.publish(msg)
         self.get_logger().info(
-            f"📦 Detección enviada: objeto={msg.object} "
+            f"Detección enviada: objeto={msg.object} "
             f"punto=({msg.x:.2f}, {msg.y:.2f}, {msg.z:.2f}) "
             f"yaw={math.degrees(msg.yaw):.1f}°")
 
@@ -377,41 +326,41 @@ class VLMProcessing(Node):
             }
         }
 
-        self.get_logger().info(f"🌐 POST -> {url}")
+        self.get_logger().info(f"POST -> {url}")
         self.get_logger().info(f"   modelo: {self.model_name}")
         self.get_logger().info(f"   tamaño del cuerpo JSON: ~{len(json.dumps(data))/1024:.1f} KB")
 
         try:
-            self.get_logger().info("   ⏱️  Enviando petición (timeout 60s)...")
+            self.get_logger().info("   Enviando petición (timeout 60s)...")
             t0 = time.time()
             response = requests.post(url, headers=headers, json=data, timeout=60)
             dt = time.time() - t0
             self.get_logger().info(
-                f"   📥 Respuesta en {dt:.1f}s | HTTP {response.status_code}")
+                f"   Respuesta en {dt:.1f}s | HTTP {response.status_code}")
 
             if response.status_code != 200:
-                self.get_logger().error(f"   ❌ El servidor devolvió error:\n{response.text[:1000]}")
+                self.get_logger().error(f"   El servidor devolvió error:\n{response.text[:1000]}")
                 return None
 
             try:
                 parsed = response.json()
             except ValueError:
                 self.get_logger().error(
-                    f"   ❌ La respuesta no es JSON válido:\n{response.text[:1000]}")
+                    f"   La respuesta no es JSON válido:\n{response.text[:1000]}")
                 return None
 
-            self.get_logger().info(f"   📄 Respuesta JSON:\n{json.dumps(parsed, indent=2)[:1500]}")
+            self.get_logger().info(f"   Respuesta JSON:\n{json.dumps(parsed, indent=2)[:1500]}")
             return parsed
 
         except requests.exceptions.ConnectTimeout:
-            self.get_logger().error("   ❌ Timeout al CONECTAR. El servidor no responde "
+            self.get_logger().error("   Timeout al CONECTAR. El servidor no responde "
                                     "(¿IP/puerto correctos? ¿accesible desde el contenedor?).")
         except requests.exceptions.ReadTimeout:
-            self.get_logger().error("   ❌ Timeout de LECTURA. Conectó pero tardó >60s en responder.")
+            self.get_logger().error("   Timeout de LECTURA. Conectó pero tardó >60s en responder.")
         except requests.exceptions.ConnectionError as e:
-            self.get_logger().error(f"   ❌ Error de conexión (servidor caído/inaccesible): {e}")
+            self.get_logger().error(f"   Error de conexión (servidor caído/inaccesible): {e}")
         except Exception as e:
-            self.get_logger().error(f"   ❌ Error inesperado en la petición: {e}")
+            self.get_logger().error(f"   Error inesperado en la petición: {e}")
         return None
 
     def parsearRespuesta(self, respuesta):
@@ -421,89 +370,18 @@ class VLMProcessing(Node):
 
         try:
             content = respuesta['choices'][0]['message']['content']
-            self.get_logger().info(f"💬 Contenido del modelo:\n{content}")
+            self.get_logger().info(f"Contenido del modelo:\n{content}")
 
             clean_content = content.replace('```json', '').replace('```', '').strip()
             datos = json.loads(clean_content)
 
             if datos.get("detection"):
-                self.get_logger().info(f"✅ Objeto detectado: {datos.get('detection')}")
+                self.get_logger().info(f"Objeto detectado: {datos.get('detection')}")
             return datos
 
         except Exception as e:
             self.get_logger().error(f"Error procesando JSON del servidor: {e}")
             return None
-
-    #LOGGERS
-
-    def _cargar_gt_modelos(self):
-        """Consulta a Gazebo (gz-transport) los poses de todos los modelos del
-        mundo y los cachea por nombre. Los objetos son estáticos, así que basta
-        una lectura. Devuelve dict {nombre: (x, y, z)} o None si falla."""
-        gz = shutil.which("gz")
-        if not gz:
-            self.get_logger().warn(
-                "No se encontró el CLI 'gz' en el PATH; no hay ground-truth de "
-                "objetos (columnas globales quedarán vacías).")
-            return None
-        try:
-            salida = subprocess.run(
-                [gz, "topic", "-e", "-t", constants.GZ_POSE_TOPIC, "-n", "1"],
-                capture_output=True, text=True, timeout=10).stdout
-        except (subprocess.TimeoutExpired, OSError) as e:
-            self.get_logger().warn(f"No se pudo leer el ground-truth de gz: {e}")
-            return None
-
-        modelos = {}
-        # El mensaje Pose_V se imprime como bloques 'pose { name: "..."
-        # position { x: .. y: .. z: .. } ... }'.
-        for bloque in re.split(r'\npose\s*{', salida):
-            nm = re.search(r'name:\s*"([^"]+)"', bloque)
-            pos = re.search(r'position\s*{([^}]*)}', bloque)
-            if not nm or not pos:
-                continue
-            vals = {}
-            for k in ("x", "y", "z"):
-                m = re.search(rf'\b{k}:\s*([-\d.eE]+)', pos.group(1))
-                vals[k] = float(m.group(1)) if m else 0.0
-            modelos[nm.group(1)] = (vals["x"], vals["y"], vals["z"])
-
-        self.get_logger().info(f"Ground-truth cargado: {len(modelos)} modelos de gz.")
-        return modelos
-
-    def _gt_objeto(self, objeto):
-        """Ground-truth (x, y, z) del objeto detectado, mapeando la etiqueta del
-        VLM a los modelos de gz (centroide si son varios). None si no hay match."""
-        if self.gt_modelos is None:
-            self.gt_modelos = self._cargar_gt_modelos()
-        if not self.gt_modelos:
-            return None
-
-        etiqueta = (objeto or "").lower()
-        patrones = None
-        for regla in constants.GT_OBJETOS:
-            if any(kw in etiqueta for kw in regla["keywords"]):
-                patrones = regla["modelos"]
-                break
-        if patrones is None:
-            self.get_logger().warn(
-                f"Sin regla de ground-truth para el objeto '{objeto}'.")
-            return None
-
-        casados = [p for nombre, p in self.gt_modelos.items()
-                if any(pat in nombre.lower() for pat in patrones)]
-        if not casados:
-            self.get_logger().warn(
-                f"No hay modelos de gz que casen con {patrones} para '{objeto}'.")
-            return None
-
-        n = len(casados)
-        centroide = (sum(p[0] for p in casados) / n,
-                    sum(p[1] for p in casados) / n,
-                    sum(p[2] for p in casados) / n)
-        self.get_logger().info(
-            f"GT objeto '{objeto}': {n} modelo(s) -> centroide {centroide}")
-        return centroide
 
     def _dibujar_bbox(self, imagen, deteccion, color):
         H, W = imagen.shape[:2]
@@ -548,58 +426,6 @@ class VLMProcessing(Node):
             return ""
 
         
-    @staticmethod
-    def xyz(pose):
-        """Normaliza un pose a (x, y, z). Acepta tuplas/listas o
-        geometry_msgs/Transform (que es como llegan los poses de
-        ground-truth). Devuelve None si el pose aún no está disponible."""
-        if pose is None:
-            return None
-        if isinstance(pose, (tuple, list)):
-            return tuple(pose)
-        t = pose.translation      # geometry_msgs/Transform
-        return (t.x, t.y, t.z)
-
-    @staticmethod
-    def _dist(a, b):
-        if a is None or b is None:
-            return None
-        return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2 + (a[2] - b[2]) ** 2)
-
-    def pintarLogger(self):
-        cabecera = ["prompt","initial pose(relative)","initial pose(global)","object pose(relative)","objet pose(global)","distance(relative)","distance(global)","error"]
-
-        # Los poses de ground-truth ('initial_pose'/'object_pose') llegan por
-        # /world/default/pose/info y pueden ser None si ese frame aún no se ha
-        # publicado (p.ej. el objeto detectado no es 'bus_stop'). No abortamos:
-        # registramos lo que haya y dejamos None en el resto.
-        obj_r = self.xyz(self.logger["object_pose_r"])
-        ini_r = self.xyz(self.logger["initial_pose_r"])
-        obj_g = self.xyz(self.logger["object_pose"])
-        ini_g = self.xyz(self.logger["initial_pose"])
-
-        self.logger["distance_vlm"] = self._dist(obj_r, ini_r)
-        self.logger["distance"] = self._dist(obj_g, ini_g)
-
-        if self.logger["distance"] is not None and self.logger["distance_vlm"] is not None:
-            self.logger["error"] = self.logger["distance"] - self.logger["distance_vlm"]
-        else:
-            self.logger["error"] = None
-
-        ruta = os.path.expanduser("~/src-local-ros-logger-exp1.csv")
-
-        existe = Path(ruta).exists()
-
-        claves = list(self.logger.keys())
-
-        if not existe:
-            with open(ruta, "w", newline="", encoding="utf-8") as f:
-                escritor = csv.writer(f)
-                escritor.writerow(cabecera)
-        with open(ruta, "a", newline="", encoding="utf-8") as f:
-            escritor = csv.writer(f)
-            escritor.writerow([self.logger[k] for k in claves])   # una fila con los valores
-
 def main(args=None):
     rclpy.init(args=args)
     node = VLMProcessing()

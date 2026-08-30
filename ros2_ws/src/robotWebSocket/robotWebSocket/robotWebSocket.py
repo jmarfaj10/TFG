@@ -23,6 +23,7 @@ from interfaces.msg import ComboImage
 import base64
 import cv2
 import numpy as np
+import os
 
 
 DEPTH_VIS_MIN_M = 0.1
@@ -45,8 +46,7 @@ class Response:
 
 
 class ClientSession:
-    def __init__(self, ip: str, cipher: Fernet, websocket):
-        self.ip = ip
+    def __init__(self, cipher: Fernet, websocket):
         self.cipher = cipher
         self.websocket = websocket
         self.ip = websocket.remote_address
@@ -86,10 +86,8 @@ class RobotWebSocket(Node):
             format=serialization.PublicFormat.SubjectPublicKeyInfo
         ).decode('utf-8')
 
-        import os
-        # Obtenemos la ruta real del script actual (resolviendo posibles enlaces simbólicos de ROS)
+
         script_dir = os.path.dirname(os.path.realpath(__file__))
-        # Retrocedemos dos carpetas (robotWebSocket/robotWebSocket) hasta llegar a src/ y buscamos config.yaml
         config_path = os.path.abspath(os.path.join(script_dir, "..", "..", "config.yaml"))
         with open(config_path, "r", encoding="utf-8") as f:
             datos = yaml.safe_load(f)
@@ -111,15 +109,12 @@ class RobotWebSocket(Node):
         self.sub_goal = self.create_subscription(String, robotCoummunication.GOAL_CHANNEL, self._goal, 10)
 
         # Cola/Futuros de peticiones VLM pendientes
-        self.pending_vlm_requests = []                                                                                                                                                                                                           
-        self.loop = None   
+        self.pending_vlm_requests = []
+        self.loop = None
 
-        self.tf_buffer = Buffer()                                                                                           
-        self.tf_listener = TransformListener(self.tf_buffer, self)                                                          
-        self.map_frame = "map"          # Frame global de navegación
-        # El URDF del robot publica algunos frames con '/' inicial ('/base_link'), que tf2
-        # descarta por ilegales, así que 'base_link' puede no existir en el árbol. Se usa el
-        # primer candidato que sí esté disponible ('base_footprint' es la raíz que publica odom).
+        self.tf_buffer = Buffer()
+        self.tf_listener = TransformListener(self.tf_buffer, self)
+        self.map_frame = "map"
         self.robot_frame_candidates = ["base_link", "base_footprint"]
         self.robot_frame = None
 
@@ -144,8 +139,6 @@ class RobotWebSocket(Node):
         self._broadcast_data(Response("SUCCESS", data={"type": tipo, "data": texto}).to_dict())
 
     def _broadcast_data(self, data: dict):
-        """Envia un paquete ya serializado a todos los clientes del socket DATA
-        desde un callback de ROS (hilo distinto al del bucle asyncio)."""
         if self.loop is None:
             return
         for session in list(self.data_clients):
@@ -185,7 +178,7 @@ class RobotWebSocket(Node):
             login_credentials = json.loads(login_credentials_str)
             credentials = json.loads(cipher.decrypt(login_credentials["login_data"].encode('utf-8')).decode('utf-8'))
 
-            session = ClientSession(client_ip, cipher, websocket)
+            session = ClientSession(cipher, websocket)
             
             if credentials.get("user") == self.user and credentials.get("password") == self.password:
                 session.token = str(uuid.uuid4())
@@ -333,7 +326,6 @@ class RobotWebSocket(Node):
 
     # STREAM WEBSOCKET
     async def stream_handle(self, websocket):
-        # Una tarea de streaming por cámara ('rgb'/'depth'): el cliente puede pedir ambas.
         streaming_tasks = {}
         try:
             message = await websocket.recv()
@@ -387,7 +379,6 @@ class RobotWebSocket(Node):
 
     async def _camera_loop(self, session, camera_type):
         try:
-            # El socket de auth ya está cerrado en este punto: hay que emitir por el de streaming.
             while session.stream_ws is not None and not session.stream_ws.closed:
                 img = self.latest_image.get(camera_type)
                 if img is not None:
@@ -453,7 +444,6 @@ def main(args=None):
     rclpy.init(args=args)
     node = RobotWebSocket()
 
-    # El spin de ROS 2 corre en un hilo secundario para no bloquear asyncio
     ros_thread = threading.Thread(target=rclpy.spin, args=(node,), daemon=True)
     ros_thread.start()
 
