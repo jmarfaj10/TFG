@@ -13,7 +13,7 @@ from launch_ros.actions import Node
 
 
 # Carpeta Documents (donde viven /models, /world, /maps)
-DOCS = os.path.expanduser('~/TFG/mapa_pablo')
+DOCS = os.path.expanduser('~/TFG/simulation')
 
 
 def generate_launch_description():

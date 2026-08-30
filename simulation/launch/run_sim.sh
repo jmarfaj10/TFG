@@ -7,7 +7,7 @@ source /opt/ros/jazzy/setup.bash
 # turtlebot3_navigation2 se asume instalado en el sistema (ej. /opt/ros/jazzy)
 # source "$HOME/turtlebot3_ws/install/setup.bash"
 
-DOCS="$HOME/TFG/mapa_pablo"
+DOCS="$HOME/TFG/simulation"
 
 # --- Pose inicial del robot (se usa en Gazebo y en RViz/Nav2) ---
 read -p ">> Coordenada X [0.0]: " X;        X=${X:-0.0}
