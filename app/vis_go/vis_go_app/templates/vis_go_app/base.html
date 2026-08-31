@@ -29,7 +29,7 @@
                     <a href="{% url 'logout' %}" class="{{ base }} {% if url_name == 'logout' %}{{ on }}{% endif %}">Logout</a>
                 {% else %}
                     <a href="{% url 'login' %}" class="{{ base }} {% if url_name == 'login' %}{{ on }}{% endif %}">Login</a>
-                    <a href="{% url 'singup' %}" class="{{ base }} {% if url_name == 'singup' %}{{ on }}{% endif %}">Singup</a>
+                    <a href="{% url 'signup' %}" class="{{ base }} {% if url_name == 'singup' %}{{ on }}{% endif %}">Signup</a>
                 {% endif %}
             </div>
             {% endwith %}

@@ -42,7 +42,7 @@ def logout_view(request):
     logout(request)
     return redirect('index')
 
-def singup_view(request):
+def signup_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -52,7 +52,7 @@ def singup_view(request):
     else:
         form = SignUpForm()
 
-    return render(request, 'vis_go_app/singup.html', {'form': form})
+    return render(request, 'vis_go_app/signup.html', {'form': form})
 
 @login_required
 def controlPanel_view(request):
