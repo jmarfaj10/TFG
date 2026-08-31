@@ -1,4 +1,8 @@
 #!/bin/bash
+# Mismo dominio DDS y mismo rango de descubrimiento que simulation/launch/run_sim.sh:
+# si no coinciden, estos nodos no ven a Gazebo/Nav2 (ni camara ni TF).
+export ROS_DOMAIN_ID=42
+export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 if test -d "$DIR/src"; then
     cd "$DIR"
