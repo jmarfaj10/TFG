@@ -208,6 +208,8 @@ class RobotCommunication(Node):
         if result.outcome in ["REACHED", "NOT_REACHED", "NO_ROUTE"]:
             final_data = dict(self.final)
             final_data["state"] = result.outcome
+            final_data["final_pose"] = self.final["finalPose"]
+            final_data["time"] = self.final["reachTime"]
 
             self.pub_final.publish(String(data=json.dumps(final_data)))
         else:

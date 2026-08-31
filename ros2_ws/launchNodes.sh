@@ -33,10 +33,17 @@ cat > "$CONFIG" << EOF
       type = Terminal
       parent = hpaned1
       command = bash -c "source $WS_DIR/install/setup.bash; echo '[COMMUNICATION]'; ros2 run robotCommunication robotCommunication; exec bash"
+    [[[hpaned2]]]
+      type = HPaned
+      parent = hpaned1
     [[[terminal4]]]
       type = Terminal
-      parent = hpaned1
+      parent = hpaned2
       command = bash -c "source $WS_DIR/install/setup.bash; echo '[MOVEMENT]'; ros2 run robotMovement robotMovement; exec bash"
+    [[[terminal5]]]
+      type = Terminal
+      parent = hpaned2
+      command = bash -c "source $WS_DIR/install/setup.bash; echo '[WEBSOCKET]'; ros2 run robotWebSocket robotWebSocket; exec bash"
 EOF
 
         terminator -u -g "$CONFIG" -l ros2nodes

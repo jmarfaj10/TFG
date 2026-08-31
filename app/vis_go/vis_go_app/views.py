@@ -73,8 +73,10 @@ def logs_view(request):
     final_date = request.GET.get('final_date', '')
     if init_date and final_date:
         try:
-            init = datetime.strptime(init_date, '%Y-%m-%d').date()
-            final = datetime.strptime(final_date, '%Y-%m-%d').date()
+            # Formato europeo: es el que escribe el datepicker de la plantilla
+            # (date-rangepicker con datepicker-format="dd-mm-yyyy").
+            init = datetime.strptime(init_date, '%d-%m-%Y').date()
+            final = datetime.strptime(final_date, '%d-%m-%Y').date()
             if init > final:
                 init, final = final, init
             logs = logs.filter(date__date__range=(init, final))

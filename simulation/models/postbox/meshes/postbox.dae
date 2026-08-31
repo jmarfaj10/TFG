@@ -153,10 +153,10 @@
   </library_lights>
   <library_images>
     <image id="Postbox_Diffuse_tga">
-      <init_from>postbox_diffuse.jpg</init_from>
+      <init_from>../materials/textures/postbox_diffuse.jpg</init_from>
     </image>
     <image id="Postbox_Spec_tga">
-      <init_from>postbox_spec.jpg</init_from>
+      <init_from>../materials/textures/postbox_spec.jpg</init_from>
     </image>
   </library_images>
   <library_visual_scenes>

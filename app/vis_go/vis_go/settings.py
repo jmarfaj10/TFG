@@ -115,7 +115,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# Hora local: los logs se guardan en UTC (USE_TZ), pero se muestran y se
+# filtran por fecha en la zona horaria de aqui. Con UTC, una mision de la
+# 01:30 hora espanola caia en el dia anterior al filtrar por rango.
+TIME_ZONE = 'Europe/Madrid'
 
 USE_I18N = True
 
