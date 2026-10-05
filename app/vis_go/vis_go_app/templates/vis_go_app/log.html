@@ -1,0 +1,183 @@
+{% extends "vis_go_app/base.html" %}
+
+{% block title %}Log: {{ log.date|date:"d/m/Y H:i" }}{% endblock %}
+
+{% block content %}
+
+<div class="items-center justify-center min-h-[60vh] text-center px-4">
+    <div class="px-6 pb-6 bg-gray-950 rounded">
+        <h2 class="text-primary-200 font-bold p-3">LOG</h2>
+        <div class="flex justify-start text-left">
+            <a href="{% url 'logs' %}" class="font-medium text-white hover:underline">Volver a logs</a>
+        </div>
+
+        {% if log %}
+        <div class="relative bg-gray-900 shadow-xs rounded border border-gray-900 mt-2">
+                <table class="w-full table-fixed text-sm text-left rtl:text-right text-white">
+                    <colgroup>
+                        <col class="w-[9%]">
+                        <col class="w-[7%]">
+                        <col class="w-[16%]">
+                        <col class="w-[9%]">
+                        <col class="w-[8%]">
+                        <col class="w-[5%]">
+                        <col class="w-[5%]">
+                        <col class="w-[5%]">
+                        <col class="w-[8%]">
+                        <col class="w-[6%]">
+                        <col class="w-[7%]">
+                        <col class="w-[5%]">
+                        <col class="w-[5%]">
+                        <col class="w-[5%]">
+                    </colgroup>
+                    <thead class="text-sm text-white bg-primary border-b border-primary">
+                        <tr>
+                            <th scope="colgroup" colspan="2" class="px-2 py-3 font-bold text-center border-e-2 border-b-2 border-primary-400">
+                                LOG
+                            </th>
+                            <th scope="colgroup" colspan="3" class="px-2 py-3 font-bold text-center border-b-2 border-x-2 border-primary-400 ">
+                                PROMPT
+                            </th>
+                            <th scope="colgroup" colspan="3" class="px-2 py-3 font-bold text-center border-b-2 border-x-2 border-primary-400 ">
+                                GOAL
+                            </th>
+                            <th scope="colgroup" colspan="6" class="px-2 py-3 font-bold text-center border-b-2 border-primary-400">
+                                MISSION
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col" rowspan="2" class="px-2 font-bold text-center border-b-2 bg-secondary border-secondary-400">
+                                Date
+                            </th>
+                            <th scope="col" rowspan="2" class="px-2 font-bold text-center border-e-2 border-b-2 bg-secondary border-secondary-400">
+                                IP
+                            </th>
+                            <th scope="col" rowspan="2" class="px-2 font-bold text-center border-b-2 bg-secondary border-secondary-400">
+                                Prompt
+                            </th>
+                            <th scope="col" rowspan="2" class="px-2 font-bold text-center border-b-2 bg-secondary border-secondary-400">
+                                Object
+                            </th>
+                            <th scope="col" rowspan="2" class="px-2 font-bold text-center border-e-2 border-b-2 bg-secondary border-secondary-400">
+                                Bounding box image
+                            </th>
+                            <th scope="col" colspan="3" class="px-2 font-bold text-center border-s-2 border-b-2 bg-secondary border-secondary-400">
+                                Position
+                            </th>
+                            <th scope="col" rowspan="2" class="px-2 font-bold text-center border-s-2 border-b-2 bg-secondary border-secondary-400">
+                                State
+                            </th>
+                            <th scope="col" rowspan="2" class="px-2 font-bold text-center border-b-2 bg-secondary border-secondary-400">
+                                Distance
+                            </th>
+                            <th scope="col" rowspan="2" class="px-2 font-bold text-center border-e-2 border-b-2 bg-secondary border-secondary-400">
+                                Time
+                            </th>
+                            <th scope="col" colspan="3" class="px-2 font-bold text-center border-b-2 bg-secondary border-secondary-400">
+                                Position
+                            </th>
+                            
+                        </tr>
+                        <tr>
+                            <th scope="col" class="px-2 py-1 font-bold text-center border-b-2 bg-secondary border-secondary-400">
+                                X
+                            </th>
+                            <th scope="col" class="px-2 py-1 font-bold text-center border-b-2 bg-secondary border-secondary-400">
+                                Y
+                            </th>
+                            <th scope="col" class="px-2 py-1 font-bold text-center border-b-2 bg-secondary border-secondary-400">
+                                Z
+                            </th>
+                            <th scope="col" class="px-2 py-1 font-bold text-center border-b-2 bg-secondary border-secondary-400">
+                                X
+                            </th>
+                            <th scope="col" class="px-2 py-1 font-bold text-center border-b-2 bg-secondary border-secondary-400">
+                                Y
+                            </th>
+                            <th scope="col" class="px-2 py-1 font-bold text-center border-b-2 bg-secondary border-secondary-400">
+                                Z
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-gray-900 border-b border-gray-900 hover:bg-gray-800">
+
+                            <td class="px-2 py-3 text-center break-words align-top">
+                                {{ log.date|date:"d/m/Y H:i" }}
+                            </td>
+                            <td class="px-2 py-3 text-center break-words align-top">
+                                {{log.ip}}
+                            </td>
+                            <td class="px-2 py-3 text-justify hyphens-auto break-words align-top">
+                                {{log.mission.prompt.prompt}}
+                            </td>
+                            <td class="px-2 py-3 text-center break-words align-top">
+                                {{log.mission.prompt.object}}
+                            </td>
+                            <td class="px-2 py-3 text-center break-words align-top">
+                                {% if log.mission.prompt.bbox %}
+                                        <img src="{{ log.mission.prompt.bbox.url }}"
+                                            alt="Bounding box"
+                                            data-modal-target="bbox-modal"
+                                            data-modal-toggle="bbox-modal"
+                                            class="mx-auto max-h-12 max-w-full rounded cursor-pointer hover:opacity-75">
+                                {% else %}
+                                        -
+                                {% endif %}
+                            </td>
+                            <td class="px-2 py-3 text-center break-words align-top">
+                                {{log.mission.goal.x|floatformat:2|default_if_none:"—"}}
+                            </td>
+                            <td class="px-2 py-3 text-center break-words align-top">
+                                {{log.mission.goal.y|floatformat:2|default_if_none:"—"}}
+                            </td>
+                            <td class="px-2 py-3 text-center break-words align-top">
+                                {{log.mission.goal.z|floatformat:2|default_if_none:"—"}}
+                            </td>
+                            <td class="px-2 py-3 text-center break-words align-top">
+                                {{log.mission.state}}
+                            </td>
+                            <td class="px-2 py-3 text-center break-words align-top">
+                                {{log.mission.distance|floatformat:2|default_if_none:"—"}}
+                            </td>
+                            <td class="px-2 py-3 text-center break-words align-top">
+                                {{log.mission.time}}
+                            </td>
+                            <td class="px-2 py-3 text-center break-words align-top">
+                                {{log.mission.x|floatformat:2|default_if_none:"—"}}
+                            </td>
+                            <td class="px-2 py-3 text-center break-words align-top">
+                                {{log.mission.y|floatformat:2|default_if_none:"—"}}
+                            </td>
+                            <td class="px-2 py-3 text-center break-words align-top">
+                                {{log.mission.z|floatformat:2|default_if_none:"—"}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% else %}
+            <h2 class="inline-block text-secondary-300 font-bold bg-secondary border-2 border-secondary-700 rounded px-10 py-2 mt-10">There's any mission logs</h2>
+        {% endif %}
+        
+    </div>
+</div>
+
+{% if log.mission.prompt.bbox %}
+<div id="bbox-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-3xl max-h-full">
+        <div class="relative bg-gray-900 rounded border border-gray-700 shadow">
+            <div class="flex items-center justify-between p-3 border-b border-gray-700">
+                <h3 class="text-lg text-gray-300">Bounding box</h3>
+                <button type="button" data-modal-hide="bbox-modal" class="text-gray-400 hover:text-white cursor-pointer">&#10005;</button>
+            </div>
+            <div class="p-4">
+                <img src="{{ log.mission.prompt.bbox.url }}" alt="Bounding box" class="w-full h-auto rounded">
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock content%}

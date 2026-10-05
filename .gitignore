@@ -1,9 +1,53 @@
-# ROS2 workspace (generado por colcon)
-ros2_ws/build/
-ros2_ws/install/
-ros2_ws/log/
-
-# Python cache
+# ---------- Python ----------
 __pycache__/
 *.py[cod]
 *$py.class
+*.so
+.Python
+
+# Entornos virtuales
+env/
+venv/
+.venv/
+app/env/
+
+# Bootstrappers de entorno (se regeneran, no van al repo)
+app/vis_go/get-pip.py
+app/vis_go/virtualenv.pyz
+
+# ---------- Django ----------
+*.sqlite3
+*.sqlite3.bak
+db.sqlite3
+media/
+staticfiles/
+local_settings.py
+.env
+*.env
+
+# ---------- Node / Tailwind ----------
+node_modules/
+
+# ---------- ROS 2 / colcon ----------
+build/
+install/
+log/
+logs/
+*.bag
+.colcon_*
+
+# ---------- Editores / IDE ----------
+.vscode/
+.idea/
+*.swp
+*~
+
+# ---------- Sistema ----------
+.DS_Store
+Thumbs.db
+
+# ---------- Backups y temporales ----------
+*.bak
+*.orig
+*.tmp
+*.log

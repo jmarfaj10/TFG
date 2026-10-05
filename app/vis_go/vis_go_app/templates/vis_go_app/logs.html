@@ -1,0 +1,149 @@
+{% extends "vis_go_app/base.html" %}
+{% load static %}
+
+{% block title %}Logs{% endblock %}
+
+{% block content %}
+
+<div class="items-center justify-center min-h-[60vh] text-center px-4">
+    <div class="px-6 pb-6 bg-gray-950 rounded">
+        <h2 class="text-primary-200 font-bold p-3">MISSION LOGS</h2>
+        <form method='GET' class="flex gap-5 justify-end">
+            <div id="date-range-picker" date-rangepicker datepicker-format="dd-mm-yyyy" datepicker-autohide class="flex items-center">
+                <div class="relative">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"/></svg>
+                    </div>
+                    <input id="datepicker-range-start" name="init_date" type="text" value="{{ init_date }}" class="block w-full ps-9 pe-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Select date start">
+                </div>
+                <span class="mx-4 text-gray-300">to</span>
+                <div class="relative">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"/></svg>
+                    </div>
+                    <input id="datepicker-range-end" name="final_date" type="text" value="{{ final_date }}" class="block w-full ps-9 pe-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Select date end">
+                </div>
+            </div>
+            <button class="bg-primary rounded px-2 cursor-pointer hover:bg-primary-600">Search</button>
+            {% if filters %}<a href="{% url 'logs' %}" class="px-2 self-center hover:underline">Clear</a>{% endif %}
+        </form>
+
+        {% if logs  %}
+        <div class="relative overflow-x-auto bg-gray-900 shadow-xs rounded border border-gray-900 mt-2">
+                <table class="w-full text-sm text-left rtl:text-right text-white">
+                    <thead class="text-sm text-white bg-primary border-b border-primary">
+                        <tr>
+                            <th scope="col" rowspan="2" class="px-3 py-1 font-bold text-center border-e-2 border-b-2 border-primary-400">
+                                DATE
+                            </th>
+                            <th scope="colgroup" colspan="2" class="px-3 py-1 font-bold text-center border-b-2 border-x-2 border-primary-400 ">
+                                PROMPT
+                            </th>
+                            <th scope="colgroup" colspan="3" class="px-3 py-1 font-bold text-center border-b-2 border-primary-400">
+                                MISSION
+                            </th>
+                             <th scope="col" colspan="2" rowspan="2" class="px-3 py-1 font-bold text-center border-s-2 border-b-2 border-primary-400">
+                                ACTIONS
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col" class="px-3 py-3 font-bold text-center border-b-2 bg-secondary border-secondary-400">
+                                Prompt
+                            </th>
+                            <th scope="col" class="px-3 py-1 font-bold text-center border-e-2 border-b-2 bg-secondary border-secondary-400">
+                                Object
+                            </th>
+                            <th scope="col" class="px-3 py-1 font-bold text-center border-b-2 bg-secondary border-secondary-400">
+                                State
+                            </th>
+                            <th scope="col" class="px-3 py-1 font-bold text-center border-b-2 bg-secondary border-secondary-400">
+                                Distance
+                            </th>
+                            <th scope="col" class="px-3 py-1 font-bold text-center border-b-2 bg-secondary border-secondary-400">
+                                Time
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in logs%}
+                            <tr class="bg-gray-900 border-b border-gray-900 hover:bg-gray-800">
+                                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap text-center">
+                                    {{ log.date|date:"d/m/Y H:i" }}
+                                    </th>
+                                    <td class="px-6 py-4 text-center">
+                                        {{log.mission.prompt.prompt|truncatechars:50}}
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        {{log.mission.prompt.object}}
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        {{log.mission.state}}
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        {{log.mission.distance|floatformat:2|default_if_none:"—"}} m
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        {{log.mission.time}}
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <a href="{% url 'log' log.id%}" class="font-medium text-white hover:underline">View</a>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <button type="button"
+                                        data-modal-target="delete-modal"
+                                        data-modal-toggle="delete-modal"
+                                        data-log-id="{{ log.id }}"
+                                        class="font-medium text-white hover:underline cursor-pointer">Delete</button>
+                                    </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="flex w-fit mx-auto items-center justify-center rounded bg-gray-900 gap-1 mt-2">
+                {% if has_prev %}
+                    <a href="{% url 'logs' %}?n_page={{ prev_page }}{% if filters %}&amp;{{ filters }}{% endif %}" class="px-2 rounded bg-gray-700">&lt;</a>
+                {% else %}
+                    <span class="px-2 rounded bg-gray-700 opacity-50 cursor-not-allowed">&lt;</span>
+                {% endif %}
+                <div>{{ n_page }} / {{ n_pages }}</div>
+                {% if has_next %}
+                    <a href="{% url 'logs' %}?n_page={{ next_page}}{% if filters %}&amp;{{ filters }}{% endif %}" class="px-2 rounded bg-gray-700">&gt;</a>
+                {% else %}
+                    <span class="px-2 rounded bg-gray-700 opacity-50 cursor-not-allowed">&gt;</span>
+                {% endif %}
+            </div>
+            
+        </div>
+        {% else %}
+            <h2 class="inline-block text-secondary-300 font-bold bg-secondary border-2 border-secondary-700 rounded px-10 py-2 mt-10">There's any mission logs</h2>
+        {% endif %}
+        
+    </div>
+</div>
+
+<div id="delete-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-md max-h-full">
+        <div class="relative bg-gray-900 rounded border border-gray-700 shadow">
+            <div class="p-5 text-center">
+                <h3 class="mb-5 text-lg text-gray-300">¿Seguro que quieres eliminar este log?</h3>
+                <form method="post" action="{% url 'log_delete' %}" class="inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" id="delete-log-id">
+                    <button type="submit" class="bg-primary-600 hover:bg-primary-700 text-white rounded px-5 py-2.5 cursor-pointer">Sí, eliminar</button>
+                </form>
+                <button type="button" data-modal-hide="delete-modal" class="ms-3 border border-secondar-600 text-secondary-300 hover:bg-secondary-800 rounded px-5 py-2.5 cursor-pointer">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('[data-log-id]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            document.getElementById('delete-log-id').value = btn.dataset.logId;
+        });
+    });
+</script>
+
+{% endblock content%}

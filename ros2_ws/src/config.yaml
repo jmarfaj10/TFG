@@ -1,5 +1,5 @@
 #RGB topics
-rgb_cam_topic: "/camera/image_raw"
+rgb_cam_topic: "/camera/image"
 rgb_info_topic: "/camera/camera_info"
 
 #DEPTH topic
@@ -16,3 +16,4 @@ password: "upo"
 auth-port: 8070
 data-port: 8071
 stream-port: 8072
+ip: "0.0.0.0"

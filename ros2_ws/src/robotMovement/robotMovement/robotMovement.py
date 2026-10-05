@@ -10,6 +10,7 @@ from action_msgs.msg import GoalStatus
 from nav2_msgs.action import NavigateToPose
 from interfaces.action import Move
 import robotMovement.constants as constants
+from rclpy.action import GoalResponse
 
 
 class RobotMovement(Node):
@@ -23,13 +24,19 @@ class RobotMovement(Node):
             Move,
             constants.GOAL_CHANEL_ACTION,
             self.mover,
+            goal_callback=self.validar_goal,
             callback_group=cb_group)
 
         self.nav2_client= ActionClient(
             self, NavigateToPose, 'navigate_to_pose',
             callback_group=cb_group)
 
-        
+    def validar_goal(self, request):
+        if not all(math.isfinite(v) for v in (request.x_goal, request.y_goal, request.yaw_goal)):
+            return GoalResponse.REJECT
+        if not self.nav2_client.server_is_ready():
+            return GoalResponse.REJECT
+        return GoalResponse.ACCEPT
     def mover(self, goal_handle):
         self.get_logger().info('Ejecutando goal...')
         req = goal_handle.request
@@ -40,7 +47,9 @@ class RobotMovement(Node):
         nav_goal.pose.pose.position.x = float(req.x_goal)
         nav_goal.pose.pose.position.y = float(req.y_goal)
         nav_goal.pose.pose.position.z = float(req.z_goal)
-        nav_goal.pose.pose.orientation.w = 1.0
+        yaw = float(req.yaw_goal)
+        nav_goal.pose.pose.orientation.z = math.sin(yaw / 2.0)
+        nav_goal.pose.pose.orientation.w = math.cos(yaw / 2.0)
 
         # Estado para acumular la distancia recorrida (Nav2 solo informa de la
         # distancia restante) y quedarnos con la última pose conocida.
@@ -73,7 +82,9 @@ class RobotMovement(Node):
                 throttle_duration_sec=1.0)
 
         self.nav2_client.wait_for_server()
-        self.get_logger().info(f'Pasando goal a Nav2: ({req.x_goal}, {req.y_goal})')
+        self.get_logger().info(
+            f'Pasando goal a Nav2: ({req.x_goal}, {req.y_goal}) '
+            f'yaw={math.degrees(yaw):.1f}°')
 
         send_future = self.nav2_client.send_goal_async(
             nav_goal,
@@ -88,7 +99,9 @@ class RobotMovement(Node):
         if not nav_handle.accepted:
             self.get_logger().info('Nav2 rechazó el goal')
             goal_handle.abort()
-            return Move.Result()
+            result = Move.Result()
+            result.outcome = "NO_ROUTE"
+            return result
 
         result_future = nav_handle.get_result_async()
         result_done = threading.Event()
@@ -103,11 +116,13 @@ class RobotMovement(Node):
         result.z = float(track["z"])
         if status == GoalStatus.STATUS_SUCCEEDED:
             self.get_logger().info('Nav2 llegó al destino')
+            result.outcome = "REACHED"
             goal_handle.succeed()
         else:
             self.get_logger().warn(
                 f'Nav2 no alcanzó el destino (status={status})',
                 throttle_duration_sec=5.0)
+            result.outcome = "NOT_REACHED"
             goal_handle.abort()
         return result
 

@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Vis GO - Dashboard{% endblock %}</title>
+    <link rel="icon" type="image/jpeg" href="{% static 'img/logo.png' %}">
+    <link rel="stylesheet" href="{% static 'css/output.css' %}?v=19">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-zinc-900 text-slate-100">
+    <header class ="p-3 border-b border-zinc-800">
+        <div class="flex justify-center items-center gap-2">
+            <img src="{% static 'img/logo.png' %}" alt="Vis GO Logo" class="h-10 w-10 rounded-xl shadow-lg"/>
+        </div>
+        <nav class="flex justify-between items-center gap-x-7 mt-4">
+            {% with url_name=request.resolver_match.url_name %}
+            {% with base="underline-offset-8 decoration-2 hover:underline" on="text-primary underline" %}
+            <div class="flex gap-4">
+                <a href="{% url 'index' %}" class="{{ base }} {% if url_name == 'index' %}{{ on }}{% endif %}">Home</a>
+                <a href="{% url 'controlPanel' %}" class="{{ base }} {% if url_name == 'controlPanel' %}{{ on }}{% endif %}">Control Panel</a>
+                <a href="{% url 'logs' %}" class="{{ base }} {% if url_name == 'logs' or url_name == 'log' %}{{ on }}{% endif %}">Logs</a>
+                <a href="{% url 'about' %}" class="{{ base }} {% if url_name == 'about' %}{{ on }}{% endif %}">About</a>
+            </div>
+            <div class="flex gap-4">
+                {% if user.is_authenticated %}
+                    <p>Welcome, {{ user.username }}</p>
+                    <a href="{% url 'logout' %}" class="{{ base }} {% if url_name == 'logout' %}{{ on }}{% endif %}">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="{{ base }} {% if url_name == 'login' %}{{ on }}{% endif %}">Login</a>
+                    <a href="{% url 'signup' %}" class="{{ base }} {% if url_name == 'singup' %}{{ on }}{% endif %}">Signup</a>
+                {% endif %}
+            </div>
+            {% endwith %}
+            {% endwith %}
+        </nav>
+    </header>
+
+    <main class="mx-auto p-8">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <script src="{% static 'js/flowbite.min.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
